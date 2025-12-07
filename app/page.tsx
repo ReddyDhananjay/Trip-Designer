@@ -165,7 +165,7 @@ export default function HomePage() {
                       <p className="text-sm text-gray-500 mb-2">{product.category}</p>
                       <div className="flex justify-between items-center">
                         <span className="text-2xl font-bold text-primary">
-                          ${product.price}
+                          ₹{product.price}
                         </span>
                         <span className="text-sm text-gray-500">
                           Stock: {product.stock}
@@ -212,6 +212,17 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* Floating Chatbot Button */}
+      <Link
+        href="/chat"
+        className="chatbot-float-btn fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition duration-300 flex items-center justify-center z-50"
+        title="Chat with KAI"
+      >
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
+      </Link>
     </div>
   );
 }

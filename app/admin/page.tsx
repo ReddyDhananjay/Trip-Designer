@@ -239,7 +239,7 @@ export default function AdminPage() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Price (₹)</label>
                         <input
                           type="number"
                           value={formData.price}
@@ -330,7 +330,7 @@ export default function AdminPage() {
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.category}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.price}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₹{product.price}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.stock}</td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {product.featured ? (
@@ -390,7 +390,7 @@ export default function AdminPage() {
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.productName}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.quantity}</td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${order.totalPrice.toFixed(2)}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₹{order.totalPrice.toFixed(2)}</td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <select
                                   value={order.status}

@@ -146,7 +146,7 @@ export default function OrdersPage() {
                     </div>
                     
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-primary">${order.totalPrice.toFixed(2)}</p>
+                      <p className="text-2xl font-bold text-primary">₹{order.totalPrice.toFixed(2)}</p>
                       <p className="text-sm text-gray-500">Quantity: {order.quantity}</p>
                     </div>
                   </div>
@@ -168,7 +168,7 @@ export default function OrdersPage() {
                     
                     <div>
                       <p className="text-xs text-gray-500 mb-1">Unit Price</p>
-                      <p className="text-sm font-medium text-gray-900">${order.price.toFixed(2)}</p>
+                      <p className="text-sm font-medium text-gray-900">₹{order.price.toFixed(2)}</p>
                     </div>
                   </div>
 

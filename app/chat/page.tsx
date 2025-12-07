@@ -260,7 +260,7 @@ export default function ChatPage() {
                         {product.name}
                       </h4>
                       <p className="text-xs text-gray-500 mb-1">{product.category}</p>
-                      <p className="text-lg font-bold text-primary">${product.price}</p>
+                      <p className="text-lg font-bold text-primary">₹{product.price}</p>
                     </div>
                   </div>
                 </div>

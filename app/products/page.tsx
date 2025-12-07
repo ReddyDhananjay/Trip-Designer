@@ -171,7 +171,7 @@ export default function ProductsPage() {
 
                   <div className="flex justify-between items-center mb-3">
                     <span className="text-2xl font-bold text-primary">
-                      ${product.price}
+                      ₹{product.price}
                     </span>
                     <span className="text-sm text-gray-500">
                       Stock: {product.stock}
