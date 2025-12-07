@@ -1,0 +1,194 @@
+[
+  {
+    "id": "1",
+    "name": "Wireless Noise-Cancelling Headphones",
+    "category": "Electronics",
+    "price": 299.99,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+    "description": "Premium wireless headphones with active noise cancellation, 30-hour battery life, and crystal-clear sound quality.",
+    "specs": {
+      "battery": "30 hours",
+      "connectivity": "Bluetooth 5.0",
+      "weight": "250g",
+      "warranty": "2 years"
+    },
+    "stock": 45,
+    "featured": true
+  },
+  {
+    "id": "2",
+    "name": "Smart Watch Pro",
+    "category": "Wearables",
+    "price": 399.99,
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
+    "description": "Advanced fitness tracking, heart rate monitoring, GPS, and smartphone notifications all on your wrist.",
+    "specs": {
+      "display": "1.4\" AMOLED",
+      "battery": "5 days",
+      "waterproof": "5ATM",
+      "sensors": "Heart rate, GPS, Accelerometer"
+    },
+    "stock": 32,
+    "featured": true
+  },
+  {
+    "id": "3",
+    "name": "Premium Leather Backpack",
+    "category": "Bags",
+    "price": 149.99,
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
+    "description": "Handcrafted genuine leather backpack with laptop compartment, perfect for work or travel.",
+    "specs": {
+      "material": "Genuine leather",
+      "capacity": "25L",
+      "laptop": "Up to 15.6\"",
+      "pockets": "Multiple compartments"
+    },
+    "stock": 18,
+    "featured": true
+  },
+  {
+    "id": "4",
+    "name": "4K Webcam Pro",
+    "category": "Electronics",
+    "price": 179.99,
+    "image": "https://images.unsplash.com/photo-1588874355576-b077e0446f56?w=500",
+    "description": "Ultra HD 4K webcam with autofocus, dual microphones, and wide-angle lens for professional video calls.",
+    "specs": {
+      "resolution": "4K @ 30fps",
+      "fov": "90 degrees",
+      "microphone": "Dual noise-cancelling",
+      "mount": "Universal clip"
+    },
+    "stock": 28,
+    "featured": false
+  },
+  {
+    "id": "5",
+    "name": "Wireless Gaming Mouse",
+    "category": "Accessories",
+    "price": 89.99,
+    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+    "description": "High-precision wireless gaming mouse with customizable RGB lighting and programmable buttons.",
+    "specs": {
+      "dpi": "Up to 16000",
+      "buttons": "8 programmable",
+      "battery": "70 hours",
+      "connectivity": "2.4GHz wireless"
+    },
+    "stock": 56,
+    "featured": false
+  },
+  {
+    "id": "6",
+    "name": "USB-C Hub 7-in-1",
+    "category": "Accessories",
+    "price": 49.99,
+    "image": "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500",
+    "description": "Multiport USB-C hub with HDMI, USB 3.0, SD card reader, and power delivery.",
+    "specs": {
+      "ports": "7 ports total",
+      "hdmi": "4K @ 60Hz",
+      "power": "100W PD",
+      "usb": "USB 3.0 5Gbps"
+    },
+    "stock": 67,
+    "featured": false
+  },
+  {
+    "id": "7",
+    "name": "Running Shoes Elite",
+    "category": "Shoes",
+    "price": 129.99,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+    "description": "Lightweight performance running shoes with responsive cushioning and breathable mesh upper.",
+    "specs": {
+      "weight": "220g",
+      "cushioning": "Advanced foam",
+      "upper": "Breathable mesh",
+      "sole": "Durable rubber"
+    },
+    "stock": 42,
+    "featured": true
+  },
+  {
+    "id": "8",
+    "name": "Portable Bluetooth Speaker",
+    "category": "Electronics",
+    "price": 79.99,
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500",
+    "description": "Waterproof portable speaker with 360° sound and 12-hour battery life.",
+    "specs": {
+      "battery": "12 hours",
+      "waterproof": "IPX7",
+      "connectivity": "Bluetooth 5.0",
+      "power": "20W output"
+    },
+    "stock": 39,
+    "featured": false
+  },
+  {
+    "id": "9",
+    "name": "Minimalist Wallet",
+    "category": "Accessories",
+    "price": 34.99,
+    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500",
+    "description": "Slim RFID-blocking wallet with space for cards and cash in a compact design.",
+    "specs": {
+      "material": "Premium leather",
+      "capacity": "8 cards",
+      "rfid": "Yes",
+      "dimensions": "10cm x 7cm"
+    },
+    "stock": 91,
+    "featured": false
+  },
+  {
+    "id": "10",
+    "name": "Ergonomic Wireless Keyboard",
+    "category": "Accessories",
+    "price": 119.99,
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+    "description": "Curved split keyboard design for natural typing posture with quiet keys and long battery life.",
+    "specs": {
+      "layout": "Split ergonomic",
+      "battery": "6 months",
+      "connectivity": "Bluetooth & USB",
+      "keys": "Quiet membrane"
+    },
+    "stock": 24,
+    "featured": false
+  },
+  {
+    "id": "11",
+    "name": "Fitness Tracker Band",
+    "category": "Wearables",
+    "price": 59.99,
+    "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500",
+    "description": "Affordable fitness band with step tracking, heart rate monitoring, and sleep analysis.",
+    "specs": {
+      "display": "0.96\" LCD",
+      "battery": "7 days",
+      "waterproof": "IP68",
+      "features": "Steps, HR, Sleep"
+    },
+    "stock": 78,
+    "featured": false
+  },
+  {
+    "id": "12",
+    "name": "Canvas Tote Bag",
+    "category": "Bags",
+    "price": 29.99,
+    "image": "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500",
+    "description": "Durable canvas tote bag perfect for shopping, beach trips, or everyday use.",
+    "specs": {
+      "material": "Heavy-duty canvas",
+      "capacity": "15L",
+      "handles": "Reinforced",
+      "washable": "Yes"
+    },
+    "stock": 104,
+    "featured": false
+  }
+]
