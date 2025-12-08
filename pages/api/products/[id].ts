@@ -8,27 +8,22 @@ const productsFile = path.join(process.cwd(), 'data', 'products.json');
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   
-  if (req.method === 'GET') {
-    try {
-      const data = fs.readFileSync(productsFile, 'utf-8');
-      const products: Product[] = JSON.parse(data);
-      
+  try {
+    const productsData = fs.readFileSync(productsFile, 'utf-8');
+    let products: Product[] = JSON.parse(productsData);
+    
+    if (req.method === 'GET') {
       const product = products.find(p => p.id === id);
       
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
       }
       
-      res.status(200).json(product);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to read product' });
+      return res.status(200).json(product);
     }
-  } else if (req.method === 'PUT') {
-    // Admin: Update product
-    try {
-      const data = fs.readFileSync(productsFile, 'utf-8');
-      const products: Product[] = JSON.parse(data);
-      
+    
+    if (req.method === 'PUT') {
+      // Update product (admin only)
       const index = products.findIndex(p => p.id === id);
       
       if (index === -1) {
@@ -38,29 +33,20 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       products[index] = { ...products[index], ...req.body, id: id as string };
       fs.writeFileSync(productsFile, JSON.stringify(products, null, 2));
       
-      res.status(200).json(products[index]);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to update product' });
+      return res.status(200).json(products[index]);
     }
-  } else if (req.method === 'DELETE') {
-    // Admin: Delete product
-    try {
-      const data = fs.readFileSync(productsFile, 'utf-8');
-      const products: Product[] = JSON.parse(data);
+    
+    if (req.method === 'DELETE') {
+      // Delete product (admin only)
+      products = products.filter(p => p.id !== id);
+      fs.writeFileSync(productsFile, JSON.stringify(products, null, 2));
       
-      const filtered = products.filter(p => p.id !== id);
-      
-      if (filtered.length === products.length) {
-        return res.status(404).json({ error: 'Product not found' });
-      }
-      
-      fs.writeFileSync(productsFile, JSON.stringify(filtered, null, 2));
-      
-      res.status(200).json({ message: 'Product deleted' });
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to delete product' });
+      return res.status(200).json({ message: 'Product deleted successfully' });
     }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+    
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (error) {
+    console.error('Product API error:', error);
+    return res.status(500).json({ error: 'Failed to process request' });
   }
 }
