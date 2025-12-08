@@ -1,254 +1,291 @@
-# KAI - Smart Retail Shopping Assistant 🛍️
+# 🛍️ KAI - Your Smart Shopping Assistant
 
-A modern, full-stack AI-powered shopping assistant built with Next.js, TypeScript, and OpenRouter API (Claude 3.5 Sonnet).
+## 🌟 Overview
 
-## 🌟 Features
+**KAI** is a comprehensive AI-powered shopping assistant website built with Next.js, TypeScript, and Tailwind CSS. It features a fully functional chatbot powered by OpenRouter API, product catalog management, mock order system, and an admin panel - all optimized for the Indian e-commerce market.
 
-### 1. **Landing Page (Homepage)**
-- Beautiful hero section introducing KAI
-- Featured products carousel
-- Quick navigation to chat and products
-- Highlights of KAI's capabilities
+## ✨ Features
 
-### 2. **Live KAI Chatbot** (Main Feature)
-- Real-time AI conversation powered by OpenRouter (Claude 3.5 Sonnet)
-- WhatsApp-like modern chat UI with typing indicators
-- Local chat history saved in browser
-- Quick action buttons:
-  - Recommend a product
-  - Show popular items
-  - Find deals
-  - Create mock order
-- Right sidebar showing popular products
-- Click products to ask KAI about them
+### 🏠 Landing Page
+- **Hero Banner** with engaging call-to-action
+- **Featured Products** showcase with Indian pricing (₹)
+- **How KAI Helps** section highlighting key features
+- **CTA Section** driving users to chat with KAI
+- **Floating Chatbot Button** for quick access
 
-### 3. **Products Catalog**
-- Browse all products with filtering
-- Category filters (Electronics, Wearables, Bags, Accessories, Shoes)
-- Search functionality
-- Beautiful product cards with images
-- "Ask KAI" button on each product
-- Featured product badges
+### 💬 Live AI Chatbot
+- **Real-time AI responses** powered by OpenRouter (Claude 3.5 Sonnet)
+- **WhatsApp-like bubble UI** with typing indicators
+- **Quick Action Buttons** for common queries
+- **Local chat history** saved in browser
+- **Product recommendation sidebar**
+- **Context-aware responses** about products, orders, and Indian e-commerce
 
-### 4. **Product Details Page**
-- Large product image
-- Full description and specifications
-- Stock availability
-- Quantity selector
-- Mock order creation
-- "Ask KAI" integration
-- Technical specifications display
+### 🛒 Product Catalog
+- **15+ Sample Products** with Indian brands and pricing
+- **Category Filtering** (Electronics, Wearables, Bags, Accessories, Shoes)
+- **Search Functionality** with real-time filtering
+- **"Ask KAI" Integration** on every product card
+- **Detailed Product Pages** with:
+  - High-quality images
+  - Technical specifications
+  - Stock availability
+  - Platform availability (Amazon, Flipkart, Myntra, Meesho)
+  - Quantity selector
+  - Mock ordering capability
 
-### 5. **Orders Page**
-- View all mock orders
-- Order status tracking (Processing → Shipped → Delivered)
-- Order timeline visualization
-- Cancel orders functionality
-- Summary statistics
-- Estimated delivery dates
+### 📦 Orders Management
+- **Order History** with detailed tracking
+- **Order Status** (Processing, Shipped, Delivered, Cancelled)
+- **Visual Timeline** for order tracking
+- **Order Statistics** dashboard
+- **Cancel Order** functionality
+- **Mock Order IDs** (ORD-XXXXXXXXX format)
+- **Estimated Delivery Dates**
 
-### 6. **Admin Panel**
-- Product management (Add/Edit/Delete)
-- Order management and status updates
-- Product inventory tracking
-- Featured product management
-- Category organization
+### 🔧 Admin Panel
+- **Product Management**:
+  - Add new products
+  - Edit existing products
+  - Delete products
+  - Mark products as featured
+- **Order Management**:
+  - View all orders
+  - Update order status
+  - Track order details
+- **Tabbed Interface** for easy navigation
 
-## 🚀 Tech Stack
+## 🚀 Getting Started
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **AI**: OpenRouter API (Claude 3.5 Sonnet)
-- **Data Storage**: JSON files (mock database)
-- **State Management**: React Hooks
+### Prerequisites
 
-## 📦 Installation
+- **Node.js** 18+ and npm
+- **OpenRouter API Key** (get one from [openrouter.ai](https://openrouter.ai))
 
-1. Clone the repository:
+### Installation
+
+1. **Clone the repository:**
 ```bash
-git clone <repository-url>
+git clone <your-repo-url>
 cd kai-website
 ```
 
-2. Install dependencies:
+2. **Install dependencies:**
 ```bash
 npm install
 ```
 
-3. Create `.env.local` file (already created with your API key):
-```
+3. **Set up environment variables:**
+   - Copy `.env.example` to `.env.local`
+   - Add your OpenRouter API key:
+```env
 OPENROUTER_API_KEY=your_api_key_here
 ```
 
-4. Run the development server:
+4. **Run the development server:**
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+5. **Open your browser:**
+   - Visit [http://localhost:3000](http://localhost:3000)
 
-## 🔧 Project Structure
+## 📁 Project Structure
 
 ```
-/workspace
-├── app/                    # Next.js app directory
-│   ├── page.tsx           # Landing page
-│   ├── chat/              # Chat page
-│   ├── products/          # Products catalog & details
-│   ├── orders/            # Orders page
-│   ├── admin/             # Admin panel
-│   ├── layout.tsx         # Root layout with navigation
-│   └── globals.css        # Global styles
-├── components/            # Reusable components
-│   └── Navigation.tsx     # Main navigation bar
-├── data/                  # JSON data storage
-│   ├── products.json      # Product database
-│   └── orders.json        # Orders database
-├── pages/api/             # API routes
-│   ├── chat.ts           # OpenRouter AI chat endpoint
-│   ├── products/         # Product CRUD operations
-│   └── orders/           # Order CRUD operations
-├── types/                 # TypeScript type definitions
-│   └── index.ts          # Shared types
-└── package.json          # Dependencies
+kai-website/
+├── app/                      # Next.js App Router
+│   ├── page.tsx             # Landing page
+│   ├── chat/                # AI Chatbot page
+│   ├── products/            # Product catalog & details
+│   ├── orders/              # Order management
+│   ├── admin/               # Admin panel
+│   ├── layout.tsx           # Root layout
+│   └── globals.css          # Global styles
+├── pages/api/               # API Routes
+│   ├── chat.ts             # OpenRouter AI integration
+│   ├── products/           # Product CRUD operations
+│   └── orders/             # Order management
+├── components/              # React components
+│   └── Navigation.tsx      # Main navigation bar
+├── data/                    # JSON data files
+│   ├── products.json       # Product catalog
+│   └── orders.json         # Order history
+├── types/                   # TypeScript types
+│   └── index.ts            # Shared interfaces
+└── public/                  # Static assets
 ```
 
-## 🎯 Key Features Explained
+## 🎨 Tech Stack
 
-### AI Chatbot (KAI)
-- Understands natural language queries
-- Recommends products from the catalog
-- Can create realistic sample products if requested item doesn't exist
-- Generates mock orders with:
-  - Unique order ID (ORD-xxxxxxxxx)
-  - Price and quantity
-  - Total amount
-  - Estimated delivery date (5-7 days)
-- Maintains conversation context
-- Provides product comparisons and details
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **AI:** OpenRouter API (Claude 3.5 Sonnet)
+- **State Management:** React Hooks + LocalStorage
+- **API:** Next.js API Routes
+- **Data Storage:** JSON files (file-based)
 
-### Mock Order System
-- Creates realistic orders for demonstration
-- Order statuses: Processing, Shipped, Delivered, Cancelled
-- Tracks order dates and estimated delivery
-- Allows order cancellation
-- Admin can update order statuses
+## 🤖 AI Features
 
-### Product Management
-- 12 pre-loaded sample products across 5 categories
-- Each product includes:
-  - Name, description, price
-  - High-quality images (via Unsplash)
-  - Technical specifications
-  - Stock levels
-  - Featured status
-- Admin can add/edit/delete products
+### KAI Assistant Capabilities:
+- ✅ Product recommendations based on user needs
+- ✅ Detailed product information with Indian pricing
+- ✅ Product comparisons and suggestions
+- ✅ Mock order creation with realistic details
+- ✅ Understanding Indian e-commerce context (Amazon India, Flipkart, Myntra, Meesho)
+- ✅ Festival sales references (Diwali Sale, Big Billion Days, etc.)
+- ✅ Natural conversation with context awareness
 
-## 🌐 API Endpoints
+### AI Configuration:
+- **Model:** `anthropic/claude-3.5-sonnet`
+- **Temperature:** 0.7 (balanced creativity)
+- **Max Tokens:** 800 (concise responses)
+- **System Prompt:** Optimized for Indian e-commerce
 
-### Products
-- `GET /api/products` - Get all products (with optional filters)
-- `GET /api/products/:id` - Get single product
-- `POST /api/products` - Create new product (admin)
-- `PUT /api/products/:id` - Update product (admin)
-- `DELETE /api/products/:id` - Delete product (admin)
+## 💰 Indian E-commerce Features
 
-### Orders
-- `GET /api/orders` - Get all orders
-- `GET /api/orders/:id` - Get single order
+- ✅ **Currency:** All prices in Indian Rupees (₹)
+- ✅ **Platforms:** Amazon India, Flipkart, Myntra, Meesho references
+- ✅ **Brands:** Indian-popular brands (boAt, Fire-Boltt, Noise, Campus, etc.)
+- ✅ **Delivery:** 5-7 days standard delivery
+- ✅ **Payment:** Cash on Delivery (COD) available
+- ✅ **Returns:** Easy 7-day return policy
+
+## 📦 Sample Products
+
+The catalog includes 15+ products across multiple categories:
+- **Electronics:** Headphones, Webcams, Speakers, Hubs
+- **Wearables:** Smartwatches, Fitness Bands
+- **Bags:** Backpacks, Tote Bags
+- **Accessories:** Mouse, Keyboard, Wallets, Laptop Stands
+- **Shoes:** Running Shoes
+
+All products include:
+- Realistic Indian pricing (₹449 - ₹2999)
+- High-quality images from Unsplash
+- Detailed descriptions
+- Technical specifications
+- Stock information
+- Platform availability
+
+## 🔧 API Routes
+
+### Products API
+- `GET /api/products` - List all products (with filters)
+- `GET /api/products/:id` - Get product details
+- `POST /api/products` - Add new product (Admin)
+- `PUT /api/products/:id` - Update product (Admin)
+- `DELETE /api/products/:id` - Delete product (Admin)
+
+### Orders API
+- `GET /api/orders` - List all orders
+- `GET /api/orders/:id` - Get order details
 - `POST /api/orders` - Create new order
-- `PUT /api/orders/:id` - Update order status
+- `PUT /api/orders/:id` - Update order status (Admin)
 - `DELETE /api/orders/:id` - Cancel order
 
-### Chat
-- `POST /api/chat` - Send message to KAI and get AI response
-
-## 🎨 Design Features
-
-- **Modern UI**: Clean, gradient-based design with smooth animations
-- **Responsive**: Works perfectly on mobile, tablet, and desktop
-- **Accessibility**: Semantic HTML and proper ARIA labels
-- **Performance**: Optimized images and lazy loading
-- **UX**: Intuitive navigation and clear call-to-actions
-
-## 🤖 AI Integration
-
-The chatbot uses OpenRouter's Claude 3.5 Sonnet model with:
-- Context-aware responses
-- Product catalog knowledge
-- Natural conversation flow
-- Ability to generate realistic product descriptions
-- Mock order creation capabilities
-
-## 📝 Sample Products
-
-Pre-loaded products include:
-1. Wireless Noise-Cancelling Headphones ($299.99)
-2. Smart Watch Pro ($399.99)
-3. Premium Leather Backpack ($149.99)
-4. 4K Webcam Pro ($179.99)
-5. Wireless Gaming Mouse ($89.99)
-6. USB-C Hub 7-in-1 ($49.99)
-7. Running Shoes Elite ($129.99)
-8. Portable Bluetooth Speaker ($79.99)
-9. Minimalist Wallet ($34.99)
-10. Ergonomic Wireless Keyboard ($119.99)
-11. Fitness Tracker Band ($59.99)
-12. Canvas Tote Bag ($29.99)
-
-## 🔐 Environment Variables
-
-```env
-OPENROUTER_API_KEY=sk-or-v1-[your-key-here]
-```
-
-## 🛠️ Development Commands
-
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run start    # Start production server
-npm run lint     # Run ESLint
-```
+### Chat API
+- `POST /api/chat` - Send message to KAI assistant
 
 ## 🎯 Usage Guide
 
-### For Users
-1. **Browse Products**: Visit the Products page to see all available items
-2. **Chat with KAI**: Go to the Chat page and ask anything about products
-3. **Create Orders**: Use the chat or product pages to create mock orders
-4. **Track Orders**: View your order history on the Orders page
+### For Customers:
+1. **Browse Products** - Explore the catalog with filters
+2. **Ask KAI** - Get AI-powered product recommendations
+3. **Place Mock Orders** - Test the ordering flow
+4. **Track Orders** - View order status and timeline
 
-### For Admins
-1. **Access Admin Panel**: Navigate to /admin
-2. **Manage Products**: Add, edit, or delete products
-3. **Manage Orders**: Update order statuses and track fulfillment
+### For Admins:
+1. Navigate to `/admin`
+2. **Manage Products** - Add, edit, or delete products
+3. **Manage Orders** - Update order statuses
+4. View comprehensive order statistics
 
-## 🌟 Future Enhancements
+## 🚀 Deployment
 
-Potential additions:
-- User authentication and profiles
-- Real payment integration
-- Product reviews and ratings
-- Wishlist functionality
-- Email notifications
-- Advanced search with filters
-- Product recommendations based on browsing history
-- Multi-language support
+### Build for Production:
+```bash
+npm run build
+npm start
+```
+
+### Environment Variables for Production:
+```env
+OPENROUTER_API_KEY=your_production_api_key
+NODE_ENV=production
+```
+
+## 🔒 Security Notes
+
+- ⚠️ The current implementation uses file-based storage (JSON files)
+- ⚠️ For production, migrate to a proper database (PostgreSQL, MongoDB, etc.)
+- ⚠️ Add authentication for admin routes
+- ⚠️ Implement rate limiting for API routes
+- ⚠️ Secure API keys using environment variables
+
+## 🐛 Known Limitations
+
+- Mock order system (not connected to real payment gateway)
+- File-based storage (not suitable for production at scale)
+- No user authentication
+- No email notifications
+- No real inventory management
+
+## 🎨 Customization
+
+### Change AI Model:
+Edit `/pages/api/chat.ts`:
+```typescript
+model: 'anthropic/claude-3.5-sonnet', // Change to other models
+```
+
+### Update Brand Colors:
+Edit `/tailwind.config.js`:
+```javascript
+colors: {
+  primary: '#6366f1',  // Change primary color
+  secondary: '#8b5cf6', // Change secondary color
+}
+```
+
+### Add More Products:
+Edit `/data/products.json` or use the Admin Panel.
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## 📄 License
 
-This project is for demonstration purposes.
+This project is open-source and available under the MIT License.
 
-## 🤝 Contributing
+## 🙏 Credits
 
-This is a demo project. Feel free to fork and modify as needed.
+- **UI Design:** Inspired by Amazon, Flipkart, and Meesho
+- **Images:** Unsplash (free stock photos)
+- **AI:** OpenRouter API with Claude 3.5 Sonnet
+- **Icons:** Heroicons (embedded SVGs)
 
-## 📞 Support
+## 🆘 Support
 
-For questions or issues, please refer to the documentation or contact the development team.
+For issues or questions:
+1. Check the documentation
+2. Review existing issues on GitHub
+3. Open a new issue with detailed description
+
+## 🎉 Acknowledgments
+
+Built with ❤️ for the Indian e-commerce ecosystem, featuring:
+- Modern UI/UX design principles
+- AI-powered shopping assistance
+- Indian market preferences
+- Mobile-first responsive design
 
 ---
 
-**Built with ❤️ using Next.js, TypeScript, and AI**
+**Made with Next.js, TypeScript, and AI** 🚀
