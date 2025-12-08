@@ -8,27 +8,22 @@ const ordersFile = path.join(process.cwd(), 'data', 'orders.json');
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
   
-  if (req.method === 'GET') {
-    try {
-      const data = fs.readFileSync(ordersFile, 'utf-8');
-      const orders: Order[] = JSON.parse(data);
-      
+  try {
+    const ordersData = fs.readFileSync(ordersFile, 'utf-8');
+    let orders: Order[] = JSON.parse(ordersData);
+    
+    if (req.method === 'GET') {
       const order = orders.find(o => o.id === id);
       
       if (!order) {
         return res.status(404).json({ error: 'Order not found' });
       }
       
-      res.status(200).json(order);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to read order' });
+      return res.status(200).json(order);
     }
-  } else if (req.method === 'PUT') {
-    // Update order (e.g., change status)
-    try {
-      const data = fs.readFileSync(ordersFile, 'utf-8');
-      const orders: Order[] = JSON.parse(data);
-      
+    
+    if (req.method === 'PUT') {
+      // Update order status
       const index = orders.findIndex(o => o.id === id);
       
       if (index === -1) {
@@ -38,16 +33,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       orders[index] = { ...orders[index], ...req.body, id: id as string };
       fs.writeFileSync(ordersFile, JSON.stringify(orders, null, 2));
       
-      res.status(200).json(orders[index]);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to update order' });
+      return res.status(200).json(orders[index]);
     }
-  } else if (req.method === 'DELETE') {
-    // Cancel order
-    try {
-      const data = fs.readFileSync(ordersFile, 'utf-8');
-      const orders: Order[] = JSON.parse(data);
-      
+    
+    if (req.method === 'DELETE') {
+      // Cancel order
       const index = orders.findIndex(o => o.id === id);
       
       if (index === -1) {
@@ -57,11 +47,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       orders[index].status = 'Cancelled';
       fs.writeFileSync(ordersFile, JSON.stringify(orders, null, 2));
       
-      res.status(200).json(orders[index]);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to cancel order' });
+      return res.status(200).json(orders[index]);
     }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+    
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (error) {
+    console.error('Order API error:', error);
+    return res.status(500).json({ error: 'Failed to process request' });
   }
 }
