@@ -5,15 +5,17 @@ const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/
 // Website Information for AI Context
 const WEBSITE_INFO = {
     name: "KAI - Intelligent Shopping Assistant",
-    description: "AI-powered shopping platform for product recommendations and e-commerce",
+    description: "AI-powered shopping platform with 24/7 online ordering",
     contact: {
         email: "support@kai-assistant.com",
         phone: "+91 1800-123-4567",
         phone2: "+91 98765-43210",
         address: "123 Tech Park, Electronic City, Bangalore, Karnataka 560100"
     },
-    hours: "Monday-Friday: 9:00 AM - 8:00 PM, Saturday-Sunday: 10:00 AM - 6:00 PM",
+    phoneHours: "Phone Support: Monday-Friday 9:00 AM - 8:00 PM, Saturday-Sunday 10:00 AM - 6:00 PM",
+    ordering: "24/7 Online Ordering Available - Order products anytime, day or night!",
     features: [
+        "24/7 online ordering - shop anytime!",
         "AI-powered product search and recommendations",
         "Real-time price comparisons",
         "24/7 AI chat support",
@@ -344,14 +346,19 @@ async function getAIResponse(userMessage) {
     
     const systemPrompt = `You are KAI, an intelligent AI shopping assistant for the KAI Shopping Platform.
 
+IMPORTANT: WE OFFER 24/7 ONLINE ORDERING!
+Customers can order products ANYTIME - day or night, 365 days a year!
+
 WEBSITE INFORMATION:
 - Name: ${WEBSITE_INFO.name}
 - Description: ${WEBSITE_INFO.description}
+- ORDERING: ${WEBSITE_INFO.ordering}
 - Email: ${WEBSITE_INFO.contact.email}
 - Phone: ${WEBSITE_INFO.contact.phone} (Toll Free), ${WEBSITE_INFO.contact.phone2}
 - Address: ${WEBSITE_INFO.contact.address}
-- Working Hours: ${WEBSITE_INFO.hours}
+- Phone Support Hours: ${WEBSITE_INFO.phoneHours}
 - AI Chat: Available 24/7
+- Online Orders: 24/7 - ANYTIME!
 
 AVAILABLE PRODUCTS:
 ${productsList}
@@ -466,17 +473,19 @@ function getSmartFallback(userMessage) {
     const lower = userMessage.toLowerCase();
     
     // Contact queries
-    if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('call')) {
+    if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('call') || lower.includes('hours')) {
         return `
             <strong>Contact Information</strong><br><br>
+            🛒 <strong>ORDER ANYTIME 24/7!</strong><br>
+            Shop and place orders anytime - day or night!<br><br>
             📧 <strong>Email:</strong> support@kai-assistant.com<br>
             📞 <strong>Phone:</strong> +91 1800-123-4567 (Toll Free)<br>
             📱 <strong>Mobile:</strong> +91 98765-43210<br>
             📍 <strong>Address:</strong> 123 Tech Park, Electronic City, Bangalore, Karnataka 560100<br><br>
-            <strong>Working Hours:</strong><br>
+            <strong>Phone Support Hours:</strong><br>
             Monday-Friday: 9:00 AM - 8:00 PM<br>
             Saturday-Sunday: 10:00 AM - 6:00 PM<br><br>
-            💬 <strong>AI Chat:</strong> Available 24/7!<br><br>
+            💬 <strong>AI Chat & Online Ordering:</strong> 24/7 Available!<br><br>
             How else can I help you?
         `;
     }
@@ -484,12 +493,13 @@ function getSmartFallback(userMessage) {
     // Help/support queries
     if (lower.includes('help') || lower.includes('support') || lower.includes('customer care')) {
         return `
-            <strong>Customer Support</strong><br><br>
-            I'm here to help you 24/7! You can:<br><br>
-            💬 <strong>Chat with me</strong> - I can answer any questions<br>
-            📞 <strong>Call us</strong> - +91 1800-123-4567<br>
-            📧 <strong>Email us</strong> - support@kai-assistant.com<br>
-            🕐 <strong>Visit us</strong> - Mon-Fri: 9 AM - 8 PM<br><br>
+            <strong>Customer Support - 24/7 Available!</strong><br><br>
+            🛒 <strong>Order Anytime:</strong> Place orders 24/7 online!<br><br>
+            I'm here to help you anytime! You can:<br><br>
+            💬 <strong>Chat with me 24/7</strong> - I can answer any questions<br>
+            🛍️ <strong>Order products 24/7</strong> - Shop anytime, day or night<br>
+            📞 <strong>Call us</strong> - +91 1800-123-4567 (Mon-Fri: 9 AM - 8 PM)<br>
+            📧 <strong>Email us</strong> - support@kai-assistant.com<br><br>
             What would you like help with today?
         `;
     }
@@ -514,15 +524,16 @@ function getSmartFallback(userMessage) {
     
     // Default helpful response
     return `
-        <strong>I'm KAI, your shopping assistant!</strong><br><br>
+        <strong>I'm KAI, your 24/7 shopping assistant!</strong><br><br>
+        🛒 <strong>Order Anytime!</strong> Shop 24/7 - day or night!<br><br>
         I can help you with:<br><br>
-        🛍️ Product recommendations<br>
-        💰 Price comparisons<br>
+        🛍️ Order products 24/7<br>
+        💰 Product recommendations & price comparisons<br>
         📞 Contact information<br>
         💬 Any questions about shopping<br>
         📦 Orders and delivery<br>
         🆘 Customer support<br><br>
-        What would you like to know?
+        What would you like to know or order?
     `;
 }
 

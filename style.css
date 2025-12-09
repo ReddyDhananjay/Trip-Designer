@@ -59,10 +59,45 @@ html {
     padding: 0 1.5rem;
 }
 
+/* 24/7 Announcement Banner */
+.announcement-banner {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+    box-shadow: var(--shadow-md);
+    animation: slideDown 0.5s ease-out;
+}
+
+.announcement-banner p {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.announcement-banner strong {
+    font-weight: 700;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 /* Navigation */
 .navbar {
     position: fixed;
-    top: 0;
+    top: 46px;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -140,6 +175,10 @@ html {
     cursor: pointer;
     transition: var(--transition);
     font-family: inherit;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .btn-chat-open:hover {
@@ -148,9 +187,28 @@ html {
     box-shadow: var(--shadow-md);
 }
 
+.btn-badge {
+    background: var(--success);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
 /* Hero Section */
 .hero {
-    padding: 140px 0 80px;
+    padding: 180px 0 80px;
     background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
 }
 
@@ -760,6 +818,27 @@ html {
     margin-bottom: 0.75rem;
 }
 
+.welcome-24-7 {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--success), #059669);
+    color: white;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+}
+
 .chat-welcome p {
     color: var(--gray-600);
     margin-bottom: 1rem;
@@ -925,6 +1004,14 @@ html {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .announcement-banner {
+        padding: 0.5rem;
+    }
+    
+    .announcement-banner p {
+        font-size: 0.8125rem;
+    }
+    
     .hero-title {
         font-size: 2.5rem;
     }
@@ -935,6 +1022,11 @@ html {
     
     .nav-menu {
         display: none;
+    }
+    
+    .btn-chat-open {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
     }
     
     .features-grid,
