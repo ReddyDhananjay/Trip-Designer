@@ -55,12 +55,12 @@ const products = [
     },
     {
         id: 4,
-        name: 'Samsung Galaxy S23',
+        name: 'Samsung Galaxy S23 5G',
         category: 'Smartphones',
         price: 74999,
         icon: '📱',
-        description: 'Flagship Android phone with Snapdragon 8 Gen 2',
-        specs: '6.1" display, 128GB, 50MP camera'
+        description: 'Flagship Android phone with Snapdragon 8 Gen 2 and 5G connectivity',
+        specs: '6.1" display, 128GB, 50MP camera, 5G enabled'
     },
     {
         id: 5,
@@ -366,21 +366,52 @@ ${productsList}
 
 YOUR CAPABILITIES:
 1. Answer ANY question about our website, products, services, or policies
-2. Provide detailed product information and recommendations
-3. Compare products and help users make informed decisions
-4. Explain prices (all in Indian Rupees ₹)
-5. Provide contact information when asked
-6. Help with customer care and support queries
-7. **CREATE ORDERS IMMEDIATELY** when user says buy/order/purchase
-8. Generate order confirmations with Order IDs, prices, and delivery dates
-9. Track order status
-10. Answer questions about delivery, returns, refunds
-11. Provide shopping tips and advice
+2. **SHOW PRODUCT LISTS** - Display multiple products with details
+3. **RECOMMEND BEST PRODUCTS** - Highlight the best option among alternatives
+4. Provide detailed product information and specifications
+5. Compare products and help users make informed decisions
+6. Explain prices (all in Indian Rupees ₹)
+7. Provide contact information when asked
+8. Help with customer care and support queries
+9. **CREATE ORDERS IMMEDIATELY** when user says buy/order/purchase
+10. Generate order confirmations with Order IDs, prices, and delivery dates
+11. Track order status
+12. Answer questions about delivery, returns, refunds
+13. Provide shopping tips and advice
+
+IMPORTANT FOR SHOWING PRODUCTS:
+When user asks about products (phones, laptops, headphones, etc.):
+1. Show 2-4 relevant products from the list above
+2. For each product display:
+   - Product name
+   - Price in ₹ format (₹1,29,900)
+   - Key features/description
+3. **RECOMMEND THE BEST** - Highlight which one is the best choice and WHY
+4. Format products in a clear, easy-to-read list
+5. Use <strong> tags for product names and prices
+
+EXAMPLE PRODUCT RESPONSE FORMAT:
+"Here are the best [category] products available:
+
+<strong>1. [Product Name]</strong> - ₹[Price]
+[Description and key features]
+
+<strong>2. [Product Name]</strong> - ₹[Price]
+[Description and key features]
+
+<strong>3. [Product Name]</strong> - ₹[Price]
+[Description and key features]
+
+<strong>✨ Best Choice:</strong> I recommend the [Product Name] because [reason - best features, value for money, most popular, etc.]
+
+Would you like to order any of these?"
 
 IMPORTANT FOR ORDERING:
 - When user says "I want to order [product]" or "buy [product]", confirm the order
-- Always mention: Order placed successfully
-- Always include: Order ID, Product name, Price, Delivery date
+- **ALWAYS MENTION THE EXACT PRODUCT NAME** the user wants to order
+- Always say: "Order Placed Successfully! 🎉"
+- Confirm: "Your [Product Name] order is confirmed!"
+- Always include: Order ID will be generated, Price, Delivery in 3-5 days
 - Always thank the customer
 - System will automatically create the order in background
 
@@ -389,19 +420,21 @@ RESPONSE GUIDELINES:
 - Answer questions accurately using the information provided
 - If asked about contact: provide email, phone numbers, and address
 - If asked about customer care: mention 24/7 AI chat and phone support
-- For product queries: recommend 2-3 options with prices in ₹ format
-- **FOR ORDERS: Immediately confirm "Order Placed Successfully!" with enthusiasm**
+- **For product queries: ALWAYS show 2-4 options with prices in ₹ format**
+- **ALWAYS recommend which product is BEST and explain why**
+- **FOR ORDERS: Immediately confirm "Order Placed Successfully!" with product name**
 - For orders: mention Order ID will be generated, delivery in 3-5 days
 - Be conversational but professional
-- Use simple HTML formatting when helpful (<strong>, <br>, etc.)
+- Use HTML formatting: <strong> for emphasis, <br> for line breaks
 - Always end responses helpfully - offer to assist further
 
 WHEN USER WANTS TO ORDER:
 1. Confirm: "Order Placed Successfully! 🎉"
-2. Mention: Order is being processed
-3. State: Delivery in 3-5 business days
-4. Thank them for shopping
-5. Ask if they need anything else
+2. Mention the EXACT product name: "Your [Product Name] order is confirmed!"
+3. State: "Order ID will be generated, Delivery in 3-5 business days"
+4. Mention the price: "Amount: ₹[Price]"
+5. Thank them for shopping
+6. Ask if they need anything else
 
 User Question: ${userMessage}
 
@@ -451,20 +484,25 @@ function processResponse(response, userMessage) {
     if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
         const orderDetails = createOrder(userMessage);
         
+        // Find product icon
+        const matchedProduct = products.find(p => p.name === orderDetails.product);
+        const productIcon = matchedProduct ? matchedProduct.icon : '📦';
+        
         // Add order confirmation to response
         const orderConfirmation = `
-            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1.5rem; border-radius: 12px; color: white; margin: 1rem 0;">
-                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✅ Order Placed Successfully!</div>
-                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Order #${orderDetails.id}</div>
-                <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
-                    <div style="margin-bottom: 0.5rem;"><strong>📦 Product:</strong> ${orderDetails.product}</div>
-                    <div style="margin-bottom: 0.5rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
-                    <div style="margin-bottom: 0.5rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
-                    <div style="margin-bottom: 0.5rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
-                    <div><strong>📍 Status:</strong> ${orderDetails.status}</div>
+            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1.5rem; border-radius: 12px; color: white; margin: 1rem 0; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);">
+                <div style="font-size: 1.75rem; margin-bottom: 0.5rem; font-weight: 700;">✅ Order Placed Successfully!</div>
+                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; opacity: 0.95;">Order #${orderDetails.id}</div>
+                <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; backdrop-filter: blur(10px);">
+                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>${productIcon} Product:</strong> ${orderDetails.product}</div>
+                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
+                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
+                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
+                    <div style="font-size: 1rem;"><strong>📍 Status:</strong> ${orderDetails.status}</div>
                 </div>
-                <div style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;">
-                    ✨ Thank you for shopping with KAI! You can track your order anytime.
+                <div style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.95; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 1rem;">
+                    ✨ <strong>Thank you for shopping with KAI!</strong><br>
+                    Your order will be delivered in 3-5 business days. Check "Orders" section to track!
                 </div>
             </div>
         `;
@@ -483,17 +521,53 @@ function processResponse(response, userMessage) {
 function createOrder(message) {
     const orderId = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
     
-    // Find product in message
-    let product = products.find(p => 
-        message.toLowerCase().includes(p.name.toLowerCase())
+    // Enhanced product matching - find exact product name first
+    let product = null;
+    const lowerMessage = message.toLowerCase();
+    
+    // Method 1: Try to find full product name match
+    product = products.find(p => 
+        lowerMessage.includes(p.name.toLowerCase())
     );
     
+    // Method 2: Try category-based matching (e.g., "samsung", "iphone", "macbook")
     if (!product) {
-        // If no specific product mentioned, try to find any product-related words
+        const brandKeywords = {
+            'iphone': ['iphone', 'apple phone'],
+            'samsung': ['samsung', 's23', 's22', 'galaxy'],
+            'macbook': ['macbook', 'mac book', 'apple laptop'],
+            'dell': ['dell', 'xps'],
+            'hp': ['hp', 'pavilion'],
+            'oneplus': ['oneplus', 'one plus'],
+            'sony': ['sony', 'wh-1000', 'headphone'],
+            'boat': ['boat', 'airdopes'],
+            'jbl': ['jbl', 'flip'],
+            'watch': ['watch', 'smartwatch'],
+            'airpods': ['airpods', 'air pods']
+        };
+        
+        for (let p of products) {
+            const productNameLower = p.name.toLowerCase();
+            
+            // Check if any brand keyword matches
+            for (let [brand, keywords] of Object.entries(brandKeywords)) {
+                if (productNameLower.includes(brand)) {
+                    if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+                        product = p;
+                        break;
+                    }
+                }
+            }
+            if (product) break;
+        }
+    }
+    
+    // Method 3: Try individual word matching (minimum 4 characters)
+    if (!product) {
         for (let p of products) {
             const words = p.name.toLowerCase().split(' ');
             for (let word of words) {
-                if (message.toLowerCase().includes(word) && word.length > 3) {
+                if (word.length >= 4 && lowerMessage.includes(word)) {
                     product = p;
                     break;
                 }
@@ -502,9 +576,27 @@ function createOrder(message) {
         }
     }
     
-    // Still no product? Use a random popular one
+    // Method 4: Try category matching
     if (!product) {
-        product = products[0]; // Default to first product
+        const categoryKeywords = {
+            'phone': ['Smartphones'],
+            'laptop': ['Laptops'],
+            'headphone': ['Audio', 'Headphones'],
+            'watch': ['Wearables'],
+            'speaker': ['Audio']
+        };
+        
+        for (let [keyword, categories] of Object.entries(categoryKeywords)) {
+            if (lowerMessage.includes(keyword)) {
+                product = products.find(p => categories.includes(p.category));
+                if (product) break;
+            }
+        }
+    }
+    
+    // Method 5: Default to first product if nothing matched
+    if (!product) {
+        product = products[0];
     }
     
     const deliveryDate = new Date();
@@ -513,6 +605,7 @@ function createOrder(message) {
     const order = {
         id: orderId,
         product: product.name,
+        category: product.category,
         price: product.price,
         status: 'Processing',
         orderDate: new Date().toLocaleDateString('en-IN'),
@@ -523,7 +616,8 @@ function createOrder(message) {
     orders.push(order);
     saveToStorage();
     
-    console.log('Order created:', order);
+    console.log('✅ Order created:', order);
+    console.log('📦 Product matched:', product.name);
     
     return order;
 }
@@ -582,20 +676,59 @@ function getSmartFallback(userMessage) {
         `;
     }
     
-    // Product queries
-    if (lower.includes('product') || lower.includes('phone') || lower.includes('laptop')) {
-        const relevantProducts = products.filter(p => 
-            lower.includes(p.category.toLowerCase()) || 
-            lower.includes(p.name.toLowerCase())
-        ).slice(0, 3);
+    // Product queries - Enhanced with better recommendations
+    if (lower.includes('product') || lower.includes('phone') || lower.includes('laptop') || 
+        lower.includes('headphone') || lower.includes('watch') || lower.includes('recommend') ||
+        lower.includes('suggest') || lower.includes('best') || lower.includes('show')) {
+        
+        let relevantProducts = [];
+        let category = '';
+        
+        // Determine category
+        if (lower.includes('phone') || lower.includes('mobile')) {
+            relevantProducts = products.filter(p => p.category === 'Smartphones').slice(0, 3);
+            category = 'Smartphones';
+        } else if (lower.includes('laptop')) {
+            relevantProducts = products.filter(p => p.category === 'Laptops').slice(0, 3);
+            category = 'Laptops';
+        } else if (lower.includes('headphone') || lower.includes('audio') || lower.includes('speaker')) {
+            relevantProducts = products.filter(p => p.category === 'Audio').slice(0, 3);
+            category = 'Audio Products';
+        } else if (lower.includes('watch')) {
+            relevantProducts = products.filter(p => p.category === 'Wearables').slice(0, 3);
+            category = 'Smartwatches';
+        } else {
+            // Show popular products from different categories
+            relevantProducts = [products[0], products[3], products[6]];
+            category = 'Popular Products';
+        }
         
         if (relevantProducts.length > 0) {
-            let response = '<strong>Here are some great products for you:</strong><br><br>';
-            relevantProducts.forEach(p => {
-                response += `<strong>${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
-                response += `${p.description}<br><br>`;
+            let response = `<strong>Here are the best ${category} available:</strong><br><br>`;
+            
+            relevantProducts.forEach((p, index) => {
+                response += `<strong>${index + 1}. ${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
+                response += `${p.icon} ${p.description}<br>`;
+                if (p.specs) response += `<em>${p.specs}</em><br>`;
+                response += `<br>`;
             });
-            response += 'Would you like to know more about any of these?';
+            
+            // Recommend the best one
+            const bestProduct = relevantProducts[0];
+            response += `<strong>✨ Best Choice:</strong> I recommend the <strong>${bestProduct.name}</strong> `;
+            
+            // Provide reasoning based on category
+            if (category === 'Smartphones') {
+                response += `because it offers the best camera quality, performance, and overall value for money!<br><br>`;
+            } else if (category === 'Laptops') {
+                response += `because it provides excellent performance, portability, and battery life!<br><br>`;
+            } else if (category === 'Audio Products') {
+                response += `because it delivers superior sound quality and great battery life!<br><br>`;
+            } else {
+                response += `because it's our most popular product with excellent features and reliability!<br><br>`;
+            }
+            
+            response += `Would you like to order any of these? Just say "I want to order [product name]"!`;
             return response;
         }
     }
@@ -638,10 +771,18 @@ function displayOrders() {
         return new Date(b.timestamp || 0) - new Date(a.timestamp || 0);
     });
     
-    container.innerHTML = sortedOrders.map(order => `
+    container.innerHTML = sortedOrders.map(order => {
+        // Find product icon
+        const matchedProduct = products.find(p => p.name === order.product);
+        const productIcon = matchedProduct ? matchedProduct.icon : '📦';
+        
+        return `
         <div class="order-card">
             <div class="order-header">
-                <div class="order-id">Order #${order.id}</div>
+                <div class="order-id">
+                    <span style="font-size: 1.5rem; margin-right: 0.5rem;">${productIcon}</span>
+                    Order #${order.id}
+                </div>
                 <div class="order-status ${order.status.toLowerCase()}">${order.status}</div>
             </div>
             <div class="order-details">
@@ -663,7 +804,8 @@ function displayOrders() {
                 </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // Utility Functions
