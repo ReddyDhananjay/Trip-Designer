@@ -430,11 +430,15 @@ RESPONSE GUIDELINES:
 
 WHEN USER WANTS TO ORDER:
 1. Confirm: "Order Placed Successfully! 🎉"
-2. Mention the EXACT product name: "Your [Product Name] order is confirmed!"
-3. State: "Order ID will be generated, Delivery in 3-5 business days"
-4. Mention the price: "Amount: ₹[Price]"
-5. Thank them for shopping
-6. Ask if they need anything else
+2. **ALWAYS MENTION THE EXACT PRODUCT NAME MULTIPLE TIMES**: "Your [Product Name] order is confirmed!"
+3. Repeat product name: "Thank you for ordering [Product Name]!"
+4. State: "Order ID will be generated, Delivery in 3-5 business days"
+5. Mention the price: "Amount: ₹[Price]"
+6. Emphasize: "Your [Product Name] will be delivered soon!"
+7. Thank them for shopping
+8. Ask if they need anything else
+
+CRITICAL: When confirming order, say the product name at least 2-3 times in your response!
 
 User Question: ${userMessage}
 
@@ -488,25 +492,31 @@ function processResponse(response, userMessage) {
         const matchedProduct = products.find(p => p.name === orderDetails.product);
         const productIcon = matchedProduct ? matchedProduct.icon : '📦';
         
-        // Add order confirmation to response
+        // Add order confirmation to response with PROMINENT product name
         const orderConfirmation = `
-            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1.5rem; border-radius: 12px; color: white; margin: 1rem 0; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);">
-                <div style="font-size: 1.75rem; margin-bottom: 0.5rem; font-weight: 700;">✅ Order Placed Successfully!</div>
-                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; opacity: 0.95;">Order #${orderDetails.id}</div>
+            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 2rem; border-radius: 12px; color: white; margin: 1rem 0; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; text-align: center;">✅ Order Placed Successfully!</div>
                 
-                <div style="background: rgba(255,255,255,0.95); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; color: #10b981; font-size: 1.25rem; font-weight: 700; text-align: center;">
-                    ${productIcon} ${orderDetails.product}
+                <div style="background: white; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                    <div style="font-size: 0.875rem; color: #6b7280; text-align: center; margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">PRODUCT ORDERED</div>
+                    <div style="font-size: 1.75rem; color: #10b981; font-weight: 800; text-align: center; line-height: 1.4;">
+                        ${productIcon} ${orderDetails.product}
+                    </div>
+                    <div style="font-size: 0.875rem; color: #6b7280; text-align: center; margin-top: 0.5rem;">${orderDetails.category || 'Product'}</div>
                 </div>
                 
-                <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; backdrop-filter: blur(10px);">
-                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
-                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
-                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
+                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; text-align: center; opacity: 0.95;">Order #${orderDetails.id}</div>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 1.25rem; border-radius: 8px; backdrop-filter: blur(10px);">
+                    <div style="margin-bottom: 0.75rem; font-size: 1.125rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
+                    <div style="margin-bottom: 0.75rem; font-size: 1rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
+                    <div style="margin-bottom: 0.75rem; font-size: 1rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
                     <div style="font-size: 1rem;"><strong>📍 Status:</strong> ${orderDetails.status}</div>
                 </div>
-                <div style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.95; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 1rem;">
+                <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.95; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 1rem; text-align: center;">
                     ✨ <strong>Thank you for shopping with KAI!</strong><br>
-                    Your order will be delivered in 3-5 business days. Check "Orders" section to track!
+                    Your <strong>${orderDetails.product}</strong> will be delivered in 3-5 business days.<br>
+                    Check "Orders" section to track your order!
                 </div>
             </div>
         `;
@@ -639,20 +649,29 @@ function getSmartFallback(userMessage) {
     
     // Order/Buy queries - create order
     if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
+        // Find the product name from the message
+        let productName = 'your product';
+        for (let p of products) {
+            if (lower.includes(p.name.toLowerCase())) {
+                productName = p.name;
+                break;
+            }
+        }
+        
         // Order will be created by processResponse
         return `
-            <strong>Order Confirmed! 🎉</strong><br><br>
-            Your order has been successfully placed! You can see the details above.<br><br>
-            <strong>What happens next?</strong><br>
-            ✅ Order confirmed and processing<br>
-            📦 Packaging and quality check<br>
-            🚚 Shipped to your address<br>
+            <strong>🎉 Order Confirmed for ${productName}!</strong><br><br>
+            Your <strong>${productName}</strong> order has been successfully placed! You can see the full order details above.<br><br>
+            <strong>✅ What happens next?</strong><br>
+            📋 Order confirmed and processing<br>
+            📦 Quality check and secure packaging<br>
+            🚚 Shipped directly to your address<br>
             🎁 Delivered in 3-5 business days<br><br>
-            <strong>Need help?</strong><br>
-            • Track your order anytime<br>
+            <strong>📞 Need help?</strong><br>
+            • Track your <strong>${productName}</strong> order anytime in the Orders section<br>
             • Contact us: +91 1800-123-4567<br>
             • Email: support@kai-assistant.com<br><br>
-            Would you like to order anything else?
+            Would you like to order anything else? 🛍️
         `;
     }
     
