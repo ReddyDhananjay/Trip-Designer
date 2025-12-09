@@ -507,6 +507,118 @@ html {
     transform: translateY(-2px);
 }
 
+/* Orders */
+.orders {
+    background: var(--gray-50);
+}
+
+.orders-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.empty-orders {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border: 2px dashed var(--gray-300);
+    border-radius: 16px;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-orders h3 {
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: 0.75rem;
+}
+
+.empty-orders p {
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+}
+
+.order-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.order-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.order-id {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.order-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.order-status.processing {
+    background: rgba(255, 193, 7, 0.1);
+    color: #f59e0b;
+}
+
+.order-status.shipped {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--secondary);
+}
+
+.order-status.delivered {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.order-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.order-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.order-detail-label {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    font-weight: 500;
+}
+
+.order-detail-value {
+    font-size: 1rem;
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
 /* Contact */
 .contact {
     background: white;

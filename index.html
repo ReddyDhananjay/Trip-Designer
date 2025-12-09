@@ -28,6 +28,7 @@
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#features" class="nav-link">Features</a></li>
                 <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#orders" class="nav-link">Orders</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <button class="btn-chat-open" onclick="openChat()">
@@ -137,6 +138,25 @@
             
             <div class="products-grid" id="productsGrid">
                 <!-- Products loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section id="orders" class="orders">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Orders</h2>
+                <p>Track and manage all your orders in one place</p>
+            </div>
+            
+            <div class="orders-container" id="ordersContainer">
+                <div class="empty-orders">
+                    <div class="empty-icon">📦</div>
+                    <h3>No orders yet</h3>
+                    <p>Start shopping with KAI and your orders will appear here!</p>
+                    <button class="btn btn-primary" onclick="openChat()">Start Shopping</button>
+                </div>
             </div>
         </div>
     </section>

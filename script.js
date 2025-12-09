@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     initNavigation();
     loadFromStorage();
+    displayOrders();
 });
 
 // Navigation
@@ -370,10 +371,18 @@ YOUR CAPABILITIES:
 4. Explain prices (all in Indian Rupees ₹)
 5. Provide contact information when asked
 6. Help with customer care and support queries
-7. Create mock orders with order IDs
-8. Track order status
-9. Answer questions about delivery, returns, refunds
-10. Provide shopping tips and advice
+7. **CREATE ORDERS IMMEDIATELY** when user says buy/order/purchase
+8. Generate order confirmations with Order IDs, prices, and delivery dates
+9. Track order status
+10. Answer questions about delivery, returns, refunds
+11. Provide shopping tips and advice
+
+IMPORTANT FOR ORDERING:
+- When user says "I want to order [product]" or "buy [product]", confirm the order
+- Always mention: Order placed successfully
+- Always include: Order ID, Product name, Price, Delivery date
+- Always thank the customer
+- System will automatically create the order in background
 
 RESPONSE GUIDELINES:
 - Be helpful, friendly, and professional
@@ -381,10 +390,18 @@ RESPONSE GUIDELINES:
 - If asked about contact: provide email, phone numbers, and address
 - If asked about customer care: mention 24/7 AI chat and phone support
 - For product queries: recommend 2-3 options with prices in ₹ format
-- For orders: generate Order ID (ORD-XXXXX) and delivery dates
+- **FOR ORDERS: Immediately confirm "Order Placed Successfully!" with enthusiasm**
+- For orders: mention Order ID will be generated, delivery in 3-5 days
 - Be conversational but professional
 - Use simple HTML formatting when helpful (<strong>, <br>, etc.)
 - Always end responses helpfully - offer to assist further
+
+WHEN USER WANTS TO ORDER:
+1. Confirm: "Order Placed Successfully! 🎉"
+2. Mention: Order is being processed
+3. State: Delivery in 3-5 business days
+4. Thank them for shopping
+5. Ask if they need anything else
 
 User Question: ${userMessage}
 
@@ -430,8 +447,30 @@ Provide a helpful, accurate, and professional response.`;
 
 function processResponse(response, userMessage) {
     // Check for order creation
-    if (userMessage.toLowerCase().includes('order') || userMessage.toLowerCase().includes('buy')) {
-        createOrder(userMessage);
+    const lower = userMessage.toLowerCase();
+    if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
+        const orderDetails = createOrder(userMessage);
+        
+        // Add order confirmation to response
+        const orderConfirmation = `
+            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1.5rem; border-radius: 12px; color: white; margin: 1rem 0;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✅ Order Placed Successfully!</div>
+                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Order #${orderDetails.id}</div>
+                <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px;">
+                    <div style="margin-bottom: 0.5rem;"><strong>📦 Product:</strong> ${orderDetails.product}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
+                    <div style="margin-bottom: 0.5rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
+                    <div><strong>📍 Status:</strong> ${orderDetails.status}</div>
+                </div>
+                <div style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;">
+                    ✨ Thank you for shopping with KAI! You can track your order anytime.
+                </div>
+            </div>
+        `;
+        
+        // Add confirmation before or after AI response
+        response = orderConfirmation + '<br>' + response;
     }
     
     // Format response
@@ -450,7 +489,22 @@ function createOrder(message) {
     );
     
     if (!product) {
-        product = products[Math.floor(Math.random() * products.length)];
+        // If no specific product mentioned, try to find any product-related words
+        for (let p of products) {
+            const words = p.name.toLowerCase().split(' ');
+            for (let word of words) {
+                if (message.toLowerCase().includes(word) && word.length > 3) {
+                    product = p;
+                    break;
+                }
+            }
+            if (product) break;
+        }
+    }
+    
+    // Still no product? Use a random popular one
+    if (!product) {
+        product = products[0]; // Default to first product
     }
     
     const deliveryDate = new Date();
@@ -462,15 +516,39 @@ function createOrder(message) {
         price: product.price,
         status: 'Processing',
         orderDate: new Date().toLocaleDateString('en-IN'),
-        deliveryDate: deliveryDate.toLocaleDateString('en-IN')
+        deliveryDate: deliveryDate.toLocaleDateString('en-IN'),
+        timestamp: new Date().toISOString()
     };
     
     orders.push(order);
     saveToStorage();
+    
+    console.log('Order created:', order);
+    
+    return order;
 }
 
 function getSmartFallback(userMessage) {
     const lower = userMessage.toLowerCase();
+    
+    // Order/Buy queries - create order
+    if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
+        // Order will be created by processResponse
+        return `
+            <strong>Order Confirmed! 🎉</strong><br><br>
+            Your order has been successfully placed! You can see the details above.<br><br>
+            <strong>What happens next?</strong><br>
+            ✅ Order confirmed and processing<br>
+            📦 Packaging and quality check<br>
+            🚚 Shipped to your address<br>
+            🎁 Delivered in 3-5 business days<br><br>
+            <strong>Need help?</strong><br>
+            • Track your order anytime<br>
+            • Contact us: +91 1800-123-4567<br>
+            • Email: support@kai-assistant.com<br><br>
+            Would you like to order anything else?
+        `;
+    }
     
     // Contact queries
     if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('call') || lower.includes('hours')) {
@@ -537,6 +615,57 @@ function getSmartFallback(userMessage) {
     `;
 }
 
+// Orders Display
+function displayOrders() {
+    const container = document.getElementById('ordersContainer');
+    
+    if (!container) return;
+    
+    if (orders.length === 0) {
+        container.innerHTML = `
+            <div class="empty-orders">
+                <div class="empty-icon">📦</div>
+                <h3>No orders yet</h3>
+                <p>Start shopping with KAI and your orders will appear here!</p>
+                <button class="btn btn-primary" onclick="openChat()">Start Shopping</button>
+            </div>
+        `;
+        return;
+    }
+    
+    // Sort orders by timestamp (newest first)
+    const sortedOrders = [...orders].sort((a, b) => {
+        return new Date(b.timestamp || 0) - new Date(a.timestamp || 0);
+    });
+    
+    container.innerHTML = sortedOrders.map(order => `
+        <div class="order-card">
+            <div class="order-header">
+                <div class="order-id">Order #${order.id}</div>
+                <div class="order-status ${order.status.toLowerCase()}">${order.status}</div>
+            </div>
+            <div class="order-details">
+                <div class="order-detail">
+                    <div class="order-detail-label">Product</div>
+                    <div class="order-detail-value">${order.product}</div>
+                </div>
+                <div class="order-detail">
+                    <div class="order-detail-label">Amount</div>
+                    <div class="order-detail-value">₹${formatPrice(order.price)}</div>
+                </div>
+                <div class="order-detail">
+                    <div class="order-detail-label">Order Date</div>
+                    <div class="order-detail-value">${order.orderDate}</div>
+                </div>
+                <div class="order-detail">
+                    <div class="order-detail-label">Delivery Date</div>
+                    <div class="order-detail-value">${order.deliveryDate}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
 // Utility Functions
 function formatPrice(price) {
     return price.toLocaleString('en-IN');
@@ -545,6 +674,9 @@ function formatPrice(price) {
 function saveToStorage() {
     localStorage.setItem('kai_chat_history', JSON.stringify(chatHistory));
     localStorage.setItem('kai_orders', JSON.stringify(orders));
+    
+    // Update orders display whenever we save
+    displayOrders();
 }
 
 function loadFromStorage() {
