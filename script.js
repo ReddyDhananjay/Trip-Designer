@@ -493,8 +493,12 @@ function processResponse(response, userMessage) {
             <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1.5rem; border-radius: 12px; color: white; margin: 1rem 0; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);">
                 <div style="font-size: 1.75rem; margin-bottom: 0.5rem; font-weight: 700;">✅ Order Placed Successfully!</div>
                 <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; opacity: 0.95;">Order #${orderDetails.id}</div>
+                
+                <div style="background: rgba(255,255,255,0.95); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; color: #10b981; font-size: 1.25rem; font-weight: 700; text-align: center;">
+                    ${productIcon} ${orderDetails.product}
+                </div>
+                
                 <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; backdrop-filter: blur(10px);">
-                    <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>${productIcon} Product:</strong> ${orderDetails.product}</div>
                     <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
                     <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
                     <div style="margin-bottom: 0.5rem; font-size: 1rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
@@ -602,6 +606,12 @@ function createOrder(message) {
     const deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + Math.floor(Math.random() * 3) + 3);
     
+    // Ensure product name is always set
+    if (!product || !product.name) {
+        console.error('❌ Product not found! Using default.');
+        product = products[0]; // Fallback to first product
+    }
+    
     const order = {
         id: orderId,
         product: product.name,
@@ -617,7 +627,9 @@ function createOrder(message) {
     saveToStorage();
     
     console.log('✅ Order created:', order);
-    console.log('📦 Product matched:', product.name);
+    console.log('📦 Product name:', order.product);
+    console.log('📂 Category:', order.category);
+    console.log('💰 Price:', order.price);
     
     return order;
 }
@@ -772,9 +784,13 @@ function displayOrders() {
     });
     
     container.innerHTML = sortedOrders.map(order => {
-        // Find product icon
+        // Find product icon and details
         const matchedProduct = products.find(p => p.name === order.product);
         const productIcon = matchedProduct ? matchedProduct.icon : '📦';
+        const productName = order.product || 'Product Name';
+        const productCategory = order.category || (matchedProduct ? matchedProduct.category : 'General');
+        
+        console.log('Displaying order:', order.id, 'Product:', productName);
         
         return `
         <div class="order-card">
@@ -785,11 +801,13 @@ function displayOrders() {
                 </div>
                 <div class="order-status ${order.status.toLowerCase()}">${order.status}</div>
             </div>
+            
+            <div class="order-product-name" style="font-size: 1.25rem; font-weight: 700; color: var(--gray-900); margin: 1rem 0; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 4px solid var(--primary);">
+                ${productIcon} ${productName}
+                <span style="display: block; font-size: 0.875rem; font-weight: 500; color: var(--gray-600); margin-top: 0.25rem;">${productCategory}</span>
+            </div>
+            
             <div class="order-details">
-                <div class="order-detail">
-                    <div class="order-detail-label">Product</div>
-                    <div class="order-detail-value">${order.product}</div>
-                </div>
                 <div class="order-detail">
                     <div class="order-detail-label">Amount</div>
                     <div class="order-detail-value">₹${formatPrice(order.price)}</div>

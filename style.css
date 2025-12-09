@@ -556,6 +556,18 @@ html {
     border-color: var(--primary);
 }
 
+.order-product-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+    line-height: 1.5;
+}
+
 .order-header {
     display: flex;
     justify-content: space-between;
