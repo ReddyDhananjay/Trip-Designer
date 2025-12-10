@@ -1,0 +1,9 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon -->
+  <rect x="2" y="8" width="24" height="24" rx="4" fill="#00a89b"/>
+  <path d="M14 14L8 18V28H11V23H17V28H20V18L14 14Z" fill="white"/>
+  <circle cx="14" cy="16" r="1.5" fill="#f6c24b"/>
+  
+  <!-- Text: KAI -->
+  <text x="32" y="27" font-family="Inter, sans-serif" font-weight="800" font-size="18" fill="#0b2140">KAI</text>
+</svg>
