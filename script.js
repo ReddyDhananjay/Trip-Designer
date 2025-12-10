@@ -768,7 +768,7 @@ function buyNow(productId) {
                 Ordered Instantly!
             </h2>
             <p style="font-size: 1.25rem; color: var(--gray-600); margin-bottom: 2rem;">
-                <strong>That was fast!</strong> Order placed in 1 click! 🚀
+                Your order has been placed successfully! 🚀
             </p>
             
             <div style="background: var(--gradient-primary); color: white; padding: 2.5rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5);">
@@ -802,7 +802,7 @@ function buyNow(productId) {
             </div>
             
             <p style="margin-top: 2.5rem; color: var(--success); font-weight: 700; font-size: 1rem;">
-                ✨ Instant 1-click ordering - Faster than Amazon, Flipkart & Meesho!
+                ✨ Thank you for shopping with KAI!
             </p>
         </div>
     `;
@@ -905,7 +905,7 @@ function proceedToCheckout() {
             </div>
             
             <p style="margin-top: 2rem; color: var(--gray-600); font-size: 0.875rem;">
-                ✨ <strong>This is KAI's instant ordering!</strong> No address forms, no payment forms - Just click and done! 🚀
+                ✨ <strong>Thank you for your order!</strong> We'll process it right away. 🚀
             </p>
         </div>
     `;
