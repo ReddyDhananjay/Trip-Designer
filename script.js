@@ -724,96 +724,109 @@ function closeProductModal() {
 }
 
 function buyNow(productId) {
-    addToCart(productId);
-    closeProductModal();
-    proceedToCheckout();
-}
-
-// Checkout
-function proceedToCheckout() {
-    if (cart.length === 0) {
-        showToast('Your cart is empty!');
-        return;
-    }
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
     
-    toggleCart();
+    // INSTANT BUY - Order immediately!
+    closeProductModal();
+    
+    const orderId = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    const deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + Math.floor(Math.random() * 3) + 3);
+    
+    const order = {
+        id: orderId,
+        items: [{
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+            icon: product.icon
+        }],
+        subtotal: product.price,
+        delivery: product.price > 999 ? 0 : 50,
+        total: product.price + (product.price > 999 ? 0 : 50),
+        status: 'Processing',
+        orderDate: new Date().toLocaleDateString('en-IN'),
+        deliveryDate: deliveryDate.toLocaleDateString('en-IN'),
+        timestamp: new Date().toISOString()
+    };
+    
+    orders.push(order);
+    saveToStorage();
+    
+    // Show instant success
+    showToast(`🎉 ${product.name} ordered instantly! Order ID: ${orderId}`);
+    
+    // Show success modal
     const modal = document.getElementById('checkoutModal');
     const content = document.getElementById('checkoutContent');
     
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const delivery = subtotal > 50000 ? 0 : 500;
-    const total = subtotal + delivery;
-    
     content.innerHTML = `
-        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem;">
-            <div>
-                <h3 style="margin-bottom: 1.5rem;">Delivery Address</h3>
-                <form id="checkoutForm" onsubmit="placeOrder(event)">
-                    <input type="text" placeholder="Full Name *" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
-                    <input type="tel" placeholder="Phone Number *" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
-                    <input type="text" placeholder="Address Line 1 *" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
-                    <input type="text" placeholder="Address Line 2" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <input type="text" placeholder="City *" required style="padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 4px;">
-                        <input type="text" placeholder="Pincode *" required style="padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+        <div style="text-align: center; padding: 3rem 2rem;">
+            <div style="font-size: 5rem; margin-bottom: 1.5rem; animation: bounce 1s;">⚡</div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; background: var(--gradient-success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Ordered Instantly!
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--gray-600); margin-bottom: 2rem;">
+                <strong>That was fast!</strong> Order placed in 1 click! 🚀
+            </p>
+            
+            <div style="background: var(--gradient-primary); color: white; padding: 2.5rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 12px 32px rgba(99, 102, 241, 0.5);">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">${product.icon}</div>
+                <h3 style="font-size: 1.75rem; margin-bottom: 1.5rem; font-weight: 700;">${product.name}</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 12px; backdrop-filter: blur(10px);">
+                        <div style="opacity: 0.9; font-size: 0.875rem;">Order ID</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">${orderId}</div>
                     </div>
-                    
-                    <h3 style="margin: 2rem 0 1.5rem;">Payment Method</h3>
-                    <label style="display: block; padding: 1rem; border: 2px solid var(--gray-300); border-radius: 8px; margin-bottom: 1rem; cursor: pointer;">
-                        <input type="radio" name="payment" value="cod" checked> Cash on Delivery
-                    </label>
-                    <label style="display: block; padding: 1rem; border: 2px solid var(--gray-300); border-radius: 8px; margin-bottom: 1rem; cursor: pointer;">
-                        <input type="radio" name="payment" value="card"> Credit/Debit Card
-                    </label>
-                    <label style="display: block; padding: 1rem; border: 2px solid var(--gray-300); border-radius: 8px; margin-bottom: 2rem; cursor: pointer;">
-                        <input type="radio" name="payment" value="upi"> UPI Payment
-                    </label>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Place Order - ₹${formatPrice(total)}</button>
-                </form>
-            </div>
-            <div>
-                <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 8px; position: sticky; top: 1rem;">
-                    <h3 style="margin-bottom: 1rem;">Order Summary</h3>
-                    <div style="max-height: 300px; overflow-y: auto; margin-bottom: 1rem;">
-                        ${cart.map(item => `
-                            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-300);">
-                                <div>
-                                    <div style="font-weight: 600;">${item.name}</div>
-                                    <div style="font-size: 0.875rem; color: var(--gray-600);">Qty: ${item.quantity}</div>
-                                </div>
-                                <div style="font-weight: 600;">₹${formatPrice(item.price * item.quantity)}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div style="border-top: 2px solid var(--gray-300); padding-top: 1rem;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
-                            <span>Subtotal</span>
-                            <span>₹${formatPrice(subtotal)}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
-                            <span>Delivery</span>
-                            <span>${delivery === 0 ? 'FREE' : '₹' + delivery}</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--gray-300);">
-                            <span>Total</span>
-                            <span>₹${formatPrice(total)}</span>
-                        </div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 12px; backdrop-filter: blur(10px);">
+                        <div style="opacity: 0.9; font-size: 0.875rem;">Total</div>
+                        <div style="font-size: 1.25rem; font-weight: 700;">₹${formatPrice(order.total)}</div>
                     </div>
                 </div>
+                
+                <div style="background: rgba(255,255,255,0.2); padding: 1.25rem; border-radius: 12px; backdrop-filter: blur(10px);">
+                    <div style="opacity: 0.9; font-size: 0.875rem; margin-bottom: 0.5rem;">Expected Delivery</div>
+                    <div style="font-size: 1.5rem; font-weight: 700;">${deliveryDate.toLocaleDateString('en-IN', {weekday: 'short', day: 'numeric', month: 'short'})}</div>
+                </div>
             </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="closeCheckoutModal(); showOrders();" style="padding: 1rem 2rem;">
+                    📦 Track Order
+                </button>
+                <button class="btn btn-secondary" onclick="closeCheckoutModal(); scrollToProducts();" style="padding: 1rem 2rem;">
+                    🛍️ Continue Shopping
+                </button>
+            </div>
+            
+            <p style="margin-top: 2.5rem; color: var(--success); font-weight: 700; font-size: 1rem;">
+                ✨ Instant 1-click ordering - Faster than Amazon, Flipkart & Meesho!
+            </p>
         </div>
     `;
     
     modal.classList.add('active');
 }
 
-function placeOrder(event) {
-    event.preventDefault();
+// INSTANT CHECKOUT - No Forms, No Hassle! (Better than Flipkart/Amazon)
+function proceedToCheckout() {
+    if (cart.length === 0) {
+        showToast('Your cart is empty!');
+        return;
+    }
+    
+    // INSTANT ORDER PLACEMENT - NO FORMS NEEDED!
+    toggleCart();
     
     const orderId = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
     const deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + Math.floor(Math.random() * 3) + 3);
+    
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const delivery = subtotal > 999 ? 0 : 50;
+    const total = subtotal + delivery;
     
     const order = {
         id: orderId,
@@ -823,7 +836,9 @@ function placeOrder(event) {
             quantity: item.quantity,
             icon: item.icon
         })),
-        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        subtotal: subtotal,
+        delivery: delivery,
+        total: total,
         status: 'Processing',
         orderDate: new Date().toLocaleDateString('en-IN'),
         deliveryDate: deliveryDate.toLocaleDateString('en-IN'),
@@ -831,17 +846,77 @@ function placeOrder(event) {
     };
     
     orders.push(order);
+    const orderedItems = [...cart]; // Save for display
     cart = [];
     
     updateCartCount();
     saveToStorage();
     
-    closeCheckoutModal();
-    showToast('Order placed successfully! Order ID: ' + orderId);
+    // Show instant success message
+    const modal = document.getElementById('checkoutModal');
+    const content = document.getElementById('checkoutContent');
     
-    setTimeout(() => {
-        showOrders();
-    }, 1000);
+    content.innerHTML = `
+        <div style="text-align: center; padding: 3rem 2rem;">
+            <div style="font-size: 5rem; margin-bottom: 1.5rem; animation: bounce 1s;">🎉</div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; background: var(--gradient-success); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                Order Placed Instantly!
+            </h2>
+            <p style="font-size: 1.25rem; color: var(--gray-600); margin-bottom: 2rem;">
+                <strong>No forms, no hassle - Done in seconds!</strong> ⚡
+            </p>
+            
+            <div style="background: var(--gradient-primary); color: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);">
+                <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Order ID</div>
+                <div style="font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem;">${orderId}</div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; text-align: left;">
+                    <div>
+                        <div style="opacity: 0.9; font-size: 0.875rem;">Total Amount</div>
+                        <div style="font-size: 1.75rem; font-weight: 700;">₹${formatPrice(total)}</div>
+                    </div>
+                    <div>
+                        <div style="opacity: 0.9; font-size: 0.875rem;">Delivery By</div>
+                        <div style="font-size: 1.75rem; font-weight: 700;">${deliveryDate.toLocaleDateString('en-IN', {day: 'numeric', month: 'short'})}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; text-align: left;">
+                <h4 style="margin-bottom: 1rem; font-size: 1.125rem;">Ordered Items (${orderedItems.length})</h4>
+                ${orderedItems.map(item => `
+                    <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-300);">
+                        <div>
+                            <span style="font-size: 2rem; margin-right: 0.5rem;">${item.icon}</span>
+                            <strong>${item.name}</strong> <span style="color: var(--gray-600);">x${item.quantity}</span>
+                        </div>
+                        <div style="font-weight: 700;">₹${formatPrice(item.price * item.quantity)}</div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn btn-primary" onclick="closeCheckoutModal(); showOrders();" style="padding: 1rem 2rem;">
+                    📦 View My Orders
+                </button>
+                <button class="btn btn-secondary" onclick="closeCheckoutModal(); scrollToProducts();" style="padding: 1rem 2rem;">
+                    🛍️ Continue Shopping
+                </button>
+            </div>
+            
+            <p style="margin-top: 2rem; color: var(--gray-600); font-size: 0.875rem;">
+                ✨ <strong>This is KAI's instant ordering!</strong> No address forms, no payment forms - Just click and done! 🚀
+            </p>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+}
+
+function placeOrder(event) {
+    // This function is now handled by proceedToCheckout - kept for compatibility
+    if (event) event.preventDefault();
+    proceedToCheckout();
 }
 
 function closeCheckoutModal() {
@@ -1083,32 +1158,52 @@ function hideTypingIndicator() {
 
 async function getAIResponse(userMessage) {
     const productsList = products.map(p => 
-        `${p.name} (${p.category}) - ₹${formatPrice(p.price)} - Rating: ${p.rating}★ - ${p.description}`
+        `${p.name} (${p.category}) - ₹${formatPrice(p.price)} - Rating: ${p.rating}★ (${p.reviews} reviews) - Discount: ${p.discount}% OFF - ${p.description}`
     ).join('\n');
     
-    const systemPrompt = `You are KAI, an intelligent e-commerce shopping assistant.
+    const systemPrompt = `You are KAI, an advanced AI shopping assistant with INSTANT ordering capability.
 
 AVAILABLE PRODUCTS:
 ${productsList}
 
-YOUR ROLE:
-- Help customers find products
-- Provide product recommendations
-- Compare products
-- Answer shopping questions
-- Assist with orders
+YOUR CAPABILITIES:
+1. INSTANT PRODUCT RECOMMENDATIONS - Show 2-3 best products clearly
+2. SMART FILTERING - Understand "under 50000", "budget", price ranges
+3. INSTANT ORDERING - When user wants to order, confirm and process immediately
+4. ACCURATE MATCHING - Match products by name, brand, category
+5. PRICE COMPARISONS - Compare and suggest best value
+6. DETAILED INFO - Provide specs when asked
 
-RESPONSE GUIDELINES:
-- Be helpful and friendly
-- Show 2-3 product recommendations when asked
-- Include prices in ₹ format
-- Mention ratings
-- Suggest best value options
-- Keep responses concise
+ORDERING PROTOCOL:
+When user says "order", "buy", "purchase", "I want":
+- Identify EXACT product
+- Say: "✅ Ordering [PRODUCT NAME] instantly!"
+- Show price and delivery
+- Mention: "Order placed - no forms needed! 🎉"
 
-User Question: ${userMessage}
+PRODUCT RESPONSE FORMAT:
+<strong>🏆 Top [Category]:</strong><br><br>
 
-Provide a helpful response:`;
+<strong>1. [Name]</strong> - ₹[Price] (-[X]% OFF)<br>
+⭐ [Rating]★ ([Reviews] reviews)<br>
+📦 [Features]<br><br>
+
+<strong>💡 Best Choice:</strong> [Product Name] - [Why]<br><br>
+
+Say "Order [name]" for instant ordering! 🚀
+
+RULES:
+- ALWAYS use EXACT product names
+- ALWAYS show prices with ₹ symbol
+- ALWAYS mention discounts
+- ALWAYS show ratings
+- Be specific and concise
+- Use emojis
+- Be enthusiastic
+
+User: ${userMessage}
+
+Response:`;
     
     try {
         const response = await fetch(GEMINI_API_URL, {
@@ -1120,7 +1215,7 @@ Provide a helpful response:`;
                     temperature: 0.7,
                     topK: 40,
                     topP: 0.95,
-                    maxOutputTokens: 1024,
+                    maxOutputTokens: 2048,
                 }
             })
         });
@@ -1129,6 +1224,14 @@ Provide a helpful response:`;
         
         const data = await response.json();
         let aiResponse = data.candidates[0].content.parts[0].text;
+        
+        // Check for instant order
+        if (userMessage.toLowerCase().includes('order') || 
+            userMessage.toLowerCase().includes('buy') || 
+            userMessage.toLowerCase().includes('purchase') ||
+            userMessage.toLowerCase().includes('i want')) {
+            processInstantOrder(userMessage);
+        }
         
         aiResponse = aiResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         aiResponse = aiResponse.replace(/\n/g, '<br>');
@@ -1140,35 +1243,163 @@ Provide a helpful response:`;
     }
 }
 
+// NEW: Instant Order Processing
+function processInstantOrder(message) {
+    const lower = message.toLowerCase();
+    let matchedProduct = null;
+    
+    // Exact product name match
+    for (let product of products) {
+        if (lower.includes(product.name.toLowerCase())) {
+            matchedProduct = product;
+            break;
+        }
+    }
+    
+    // Brand/keyword matching
+    if (!matchedProduct) {
+        const keywords = {
+            'iphone': 'iPhone 14 Pro',
+            'macbook': 'MacBook Air M2',
+            'samsung': 'Samsung Galaxy S23 5G',
+            'oneplus': 'OnePlus 11',
+            'sony': 'Sony WH-1000XM5',
+            'airpods': 'AirPods Pro 2',
+            'dell': 'Dell XPS 15',
+            'hp': 'HP Pavilion Gaming',
+            'watch': 'Apple Watch Series 9',
+            'jbl': 'JBL Flip 6',
+            'ipad': 'iPad Pro 11"'
+        };
+        
+        for (let [keyword, productName] of Object.entries(keywords)) {
+            if (lower.includes(keyword)) {
+                matchedProduct = products.find(p => p.name === productName);
+                break;
+            }
+        }
+    }
+    
+    // Category fallback
+    if (!matchedProduct) {
+        if (lower.includes('phone')) matchedProduct = products.find(p => p.category === 'Smartphones');
+        else if (lower.includes('laptop')) matchedProduct = products.find(p => p.category === 'Laptops');
+        else if (lower.includes('audio')) matchedProduct = products.find(p => p.category === 'Audio');
+        else matchedProduct = products[0];
+    }
+    
+    if (matchedProduct) {
+        const orderId = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        const deliveryDate = new Date();
+        deliveryDate.setDate(deliveryDate.getDate() + Math.floor(Math.random() * 3) + 3);
+        
+        const order = {
+            id: orderId,
+            items: [{
+                name: matchedProduct.name,
+                price: matchedProduct.price,
+                quantity: 1,
+                icon: matchedProduct.icon
+            }],
+            total: matchedProduct.price,
+            status: 'Processing',
+            orderDate: new Date().toLocaleDateString('en-IN'),
+            deliveryDate: deliveryDate.toLocaleDateString('en-IN'),
+            timestamp: new Date().toISOString()
+        };
+        
+        orders.push(order);
+        saveToStorage();
+        showToast(`🎉 ${matchedProduct.name} ordered instantly! Order ID: ${orderId}`);
+        
+        setTimeout(() => displayOrdersList(), 500);
+    }
+}
+
 function getSmartFallback(userMessage) {
     const lower = userMessage.toLowerCase();
     
+    // Handle ordering
+    if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
+        processInstantOrder(userMessage);
+        return `<div style="background: linear-gradient(135deg, #10b981, #059669); padding: 1.5rem; border-radius: 12px; color: white; margin: 1rem 0;">
+            <strong style="font-size: 1.5rem;">✅ Order Confirmed Instantly!</strong><br><br>
+            Your order has been placed successfully!<br>
+            📦 Delivery: 3-5 days<br>
+            🎁 No forms, no hassle - done in seconds!<br><br>
+            <em>Check "My Orders" to track your order 🚀</em>
+        </div>`;
+    }
+    
+    // Phone queries
     if (lower.includes('phone') || lower.includes('mobile')) {
         const phones = products.filter(p => p.category === 'Smartphones').slice(0, 3);
-        let response = '<strong>Top Smartphones:</strong><br><br>';
-        phones.forEach(p => {
-            response += `<strong>${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
-            response += `${p.rating}★ (${p.reviews} reviews)<br>${p.description}<br><br>`;
+        let response = '<strong>🏆 Top Smartphones for You:</strong><br><br>';
+        phones.forEach((p, i) => {
+            response += `<strong>${i+1}. ${p.name}</strong> - ₹${formatPrice(p.price)} `;
+            if (p.discount) response += `<span style="color: #16a34a;">(-${p.discount}% OFF)</span>`;
+            response += `<br>⭐ ${p.rating}★ (${p.reviews.toLocaleString()} reviews)<br>`;
+            response += `📦 ${p.description}<br><br>`;
         });
+        response += `<strong>💡 Best Choice:</strong> ${phones[0].name} - Highest rated!<br><br>`;
+        response += `Say "<strong>Order ${phones[0].name}</strong>" for instant ordering! 🚀`;
         return response;
     }
     
+    // Laptop queries
     if (lower.includes('laptop')) {
         const laptops = products.filter(p => p.category === 'Laptops').slice(0, 3);
-        let response = '<strong>Top Laptops:</strong><br><br>';
-        laptops.forEach(p => {
-            response += `<strong>${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
-            response += `${p.rating}★ (${p.reviews} reviews)<br>${p.description}<br><br>`;
+        let response = '<strong>🏆 Top Laptops for You:</strong><br><br>';
+        laptops.forEach((p, i) => {
+            response += `<strong>${i+1}. ${p.name}</strong> - ₹${formatPrice(p.price)} `;
+            if (p.discount) response += `<span style="color: #16a34a;">(-${p.discount}% OFF)</span>`;
+            response += `<br>⭐ ${p.rating}★ (${p.reviews.toLocaleString()} reviews)<br>`;
+            response += `📦 ${p.description}<br><br>`;
         });
+        response += `<strong>💡 Best Choice:</strong> ${laptops[0].name} - Best performance!<br><br>`;
+        response += `Say "<strong>Order ${laptops[0].name}</strong>" for instant ordering! 🚀`;
         return response;
     }
     
-    return `<strong>I can help you with:</strong><br><br>
-        • Finding products<br>
-        • Product recommendations<br>
-        • Comparing prices<br>
-        • Answering questions<br><br>
-        What are you looking for today?`;
+    // Budget queries
+    if (lower.includes('budget') || lower.includes('cheap') || lower.includes('under')) {
+        const affordableProducts = products.filter(p => p.price < 60000).sort((a, b) => a.price - b.price).slice(0, 3);
+        let response = '<strong>🏆 Best Budget Products:</strong><br><br>';
+        affordableProducts.forEach((p, i) => {
+            response += `<strong>${i+1}. ${p.name}</strong> - ₹${formatPrice(p.price)} `;
+            if (p.discount) response += `<span style="color: #16a34a;">(-${p.discount}% OFF)</span>`;
+            response += `<br>⭐ ${p.rating}★ • ${p.category}<br>`;
+            response += `📦 ${p.description}<br><br>`;
+        });
+        response += `<strong>💰 Best Value:</strong> ${affordableProducts[0].name}<br><br>`;
+        response += `Say "<strong>Order [product name]</strong>" for instant ordering! 🚀`;
+        return response;
+    }
+    
+    // Deals queries
+    if (lower.includes('deal') || lower.includes('offer') || lower.includes('discount')) {
+        const dealProducts = products.filter(p => p.deal && p.discount > 10).slice(0, 3);
+        let response = '<strong>🔥 Hot Deals Right Now:</strong><br><br>';
+        dealProducts.forEach((p, i) => {
+            response += `<strong>${i+1}. ${p.name}</strong> - ₹${formatPrice(p.price)} `;
+            response += `<span style="color: #dc2626; font-weight: 700;">(-${p.discount}% OFF!)</span><br>`;
+            response += `⭐ ${p.rating}★ • Save ₹${formatPrice(p.originalPrice - p.price)}<br>`;
+            response += `📦 ${p.description}<br><br>`;
+        });
+        response += `<strong>🎁 Best Deal:</strong> ${dealProducts[0].name} - Save ${dealProducts[0].discount}%!<br><br>`;
+        response += `Order now: "<strong>Order ${dealProducts[0].name}</strong>" 🚀`;
+        return response;
+    }
+    
+    // Default helpful response
+    return `<strong>👋 Hi! I'm KAI - Your Instant Shopping Assistant!</strong><br><br>
+        I can help you:<br>
+        🔍 <strong>Find products</strong> - "Show me phones"<br>
+        💰 <strong>Compare prices</strong> - "Best laptop under 80000"<br>
+        🎯 <strong>Get recommendations</strong> - "Which phone is best?"<br>
+        ⚡ <strong>Order instantly</strong> - "Order iPhone 14 Pro"<br><br>
+        <strong>✨ No forms, no hassle - order in seconds!</strong><br><br>
+        What can I help you find today? 🛍️`;
 }
 
 // Utility Functions
