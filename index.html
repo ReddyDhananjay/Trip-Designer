@@ -3,363 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KAI - Intelligent Shopping Assistant</title>
+    <title>KAI - Online Shopping for Electronics, Fashion & More</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 24/7 Announcement Banner -->
-    <div class="announcement-banner">
-        <div class="container">
-            <p>🛒 <strong>Order Anytime!</strong> Shop 24/7 online with instant AI assistance - No time limits!</p>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container-fluid">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <span>🎉 <strong>Welcome to KAI!</strong> Get 10% OFF on your first order</span>
+                </div>
+                <div class="top-bar-right">
+                    <span>📞 24/7 Support: +91 1800-123-4567</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">K</div>
-                <span>KAI</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#products" class="nav-link">Products</a></li>
-                <li><a href="#orders" class="nav-link">Orders</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="btn-chat-open" onclick="openChat()">
-                <span class="btn-badge">24/7</span>
-                Shop Now
-            </button>
-        </div>
-    </nav>
+    <!-- Main Navigation -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">K</div>
+                    <div class="logo-text">
+                        <span class="logo-name">KAI</span>
+                        <span class="logo-tagline">Shopping</span>
+                    </div>
+                </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">🛒 Order Anytime - 24/7 Online Shopping</div>
-                <h1 class="hero-title">Meet KAI<br><span>Your Intelligent Shopping Assistant</span></h1>
-                <p class="hero-text">Shop anytime, anywhere! Order products 24/7 with our AI-powered platform. Get instant recommendations, compare prices, and complete your purchase at your convenience - day or night.</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="openChat()">
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <select class="search-category" id="searchCategory">
+                        <option value="all">All</option>
+                        <option value="Smartphones">Smartphones</option>
+                        <option value="Laptops">Laptops</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Wearables">Wearables</option>
+                    </select>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search for products, brands and more...">
+                    <button class="search-btn" onclick="searchProducts()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
                         </svg>
-                        Start Chatting
                     </button>
-                    <button class="btn btn-outline" onclick="scrollTo('#products')">Browse Products</button>
+                    <div class="search-suggestions" id="searchSuggestions"></div>
                 </div>
-                
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">10,000+</div>
-                        <div class="stat-label">Products</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Online Ordering</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">99%</div>
-                        <div class="stat-label">Satisfaction</div>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <button class="header-btn" onclick="toggleAccount()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span>Account</span>
+                    </button>
+                    <button class="header-btn" onclick="toggleWishlist()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <span>Wishlist</span>
+                        <span class="badge" id="wishlistCount">0</span>
+                    </button>
+                    <button class="header-btn cart-btn" onclick="toggleCart()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span>Cart</span>
+                        <span class="badge" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category Navigation -->
+            <div class="category-nav">
+                <button class="category-item active" data-category="all">All Products</button>
+                <button class="category-item" data-category="Smartphones">📱 Smartphones</button>
+                <button class="category-item" data-category="Laptops">💻 Laptops</button>
+                <button class="category-item" data-category="Audio">🎧 Audio</button>
+                <button class="category-item" data-category="Wearables">⌚ Wearables</button>
+                <button class="category-item" data-category="Tablets">📱 Tablets</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Carousel -->
+    <section class="carousel-section">
+        <div class="container-fluid">
+            <div class="carousel" id="bannerCarousel">
+                <div class="carousel-item active">
+                    <div class="carousel-content">
+                        <h2>🎉 Mega Sale - Up to 50% OFF!</h2>
+                        <p>On smartphones, laptops, and accessories</p>
+                        <button class="btn btn-primary" onclick="scrollToProducts()">Shop Now</button>
                     </div>
                 </div>
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                        <h2>📱 Latest iPhone 14 Pro</h2>
+                        <p>Experience the power of A16 Bionic chip</p>
+                        <button class="btn btn-primary" onclick="scrollToProducts()">Explore</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-content">
+                        <h2>💻 Gaming Laptops</h2>
+                        <p>Unleash your gaming potential</p>
+                        <button class="btn btn-primary" onclick="scrollToProducts()">View Deals</button>
+                    </div>
+                </div>
+                <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+                <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+                <div class="carousel-dots" id="carouselDots"></div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
+    <!-- Deals Section -->
+    <section class="deals-section">
+        <div class="container-fluid">
             <div class="section-header">
-                <h2>Why Choose KAI?</h2>
-                <p>Experience the future of online shopping with AI-powered assistance</p>
+                <h2>⚡ Flash Deals - Limited Time!</h2>
+                <div class="countdown" id="dealCountdown">Ends in: 23:59:45</div>
             </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                    </div>
-                    <h3>Smart Search</h3>
-                    <p>Find exactly what you need with our intelligent product search powered by AI</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <h3>Best Prices</h3>
-                    <p>Get real-time price comparisons and find the best deals instantly</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                    </div>
-                    <h3>24/7 Ordering</h3>
-                    <p>Order products anytime, day or night. Shop at your convenience with instant AI assistance</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                    </div>
-                    <h3>Easy Ordering</h3>
-                    <p>Seamless checkout process with secure payment and fast delivery</p>
-                </div>
-            </div>
+            <div class="deals-grid" id="dealsGrid"></div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section id="products" class="products">
-        <div class="container">
-            <div class="section-header">
-                <h2>Featured Products</h2>
-                <p>Explore our curated selection of top-rated products</p>
+    <section class="products-section">
+        <div class="container-fluid">
+            <div class="products-header">
+                <h2>All Products</h2>
+                <div class="products-controls">
+                    <button class="filter-btn" onclick="toggleFilters()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="4" y1="21" x2="4" y2="14"></line>
+                            <line x1="4" y1="10" x2="4" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12" y2="3"></line>
+                            <line x1="20" y1="21" x2="20" y2="16"></line>
+                            <line x1="20" y1="12" x2="20" y2="3"></line>
+                        </svg>
+                        Filters
+                    </button>
+                    <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+                        <option value="popularity">Sort by: Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Customer Rating</option>
+                        <option value="newest">Newest First</option>
+                    </select>
+                </div>
             </div>
-            
-            <div class="products-grid" id="productsGrid">
-                <!-- Products loaded by JS -->
+
+            <div class="products-container">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar" id="filtersSidebar">
+                    <div class="filters-header">
+                        <h3>Filters</h3>
+                        <button onclick="clearFilters()">Clear All</button>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Price Range</h4>
+                        <div class="price-range">
+                            <input type="range" min="0" max="150000" value="150000" id="priceRange" oninput="updatePriceRange()">
+                            <div class="price-labels">
+                                <span>₹0</span>
+                                <span id="maxPrice">₹1,50,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Category</h4>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="Smartphones" onchange="applyFilters()">
+                            <span>Smartphones</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="Laptops" onchange="applyFilters()">
+                            <span>Laptops</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="Audio" onchange="applyFilters()">
+                            <span>Audio</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="Wearables" onchange="applyFilters()">
+                            <span>Wearables</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Customer Ratings</h4>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="4" onchange="applyFilters()">
+                            <span>⭐ 4★ & above</span>
+                        </label>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="3" onchange="applyFilters()">
+                            <span>⭐ 3★ & above</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Availability</h4>
+                        <label class="filter-checkbox">
+                            <input type="checkbox" value="instock" onchange="applyFilters()">
+                            <span>In Stock</span>
+                        </label>
+                    </div>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="productsGrid"></div>
             </div>
         </div>
     </section>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart (<span id="cartItemCount">0</span>)</h3>
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <p>Your cart is empty</p>
+                <button class="btn btn-primary" onclick="toggleCart()">Start Shopping</button>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">₹0</span>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div class="wishlist-sidebar" id="wishlistSidebar">
+        <div class="cart-header">
+            <h3>My Wishlist (<span id="wishlistItemCount">0</span>)</h3>
+            <button class="close-btn" onclick="toggleWishlist()">✕</button>
+        </div>
+        <div class="cart-items" id="wishlistItems">
+            <div class="empty-cart">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <p>Your wishlist is empty</p>
+                <button class="btn btn-primary" onclick="toggleWishlist()">Browse Products</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Dropdown -->
+    <div class="account-dropdown" id="accountDropdown">
+        <div class="account-user">
+            <div class="user-avatar">U</div>
+            <div class="user-info">
+                <span class="user-name">Guest User</span>
+                <span class="user-email">Sign in for better experience</span>
+            </div>
+        </div>
+        <ul class="account-menu">
+            <li><a href="#" onclick="showOrders()">📦 My Orders</a></li>
+            <li><a href="#" onclick="toggleWishlist()">❤️ Wishlist</a></li>
+            <li><a href="#" onclick="showProfile()">👤 Profile</a></li>
+            <li><a href="#" onclick="showAddresses()">📍 Addresses</a></li>
+            <li><a href="#" onclick="showNotifications()">🔔 Notifications</a></li>
+            <li><a href="#" onclick="logout()">🚪 Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()">✕</button>
+            <div class="modal-body" id="productModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content checkout-modal-content">
+            <button class="modal-close" onclick="closeCheckoutModal()">✕</button>
+            <div class="checkout-container">
+                <h2>Checkout</h2>
+                <div class="checkout-steps">
+                    <div class="checkout-step active">
+                        <div class="step-number">1</div>
+                        <span>Address</span>
+                    </div>
+                    <div class="checkout-step">
+                        <div class="step-number">2</div>
+                        <span>Payment</span>
+                    </div>
+                    <div class="checkout-step">
+                        <div class="step-number">3</div>
+                        <span>Confirm</span>
+                    </div>
+                </div>
+                <div class="checkout-content" id="checkoutContent"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Orders Section -->
-    <section id="orders" class="orders">
-        <div class="container">
+    <section class="orders-section" id="ordersSection" style="display: none;">
+        <div class="container-fluid">
             <div class="section-header">
-                <h2>Your Orders</h2>
-                <p>Track and manage all your orders in one place</p>
+                <h2>My Orders</h2>
+                <button class="btn btn-secondary" onclick="hideOrders()">Back to Shopping</button>
             </div>
-            
-            <div class="orders-container" id="ordersContainer">
-                <div class="empty-orders">
-                    <div class="empty-icon">📦</div>
-                    <h3>No orders yet</h3>
-                    <p>Start shopping with KAI and your orders will appear here!</p>
-                    <button class="btn btn-primary" onclick="openChat()">Start Shopping</button>
-                </div>
-            </div>
+            <div class="orders-list" id="ordersList"></div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Get In Touch</h2>
-                <p>We're here to help you with any questions or concerns</p>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Email Us</h3>
-                    <p>support@kai-assistant.com</p>
-                    <p>sales@kai-assistant.com</p>
-                    <a href="mailto:support@kai-assistant.com" class="contact-link">Send Email →</a>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                    </div>
-                    <h3>Call Us</h3>
-                    <p>+91 1800-123-4567 (Toll Free)</p>
-                    <p>+91 98765-43210</p>
-                    <a href="tel:+911800123456" class="contact-link">Call Now →</a>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                    </div>
-                    <h3>Visit Us</h3>
-                    <p>123 Tech Park, Electronic City</p>
-                    <p>Bangalore, Karnataka 560100</p>
-                    <a href="#" class="contact-link">Get Directions →</a>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Phone Support Hours</h3>
-                    <p><strong>Call Support:</strong></p>
-                    <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
-                    <p>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
-                    <div style="margin-top: 1rem; padding: 0.75rem; background: #dcfce7; border-radius: 8px;">
-                        <p class="contact-badge" style="background: #10b981; margin: 0;">🛒 Order 24/7 Online</p>
-                        <p style="font-size: 0.875rem; color: #047857; margin: 0.5rem 0 0 0;">💬 AI Chat Always Available</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="customer-care">
-                <h3>🛒 Shop 24/7 - Order Anytime!</h3>
-                <p>Place orders anytime, day or night. Our AI assistant is always available to help you shop</p>
-                <div class="care-buttons">
-                    <button class="btn btn-primary" onclick="openChat()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        Start Shopping 24/7
-                    </button>
-                    <button class="btn btn-outline" onclick="window.location.href='tel:+911800123456'">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                        Call for Support
-                    </button>
-                </div>
-                <p style="margin-top: 1rem; font-size: 0.875rem; opacity: 0.9;">📞 Phone support: Mon-Fri 9AM-8PM, Sat-Sun 10AM-6PM</p>
-            </div>
-        </div>
-    </section>
+    <!-- AI Chat Widget -->
+    <button class="chat-button" id="chatButton" onclick="toggleChat()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="chat-badge">AI</span>
+    </button>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="logo">
-                        <div class="logo-icon">K</div>
-                        <span>KAI</span>
-                    </div>
-                    <p>Your intelligent shopping assistant powered by advanced AI technology.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Twitter">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Instagram">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">FAQs</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li>📧 support@kai-assistant.com</li>
-                        <li>📞 +91 1800-123-4567</li>
-                        <li>📍 Bangalore, India</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 KAI Assistant. All rights reserved.</p>
-                <p>Powered by Google Gemini AI</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Chat Widget -->
     <div class="chat-widget" id="chatWidget">
         <div class="chat-header">
             <div class="chat-header-info">
-                <div class="chat-avatar">K</div>
+                <div class="chat-avatar">KAI</div>
                 <div>
-                    <h3>KAI Assistant</h3>
-                    <p class="chat-status">🟢 Online - Ask me anything!</p>
+                    <div class="chat-header-title">KAI Assistant</div>
+                    <div class="chat-header-status">● Online</div>
                 </div>
             </div>
-            <button class="chat-close" onclick="closeChat()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
+            <button class="chat-close" onclick="closeChat()">✕</button>
         </div>
-        
         <div class="chat-body" id="chatBody">
             <div class="chat-welcome">
-                <div class="welcome-avatar">K</div>
-                <h3>Hello! I'm KAI 👋</h3>
-                <div class="welcome-24-7">🛒 Order Anytime - 24/7 Available!</div>
-                <p>I'm your AI shopping assistant. I can help you with:</p>
-                <ul class="welcome-list">
-                    <li>🛍️ Order products 24/7</li>
-                    <li>🔍 Finding products</li>
-                    <li>💰 Comparing prices</li>
-                    <li>📦 Tracking orders</li>
-                    <li>💬 Answering any questions</li>
-                    <li>📞 Connecting to customer care</li>
+                <div class="welcome-icon">🤖</div>
+                <h3>Hi! I'm KAI</h3>
+                <p>Your AI shopping assistant. I can help you:</p>
+                <ul>
+                    <li>🔍 Find products</li>
+                    <li>💰 Compare prices</li>
+                    <li>⭐ Get recommendations</li>
+                    <li>🛍️ Place orders</li>
                 </ul>
-                <p class="welcome-prompt">What would you like to order today?</p>
+                <div class="quick-questions">
+                    <button onclick="sendQuickQuestion('Show me best phones')">Best Phones</button>
+                    <button onclick="sendQuickQuestion('Laptops under 80000')">Budget Laptops</button>
+                    <button onclick="sendQuickQuestion('What are your deals?')">Today\'s Deals</button>
+                </div>
             </div>
         </div>
-        
-        <div class="chat-input-area">
-            <input 
-                type="text" 
-                id="chatInput" 
-                class="chat-input" 
-                placeholder="Type your message..."
-                onkeypress="handleChatKeyPress(event)"
-            >
+        <div class="chat-footer">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask anything..." onkeypress="handleChatKeyPress(event)">
             <button class="chat-send" onclick="sendChatMessage()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -369,13 +386,52 @@
         </div>
     </div>
 
-    <!-- Chat Button -->
-    <button class="chat-button" id="chatButton" onclick="toggleChat()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-        <span class="chat-badge">1</span>
-    </button>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>About KAI</h4>
+                    <p>Your trusted online shopping destination with AI-powered assistance. Shop 24/7 with confidence!</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>📞 +91 1800-123-4567</li>
+                        <li>📧 support@kai-shopping.com</li>
+                        <li>📍 Bangalore, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 KAI Shopping. All rights reserved. | Powered by AI</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
 
     <script src="script.js"></script>
 </body>

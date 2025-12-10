@@ -2,233 +2,995 @@
 const GOOGLE_API_KEY = 'AIzaSyAHDnHtiGyJTgU3hCXFPZKx3gS9wqLtZ-U';
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GOOGLE_API_KEY}`;
 
-// Website Information for AI Context
-const WEBSITE_INFO = {
-    name: "KAI - Intelligent Shopping Assistant",
-    description: "AI-powered shopping platform with 24/7 online ordering",
-    contact: {
-        email: "support@kai-assistant.com",
-        phone: "+91 1800-123-4567",
-        phone2: "+91 98765-43210",
-        address: "123 Tech Park, Electronic City, Bangalore, Karnataka 560100"
-    },
-    phoneHours: "Phone Support: Monday-Friday 9:00 AM - 8:00 PM, Saturday-Sunday 10:00 AM - 6:00 PM",
-    ordering: "24/7 Online Ordering Available - Order products anytime, day or night!",
-    features: [
-        "24/7 online ordering - shop anytime!",
-        "AI-powered product search and recommendations",
-        "Real-time price comparisons",
-        "24/7 AI chat support",
-        "Easy ordering and tracking",
-        "Secure payment processing"
-    ]
-};
-
-// Sample Products Data
+// Enhanced Product Data with Ratings and Reviews
 const products = [
     {
         id: 1,
         name: 'iPhone 14 Pro',
         category: 'Smartphones',
         price: 129900,
+        originalPrice: 139900,
+        discount: 7,
         icon: '📱',
-        description: 'Latest Apple iPhone with A16 Bionic chip and advanced camera system',
-        specs: '6.1" display, 128GB storage, 48MP camera'
+        description: 'Latest Apple iPhone with A16 Bionic chip and 48MP camera system',
+        specs: '6.1" OLED, 128GB, 48MP Triple Camera, A16 Bionic',
+        rating: 4.7,
+        reviews: 3428,
+        stock: true,
+        featured: true,
+        deal: true,
+        images: ['📱', '📸', '💫'],
+        highlights: ['A16 Bionic chip', 'Dynamic Island', 'Pro camera system', '5G capable']
     },
     {
         id: 2,
         name: 'MacBook Air M2',
         category: 'Laptops',
         price: 114900,
+        originalPrice: 119900,
+        discount: 4,
         icon: '💻',
         description: 'Powerful and lightweight laptop with Apple M2 chip',
-        specs: 'M2 chip, 8GB RAM, 256GB SSD, 18hr battery'
+        specs: 'M2 chip, 8GB RAM, 256GB SSD, 13.6" Liquid Retina',
+        rating: 4.8,
+        reviews: 2156,
+        stock: true,
+        featured: true,
+        deal: false,
+        images: ['💻', '⌨️', '🖥️'],
+        highlights: ['M2 chip performance', '18hr battery life', 'Lightweight design', 'Fanless cooling']
     },
     {
         id: 3,
         name: 'Sony WH-1000XM5',
         category: 'Audio',
         price: 29990,
+        originalPrice: 34990,
+        discount: 14,
         icon: '🎧',
         description: 'Industry-leading noise cancellation headphones',
-        specs: '30-hour battery, Premium sound quality'
+        specs: '30-hour battery, Premium sound quality, Touch controls',
+        rating: 4.6,
+        reviews: 1842,
+        stock: true,
+        featured: false,
+        deal: true,
+        images: ['🎧', '🎵', '🔋'],
+        highlights: ['Adaptive ANC', '30-hour battery', 'Premium comfort', 'LDAC support']
     },
     {
         id: 4,
         name: 'Samsung Galaxy S23 5G',
         category: 'Smartphones',
         price: 74999,
+        originalPrice: 89999,
+        discount: 17,
         icon: '📱',
-        description: 'Flagship Android phone with Snapdragon 8 Gen 2 and 5G connectivity',
-        specs: '6.1" display, 128GB, 50MP camera, 5G enabled'
+        description: 'Flagship Android phone with Snapdragon 8 Gen 2 and 5G',
+        specs: '6.1" AMOLED, 8GB RAM, 128GB, 50MP Triple Camera',
+        rating: 4.5,
+        reviews: 2943,
+        stock: true,
+        featured: true,
+        deal: true,
+        images: ['📱', '📷', '⚡'],
+        highlights: ['Snapdragon 8 Gen 2', '5G connectivity', 'Night photography', '25W fast charging']
     },
     {
         id: 5,
         name: 'iPad Pro 11"',
         category: 'Tablets',
         price: 81900,
+        originalPrice: 89900,
+        discount: 9,
         icon: '📱',
         description: 'Professional tablet with M2 chip for creative work',
-        specs: 'M2 chip, 128GB, ProMotion display'
+        specs: 'M2 chip, 128GB, ProMotion display, Apple Pencil support',
+        rating: 4.7,
+        reviews: 1523,
+        stock: true,
+        featured: false,
+        deal: false,
+        images: ['📱', '✏️', '🎨'],
+        highlights: ['M2 chip power', 'ProMotion 120Hz', 'Apple Pencil ready', 'All-day battery']
     },
     {
         id: 6,
         name: 'Apple Watch Series 9',
         category: 'Wearables',
         price: 41900,
+        originalPrice: 45900,
+        discount: 9,
         icon: '⌚',
         description: 'Advanced smartwatch with health and fitness features',
-        specs: 'S9 chip, Always-on display, Health tracking'
+        specs: 'S9 chip, Always-on display, Health tracking, GPS',
+        rating: 4.6,
+        reviews: 1876,
+        stock: true,
+        featured: true,
+        deal: false,
+        images: ['⌚', '❤️', '🏃'],
+        highlights: ['S9 SiP chip', 'Health sensors', 'Always-on Retina', 'Water resistant']
     },
     {
         id: 7,
         name: 'Dell XPS 15',
         category: 'Laptops',
         price: 139990,
+        originalPrice: 159990,
+        discount: 13,
         icon: '💻',
         description: 'Premium Windows laptop for professionals',
-        specs: 'Intel i7, 16GB RAM, 512GB SSD, RTX 3050'
+        specs: 'Intel i7-13th Gen, 16GB RAM, 512GB SSD, RTX 3050',
+        rating: 4.5,
+        reviews: 987,
+        stock: true,
+        featured: false,
+        deal: true,
+        images: ['💻', '🎮', '⚙️'],
+        highlights: ['13th Gen Intel', 'RTX graphics', '4K OLED display', 'Premium build']
     },
     {
         id: 8,
         name: 'AirPods Pro 2',
         category: 'Audio',
         price: 26900,
+        originalPrice: 29900,
+        discount: 10,
         icon: '🎧',
         description: 'True wireless earbuds with active noise cancellation',
-        specs: 'ANC, Spatial Audio, 30hr battery with case'
+        specs: 'ANC, Spatial Audio, 30hr battery with case, MagSafe',
+        rating: 4.7,
+        reviews: 3654,
+        stock: true,
+        featured: true,
+        deal: false,
+        images: ['🎧', '🔋', '🎵'],
+        highlights: ['Active ANC', 'Spatial audio', 'Adaptive EQ', 'MagSafe case']
     },
     {
         id: 9,
         name: 'OnePlus 11',
         category: 'Smartphones',
         price: 56999,
+        originalPrice: 61999,
+        discount: 8,
         icon: '📱',
         description: 'Flagship killer with Hasselblad camera system',
-        specs: 'Snapdragon 8 Gen 2, 16GB RAM, 256GB'
+        specs: 'Snapdragon 8 Gen 2, 16GB RAM, 256GB, Hasselblad',
+        rating: 4.4,
+        reviews: 2134,
+        stock: true,
+        featured: false,
+        deal: false,
+        images: ['📱', '📸', '⚡'],
+        highlights: ['Snapdragon 8 Gen 2', 'Hasselblad camera', '100W charging', '5G support']
     },
     {
         id: 10,
         name: 'Samsung Galaxy Watch 6',
         category: 'Wearables',
         price: 31999,
+        originalPrice: 35999,
+        discount: 11,
         icon: '⌚',
         description: 'Feature-rich smartwatch with comprehensive health tracking',
-        specs: 'AMOLED display, Health monitoring, GPS'
+        specs: 'AMOLED display, Health monitoring, GPS, Wear OS',
+        rating: 4.3,
+        reviews: 1432,
+        stock: true,
+        featured: false,
+        deal: true,
+        images: ['⌚', '💪', '🏃'],
+        highlights: ['Wear OS', 'Sleep tracking', 'GPS built-in', 'Wireless charging']
     },
     {
         id: 11,
         name: 'HP Pavilion Gaming',
         category: 'Laptops',
         price: 74990,
+        originalPrice: 84990,
+        discount: 12,
         icon: '💻',
         description: 'Gaming laptop with powerful graphics',
-        specs: 'AMD Ryzen 5, 16GB RAM, RTX 3050, 512GB SSD'
+        specs: 'AMD Ryzen 5, 16GB RAM, RTX 3050, 512GB SSD',
+        rating: 4.2,
+        reviews: 876,
+        stock: true,
+        featured: false,
+        deal: true,
+        images: ['💻', '🎮', '⚡'],
+        highlights: ['Gaming ready', 'RTX 3050', 'High refresh rate', 'RGB keyboard']
     },
     {
         id: 12,
         name: 'JBL Flip 6',
         category: 'Audio',
         price: 11999,
+        originalPrice: 13999,
+        discount: 14,
         icon: '🔊',
         description: 'Portable Bluetooth speaker with powerful sound',
-        specs: 'Waterproof, 12hr battery, Bold JBL sound'
+        specs: 'Waterproof, 12hr battery, Bold JBL sound, PartyBoost',
+        rating: 4.5,
+        reviews: 2341,
+        stock: true,
+        featured: false,
+        deal: false,
+        images: ['🔊', '🎵', '💧'],
+        highlights: ['IP67 waterproof', '12hr battery', 'PartyBoost', 'Bold sound']
     }
 ];
 
-// State
-let chatHistory = [];
+// State Management
+let cart = [];
+let wishlist = [];
 let orders = [];
+let currentCategory = 'all';
+let currentSlide = 0;
+let chatHistory = [];
+let filters = {
+    maxPrice: 150000,
+    categories: [],
+    ratings: [],
+    inStock: false
+};
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
-    initNavigation();
     loadFromStorage();
-    displayOrders();
+    initializeCarousel();
+    displayDeals();
+    displayProducts();
+    updateCartCount();
+    updateWishlistCount();
+    initializeCategoryNav();
+    initializeSearch();
+    startDealCountdown();
 });
 
-// Navigation
-function initNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section');
+// Carousel Functions
+function initializeCarousel() {
+    const carousel = document.getElementById('bannerCarousel');
+    const dotsContainer = document.getElementById('carouselDots');
+    const items = carousel.querySelectorAll('.carousel-item');
     
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-            
-            const targetId = link.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-        });
+    items.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+        dot.onclick = () => goToSlide(index);
+        dotsContainer.appendChild(dot);
     });
     
-    // Update active link on scroll
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            if (window.pageYOffset >= sectionTop) {
-                current = section.getAttribute('id');
-            }
-        });
+    setInterval(nextSlide, 5000);
+}
+
+function nextSlide() {
+    const items = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    items[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    
+    currentSlide = (currentSlide + 1) % items.length;
+    
+    items[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function prevSlide() {
+    const items = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    items[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    
+    currentSlide = (currentSlide - 1 + items.length) % items.length;
+    
+    items[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function goToSlide(index) {
+    const items = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    items[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    
+    currentSlide = index;
+    
+    items[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+// Deal Countdown
+function startDealCountdown() {
+    setInterval(() => {
+        const now = new Date();
+        const midnight = new Date();
+        midnight.setHours(24, 0, 0, 0);
+        const diff = midnight - now;
         
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        
+        document.getElementById('dealCountdown').textContent = 
+            `Ends in: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
 }
 
-function scrollTo(target) {
-    document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
-}
-
-// Products
-function loadProducts() {
-    const grid = document.getElementById('productsGrid');
+// Display Functions
+function displayDeals() {
+    const dealsGrid = document.getElementById('dealsGrid');
+    const dealProducts = products.filter(p => p.deal).slice(0, 4);
     
-    if (products.length === 0) {
-        grid.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    dealsGrid.innerHTML = dealProducts.map(product => createProductCard(product, true)).join('');
+}
+
+function displayProducts() {
+    const grid = document.getElementById('productsGrid');
+    let filtered = filterProducts();
+    filtered = sortProducts(filtered);
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--gray-500);">No products found matching your criteria</div>';
         return;
     }
     
-    grid.innerHTML = products.map(product => `
-        <div class="product-card">
+    grid.innerHTML = filtered.map(product => createProductCard(product)).join('');
+}
+
+function createProductCard(product, isDeal = false) {
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    const isInCart = cart.some(item => item.id === product.id);
+    
+    return `
+        <div class="product-card" onclick="showProductDetails(${product.id})">
+            ${product.discount > 0 ? `<span class="product-badge">-${product.discount}% OFF</span>` : ''}
             <div class="product-image">${product.icon}</div>
             <div class="product-info">
-                <span class="product-badge">${product.category}</span>
                 <h3 class="product-name">${product.name}</h3>
-                <div class="product-price">₹${formatPrice(product.price)}</div>
+                <div class="product-rating">
+                    <span class="rating-stars">${'⭐'.repeat(Math.floor(product.rating))}</span>
+                    <span class="rating-count">(${product.reviews})</span>
+                </div>
+                <div class="product-price-section">
+                    <div class="product-price">₹${formatPrice(product.price)}</div>
+                    ${product.originalPrice ? `<div class="product-price-original">₹${formatPrice(product.originalPrice)}</div>` : ''}
+                    ${product.discount > 0 ? `<div class="product-discount">${product.discount}% off</div>` : ''}
+                </div>
                 <p class="product-description">${product.description}</p>
-                <div class="product-actions">
-                    <button class="btn-small btn-ask" onclick="askAboutProduct('${product.name}')">Ask KAI</button>
-                    <button class="btn-small btn-buy" onclick="orderProduct('${product.name}', ${product.price})">Buy Now</button>
+                <div class="product-actions" onclick="event.stopPropagation()">
+                    <button class="btn-add-cart" onclick="addToCart(${product.id})">
+                        ${isInCart ? '✓ In Cart' : 'Add to Cart'}
+                    </button>
+                    <button class="btn-wishlist ${isInWishlist ? 'active' : ''}" onclick="toggleWishlistItem(${product.id})">
+                        ${isInWishlist ? '❤️' : '🤍'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function filterProducts() {
+    let filtered = products;
+    
+    // Filter by category
+    if (currentCategory !== 'all') {
+        filtered = filtered.filter(p => p.category === currentCategory);
+    }
+    
+    // Filter by selected categories
+    if (filters.categories.length > 0) {
+        filtered = filtered.filter(p => filters.categories.includes(p.category));
+    }
+    
+    // Filter by price
+    filtered = filtered.filter(p => p.price <= filters.maxPrice);
+    
+    // Filter by rating
+    if (filters.ratings.length > 0) {
+        const minRating = Math.min(...filters.ratings);
+        filtered = filtered.filter(p => p.rating >= minRating);
+    }
+    
+    // Filter by stock
+    if (filters.inStock) {
+        filtered = filtered.filter(p => p.stock);
+    }
+    
+    return filtered;
+}
+
+function sortProducts(products) {
+    const sortBy = document.getElementById('sortSelect')?.value || 'popularity';
+    
+    switch (sortBy) {
+        case 'price-low':
+            return [...products].sort((a, b) => a.price - b.price);
+        case 'price-high':
+            return [...products].sort((a, b) => b.price - a.price);
+        case 'rating':
+            return [...products].sort((a, b) => b.rating - a.rating);
+        case 'newest':
+            return [...products].sort((a, b) => b.id - a.id);
+        default:
+            return [...products].sort((a, b) => b.reviews - a.reviews);
+    }
+}
+
+// Cart Functions
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+    
+    updateCartCount();
+    displayCartItems();
+    saveToStorage();
+    showToast(`${product.name} added to cart!`);
+    displayProducts(); // Refresh to update button state
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartCount();
+    displayCartItems();
+    saveToStorage();
+    displayProducts();
+}
+
+function updateQuantity(productId, change) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            displayCartItems();
+            saveToStorage();
+        }
+    }
+}
+
+function displayCartItems() {
+    const cartItems = document.getElementById('cartItems');
+    const cartFooter = document.getElementById('cartFooter');
+    const cartItemCount = document.getElementById('cartItemCount');
+    
+    cartItemCount.textContent = cart.length;
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="empty-cart">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <p>Your cart is empty</p>
+                <button class="btn btn-primary" onclick="toggleCart()">Start Shopping</button>
+            </div>
+        `;
+        cartFooter.style.display = 'none';
+        return;
+    }
+    
+    cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <div class="cart-item-image">${item.icon}</div>
+            <div class="cart-item-details">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">₹${formatPrice(item.price)}</div>
+                <div class="cart-item-controls">
+                    <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                    <span class="cart-item-qty">${item.quantity}</span>
+                    <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    document.getElementById('cartSubtotal').textContent = `₹${formatPrice(subtotal)}`;
+    cartFooter.style.display = 'block';
+}
+
+function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cartCount').textContent = count;
+}
+
+function toggleCart() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('overlay');
+    const isActive = cartSidebar.classList.toggle('active');
+    overlay.classList.toggle('active', isActive);
+    if (isActive) displayCartItems();
+}
+
+// Wishlist Functions
+function toggleWishlistItem(productId) {
+    const product = products.find(p => p.id === productId);
+    const existingIndex = wishlist.findIndex(item => item.id === productId);
+    
+    if (existingIndex > -1) {
+        wishlist.splice(existingIndex, 1);
+        showToast(`Removed from wishlist`);
+    } else {
+        wishlist.push(product);
+        showToast(`${product.name} added to wishlist!`);
+    }
+    
+    updateWishlistCount();
+    displayWishlistItems();
+    saveToStorage();
+    displayProducts();
+    displayDeals();
+}
+
+function displayWishlistItems() {
+    const wishlistItems = document.getElementById('wishlistItems');
+    const wishlistItemCount = document.getElementById('wishlistItemCount');
+    
+    wishlistItemCount.textContent = wishlist.length;
+    
+    if (wishlist.length === 0) {
+        wishlistItems.innerHTML = `
+            <div class="empty-cart">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <p>Your wishlist is empty</p>
+                <button class="btn btn-primary" onclick="toggleWishlist()">Browse Products</button>
+            </div>
+        `;
+        return;
+    }
+    
+    wishlistItems.innerHTML = wishlist.map(item => `
+        <div class="cart-item">
+            <div class="cart-item-image">${item.icon}</div>
+            <div class="cart-item-details">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">₹${formatPrice(item.price)}</div>
+                <div class="cart-item-controls">
+                    <button class="btn-add-cart" style="margin-right: 0.5rem;" onclick="addToCart(${item.id}); toggleWishlist();">Add to Cart</button>
+                    <button class="remove-btn" onclick="toggleWishlistItem(${item.id})">Remove</button>
                 </div>
             </div>
         </div>
     `).join('');
 }
 
-function askAboutProduct(productName) {
-    openChat();
-    setTimeout(() => {
-        const input = document.getElementById('chatInput');
-        input.value = `Tell me more about ${productName}`;
-        sendChatMessage();
-    }, 300);
+function updateWishlistCount() {
+    document.getElementById('wishlistCount').textContent = wishlist.length;
 }
 
-function orderProduct(productName, price) {
-    openChat();
+function toggleWishlist() {
+    const wishlistSidebar = document.getElementById('wishlistSidebar');
+    const overlay = document.getElementById('overlay');
+    const isActive = wishlistSidebar.classList.toggle('active');
+    overlay.classList.toggle('active', isActive);
+    if (isActive) displayWishlistItems();
+}
+
+// Category Navigation
+function initializeCategoryNav() {
+    const categoryItems = document.querySelectorAll('.category-item');
+    categoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            categoryItems.forEach(cat => cat.classList.remove('active'));
+            item.classList.add('active');
+            currentCategory = item.dataset.category;
+            displayProducts();
+        });
+    });
+}
+
+// Search Functions
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (query.length < 2) {
+            document.getElementById('searchSuggestions').classList.remove('active');
+            return;
+        }
+        showSearchSuggestions(query);
+    });
+}
+
+function showSearchSuggestions(query) {
+    const suggestions = products.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        p.category.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query)
+    ).slice(0, 5);
+    
+    const suggestionsDiv = document.getElementById('searchSuggestions');
+    
+    if (suggestions.length === 0) {
+        suggestionsDiv.classList.remove('active');
+        return;
+    }
+    
+    suggestionsDiv.innerHTML = suggestions.map(product => `
+        <div class="suggestion-item" onclick="showProductDetails(${product.id}); document.getElementById('searchSuggestions').classList.remove('active');">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span style="font-size: 2rem;">${product.icon}</span>
+                <div>
+                    <div style="font-weight: 600;">${product.name}</div>
+                    <div style="font-size: 0.875rem; color: var(--gray-600);">₹${formatPrice(product.price)} • ${product.category}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    suggestionsDiv.classList.add('active');
+}
+
+function searchProducts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const category = document.getElementById('searchCategory').value;
+    
+    let filtered = products;
+    
+    if (category !== 'all') {
+        filtered = filtered.filter(p => p.category === category);
+    }
+    
+    if (query) {
+        filtered = filtered.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            p.description.toLowerCase().includes(query)
+        );
+    }
+    
+    document.getElementById('productsGrid').innerHTML = filtered.map(p => createProductCard(p)).join('');
+    document.getElementById('searchSuggestions').classList.remove('active');
+    scrollToProducts();
+}
+
+// Product Detail Modal
+function showProductDetails(productId) {
+    const product = products.find(p => p.id === productId);
+    const modal = document.getElementById('productModal');
+    const modalBody = document.getElementById('productModalBody');
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    
+    modalBody.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+                <div style="font-size: 8rem; text-align: center; background: var(--gray-100); padding: 2rem; border-radius: 12px; margin-bottom: 1rem;">
+                    ${product.icon}
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    ${product.images.map(img => `
+                        <div style="font-size: 3rem; padding: 1rem; background: var(--gray-100); border-radius: 8px; cursor: pointer;">
+                            ${img}
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div>
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">${product.name}</h2>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span>${'⭐'.repeat(Math.floor(product.rating))}</span>
+                        <span style="font-weight: 600;">${product.rating}</span>
+                    </div>
+                    <span style="color: var(--gray-600);">${product.reviews} reviews</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">₹${formatPrice(product.price)}</div>
+                    ${product.originalPrice ? `
+                        <div style="font-size: 1.25rem; color: var(--gray-500); text-decoration: line-through;">₹${formatPrice(product.originalPrice)}</div>
+                        <div style="color: var(--success); font-weight: 600;">${product.discount}% OFF</div>
+                    ` : ''}
+                </div>
+                <p style="color: var(--gray-700); line-height: 1.8; margin-bottom: 2rem;">${product.description}</p>
+                <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem;">Key Highlights</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        ${product.highlights.map(h => `<li style="padding: 0.5rem 0; border-bottom: 1px solid var(--gray-200);">✓ ${h}</li>`).join('')}
+                    </ul>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn btn-primary" style="flex: 1;" onclick="addToCart(${product.id}); closeProductModal();">Add to Cart</button>
+                    <button class="btn-wishlist ${isInWishlist ? 'active' : ''}" style="padding: 0.75rem 1.5rem;" onclick="toggleWishlistItem(${product.id}); showProductDetails(${product.id});">
+                        ${isInWishlist ? '❤️ Saved' : '🤍 Save'}
+                    </button>
+                </div>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;" onclick="buyNow(${product.id})">Buy Now</button>
+            </div>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+}
+
+function closeProductModal() {
+    document.getElementById('productModal').classList.remove('active');
+}
+
+function buyNow(productId) {
+    addToCart(productId);
+    closeProductModal();
+    proceedToCheckout();
+}
+
+// Checkout
+function proceedToCheckout() {
+    if (cart.length === 0) {
+        showToast('Your cart is empty!');
+        return;
+    }
+    
+    toggleCart();
+    const modal = document.getElementById('checkoutModal');
+    const content = document.getElementById('checkoutContent');
+    
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const delivery = subtotal > 50000 ? 0 : 500;
+    const total = subtotal + delivery;
+    
+    content.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem;">
+            <div>
+                <h3 style="margin-bottom: 1.5rem;">Delivery Address</h3>
+                <form id="checkoutForm" onsubmit="placeOrder(event)">
+                    <input type="text" placeholder="Full Name *" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+                    <input type="tel" placeholder="Phone Number *" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+                    <input type="text" placeholder="Address Line 1 *" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+                    <input type="text" placeholder="Address Line 2" style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <input type="text" placeholder="City *" required style="padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+                        <input type="text" placeholder="Pincode *" required style="padding: 0.75rem; border: 1px solid var(--gray-300); border-radius: 4px;">
+                    </div>
+                    
+                    <h3 style="margin: 2rem 0 1.5rem;">Payment Method</h3>
+                    <label style="display: block; padding: 1rem; border: 2px solid var(--gray-300); border-radius: 8px; margin-bottom: 1rem; cursor: pointer;">
+                        <input type="radio" name="payment" value="cod" checked> Cash on Delivery
+                    </label>
+                    <label style="display: block; padding: 1rem; border: 2px solid var(--gray-300); border-radius: 8px; margin-bottom: 1rem; cursor: pointer;">
+                        <input type="radio" name="payment" value="card"> Credit/Debit Card
+                    </label>
+                    <label style="display: block; padding: 1rem; border: 2px solid var(--gray-300); border-radius: 8px; margin-bottom: 2rem; cursor: pointer;">
+                        <input type="radio" name="payment" value="upi"> UPI Payment
+                    </label>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Place Order - ₹${formatPrice(total)}</button>
+                </form>
+            </div>
+            <div>
+                <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 8px; position: sticky; top: 1rem;">
+                    <h3 style="margin-bottom: 1rem;">Order Summary</h3>
+                    <div style="max-height: 300px; overflow-y: auto; margin-bottom: 1rem;">
+                        ${cart.map(item => `
+                            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-300);">
+                                <div>
+                                    <div style="font-weight: 600;">${item.name}</div>
+                                    <div style="font-size: 0.875rem; color: var(--gray-600);">Qty: ${item.quantity}</div>
+                                </div>
+                                <div style="font-weight: 600;">₹${formatPrice(item.price * item.quantity)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="border-top: 2px solid var(--gray-300); padding-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                            <span>Subtotal</span>
+                            <span>₹${formatPrice(subtotal)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                            <span>Delivery</span>
+                            <span>${delivery === 0 ? 'FREE' : '₹' + delivery}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--gray-300);">
+                            <span>Total</span>
+                            <span>₹${formatPrice(total)}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    modal.classList.add('active');
+}
+
+function placeOrder(event) {
+    event.preventDefault();
+    
+    const orderId = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+    const deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + Math.floor(Math.random() * 3) + 3);
+    
+    const order = {
+        id: orderId,
+        items: cart.map(item => ({
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            icon: item.icon
+        })),
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        status: 'Processing',
+        orderDate: new Date().toLocaleDateString('en-IN'),
+        deliveryDate: deliveryDate.toLocaleDateString('en-IN'),
+        timestamp: new Date().toISOString()
+    };
+    
+    orders.push(order);
+    cart = [];
+    
+    updateCartCount();
+    saveToStorage();
+    
+    closeCheckoutModal();
+    showToast('Order placed successfully! Order ID: ' + orderId);
+    
     setTimeout(() => {
-        const input = document.getElementById('chatInput');
-        input.value = `I want to order ${productName}`;
-        sendChatMessage();
-    }, 300);
+        showOrders();
+    }, 1000);
+}
+
+function closeCheckoutModal() {
+    document.getElementById('checkoutModal').classList.remove('active');
+}
+
+// Orders
+function showOrders() {
+    closeAllSidebars();
+    document.querySelector('.products-section').style.display = 'none';
+    document.querySelector('.deals-section').style.display = 'none';
+    document.querySelector('.carousel-section').style.display = 'none';
+    
+    const ordersSection = document.getElementById('ordersSection');
+    ordersSection.style.display = 'block';
+    
+    displayOrdersList();
+}
+
+function hideOrders() {
+    document.getElementById('ordersSection').style.display = 'none';
+    document.querySelector('.products-section').style.display = 'block';
+    document.querySelector('.deals-section').style.display = 'block';
+    document.querySelector('.carousel-section').style.display = 'block';
+}
+
+function displayOrdersList() {
+    const ordersList = document.getElementById('ordersList');
+    
+    if (orders.length === 0) {
+        ordersList.innerHTML = `
+            <div class="empty-cart">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <polyline points="17 11 19 13 23 9"></polyline>
+                </svg>
+                <p>No orders yet</p>
+                <button class="btn btn-primary" onclick="hideOrders()">Start Shopping</button>
+            </div>
+        `;
+        return;
+    }
+    
+    ordersList.innerHTML = orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).map(order => `
+        <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--gray-200);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-200);">
+                <div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Order #${order.id}</h3>
+                    <p style="color: var(--gray-600);">Placed on ${order.orderDate}</p>
+                </div>
+                <span style="padding: 0.5rem 1rem; background: rgba(255, 193, 7, 0.1); color: #f59e0b; border-radius: 20px; font-weight: 600;">${order.status}</span>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                ${order.items.map(item => `
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0;">
+                        <span style="font-size: 2rem;">${item.icon}</span>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600;">${item.name}</div>
+                            <div style="color: var(--gray-600); font-size: 0.875rem;">Quantity: ${item.quantity}</div>
+                        </div>
+                        <div style="font-weight: 600;">₹${formatPrice(item.price * item.quantity)}</div>
+                    </div>
+                `).join('')}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+                <div>
+                    <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.25rem;">Expected Delivery</div>
+                    <div style="font-weight: 600;">${order.deliveryDate}</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.25rem;">Total Amount</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">₹${formatPrice(order.total)}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Filters
+function toggleFilters() {
+    const sidebar = document.getElementById('filtersSidebar');
+    sidebar.classList.toggle('mobile-active');
+    document.getElementById('overlay').classList.add('active');
+}
+
+function updatePriceRange() {
+    const value = document.getElementById('priceRange').value;
+    document.getElementById('maxPrice').textContent = `₹${formatPrice(value)}`;
+    filters.maxPrice = parseInt(value);
+    applyFilters();
+}
+
+function applyFilters() {
+    // Get selected categories
+    filters.categories = Array.from(document.querySelectorAll('.filter-group input[type="checkbox"][value^="S"], .filter-group input[type="checkbox"][value="Laptops"], .filter-group input[type="checkbox"][value="Audio"], .filter-group input[type="checkbox"][value="Wearables"]'))
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+    
+    // Get selected ratings
+    filters.ratings = Array.from(document.querySelectorAll('.filter-group input[value="4"], .filter-group input[value="3"]'))
+        .filter(cb => cb.checked)
+        .map(cb => parseInt(cb.value));
+    
+    // Get stock filter
+    filters.inStock = document.querySelector('.filter-group input[value="instock"]')?.checked || false;
+    
+    displayProducts();
+}
+
+function clearFilters() {
+    filters = {
+        maxPrice: 150000,
+        categories: [],
+        ratings: [],
+        inStock: false
+    };
+    
+    document.getElementById('priceRange').value = 150000;
+    document.getElementById('maxPrice').textContent = '₹1,50,000';
+    document.querySelectorAll('.filter-group input[type="checkbox"]').forEach(cb => cb.checked = false);
+    
+    displayProducts();
+}
+
+// Account Functions
+function toggleAccount() {
+    const dropdown = document.getElementById('accountDropdown');
+    dropdown.classList.toggle('active');
+}
+
+function showProfile() {
+    closeAllSidebars();
+    showToast('Profile feature coming soon!');
+}
+
+function showAddresses() {
+    closeAllSidebars();
+    showToast('Addresses feature coming soon!');
+}
+
+function showNotifications() {
+    closeAllSidebars();
+    showToast('Notifications feature coming soon!');
+}
+
+function logout() {
+    closeAllSidebars();
+    showToast('Logged out successfully!');
 }
 
 // Chat Functions
@@ -239,28 +1001,14 @@ function toggleChat() {
     if (widget.classList.contains('active')) {
         closeChat();
     } else {
-        openChat();
+        widget.classList.add('active');
+        button.style.display = 'none';
     }
 }
 
-function openChat() {
-    const widget = document.getElementById('chatWidget');
-    const button = document.getElementById('chatButton');
-    
-    widget.classList.add('active');
-    button.style.display = 'none';
-    
-    // Clear new message badge
-    const badge = document.querySelector('.chat-badge');
-    if (badge) badge.style.display = 'none';
-}
-
 function closeChat() {
-    const widget = document.getElementById('chatWidget');
-    const button = document.getElementById('chatButton');
-    
-    widget.classList.remove('active');
-    button.style.display = 'flex';
+    document.getElementById('chatWidget').classList.remove('active');
+    document.getElementById('chatButton').style.display = 'flex';
 }
 
 function handleChatKeyPress(event) {
@@ -269,23 +1017,27 @@ function handleChatKeyPress(event) {
     }
 }
 
+function sendQuickQuestion(question) {
+    document.getElementById('chatInput').value = question;
+    sendChatMessage();
+}
+
 async function sendChatMessage() {
     const input = document.getElementById('chatInput');
     const message = input.value.trim();
     
     if (!message) return;
     
-    // Clear input
     input.value = '';
     
-    // Hide welcome message
+    // Hide welcome
     const welcome = document.querySelector('.chat-welcome');
     if (welcome) welcome.style.display = 'none';
     
     // Add user message
     addChatMessage('user', message);
     
-    // Show typing indicator
+    // Show typing
     showTypingIndicator();
     
     // Get AI response
@@ -293,11 +1045,9 @@ async function sendChatMessage() {
         const response = await getAIResponse(message);
         hideTypingIndicator();
         addChatMessage('ai', response);
-        saveToStorage();
     } catch (error) {
         hideTypingIndicator();
-        addChatMessage('ai', 'I apologize, but I\'m having trouble connecting right now. Please try again or contact our customer care at +91 1800-123-4567.');
-        console.error('Chat error:', error);
+        addChatMessage('ai', 'I apologize, but I\'m having trouble connecting right now. Please try again!');
     }
 }
 
@@ -312,11 +1062,8 @@ function addChatMessage(sender, content) {
     
     messageDiv.appendChild(bubble);
     chatBody.appendChild(messageDiv);
-    
-    // Scroll to bottom
     chatBody.scrollTop = chatBody.scrollHeight;
     
-    // Save to history
     chatHistory.push({ sender, content, timestamp: new Date().toISOString() });
 }
 
@@ -324,13 +1071,7 @@ function showTypingIndicator() {
     const chatBody = document.getElementById('chatBody');
     const indicator = document.createElement('div');
     indicator.className = 'chat-message ai typing-message';
-    indicator.innerHTML = `
-        <div class="message-bubble typing-indicator">
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        </div>
-    `;
+    indicator.innerHTML = `<div class="message-bubble">Typing...</div>`;
     chatBody.appendChild(indicator);
     chatBody.scrollTop = chatBody.scrollHeight;
 }
@@ -342,138 +1083,55 @@ function hideTypingIndicator() {
 
 async function getAIResponse(userMessage) {
     const productsList = products.map(p => 
-        `${p.name} (${p.category}) - ₹${formatPrice(p.price)} - ${p.description}`
+        `${p.name} (${p.category}) - ₹${formatPrice(p.price)} - Rating: ${p.rating}★ - ${p.description}`
     ).join('\n');
     
-    const systemPrompt = `You are KAI, an intelligent AI shopping assistant for the KAI Shopping Platform.
-
-IMPORTANT: WE OFFER 24/7 ONLINE ORDERING!
-Customers can order products ANYTIME - day or night, 365 days a year!
-
-WEBSITE INFORMATION:
-- Name: ${WEBSITE_INFO.name}
-- Description: ${WEBSITE_INFO.description}
-- ORDERING: ${WEBSITE_INFO.ordering}
-- Email: ${WEBSITE_INFO.contact.email}
-- Phone: ${WEBSITE_INFO.contact.phone} (Toll Free), ${WEBSITE_INFO.contact.phone2}
-- Address: ${WEBSITE_INFO.contact.address}
-- Phone Support Hours: ${WEBSITE_INFO.phoneHours}
-- AI Chat: Available 24/7
-- Online Orders: 24/7 - ANYTIME!
+    const systemPrompt = `You are KAI, an intelligent e-commerce shopping assistant.
 
 AVAILABLE PRODUCTS:
 ${productsList}
 
-YOUR CAPABILITIES:
-1. Answer ANY question about our website, products, services, or policies
-2. **SHOW PRODUCT LISTS** - Display multiple products with details
-3. **RECOMMEND BEST PRODUCTS** - Highlight the best option among alternatives
-4. Provide detailed product information and specifications
-5. Compare products and help users make informed decisions
-6. Explain prices (all in Indian Rupees ₹)
-7. Provide contact information when asked
-8. Help with customer care and support queries
-9. **CREATE ORDERS IMMEDIATELY** when user says buy/order/purchase
-10. Generate order confirmations with Order IDs, prices, and delivery dates
-11. Track order status
-12. Answer questions about delivery, returns, refunds
-13. Provide shopping tips and advice
-
-IMPORTANT FOR SHOWING PRODUCTS:
-When user asks about products (phones, laptops, headphones, etc.):
-1. Show 2-4 relevant products from the list above
-2. For each product display:
-   - Product name
-   - Price in ₹ format (₹1,29,900)
-   - Key features/description
-3. **RECOMMEND THE BEST** - Highlight which one is the best choice and WHY
-4. Format products in a clear, easy-to-read list
-5. Use <strong> tags for product names and prices
-
-EXAMPLE PRODUCT RESPONSE FORMAT:
-"Here are the best [category] products available:
-
-<strong>1. [Product Name]</strong> - ₹[Price]
-[Description and key features]
-
-<strong>2. [Product Name]</strong> - ₹[Price]
-[Description and key features]
-
-<strong>3. [Product Name]</strong> - ₹[Price]
-[Description and key features]
-
-<strong>✨ Best Choice:</strong> I recommend the [Product Name] because [reason - best features, value for money, most popular, etc.]
-
-Would you like to order any of these?"
-
-IMPORTANT FOR ORDERING:
-- When user says "I want to order [product]" or "buy [product]", confirm the order
-- **ALWAYS MENTION THE EXACT PRODUCT NAME** the user wants to order
-- Always say: "Order Placed Successfully! 🎉"
-- Confirm: "Your [Product Name] order is confirmed!"
-- Always include: Order ID will be generated, Price, Delivery in 3-5 days
-- Always thank the customer
-- System will automatically create the order in background
+YOUR ROLE:
+- Help customers find products
+- Provide product recommendations
+- Compare products
+- Answer shopping questions
+- Assist with orders
 
 RESPONSE GUIDELINES:
-- Be helpful, friendly, and professional
-- Answer questions accurately using the information provided
-- If asked about contact: provide email, phone numbers, and address
-- If asked about customer care: mention 24/7 AI chat and phone support
-- **For product queries: ALWAYS show 2-4 options with prices in ₹ format**
-- **ALWAYS recommend which product is BEST and explain why**
-- **FOR ORDERS: Immediately confirm "Order Placed Successfully!" with product name**
-- For orders: mention Order ID will be generated, delivery in 3-5 days
-- Be conversational but professional
-- Use HTML formatting: <strong> for emphasis, <br> for line breaks
-- Always end responses helpfully - offer to assist further
-
-WHEN USER WANTS TO ORDER:
-1. Confirm: "Order Placed Successfully! 🎉"
-2. **ALWAYS MENTION THE EXACT PRODUCT NAME MULTIPLE TIMES**: "Your [Product Name] order is confirmed!"
-3. Repeat product name: "Thank you for ordering [Product Name]!"
-4. State: "Order ID will be generated, Delivery in 3-5 business days"
-5. Mention the price: "Amount: ₹[Price]"
-6. Emphasize: "Your [Product Name] will be delivered soon!"
-7. Thank them for shopping
-8. Ask if they need anything else
-
-CRITICAL: When confirming order, say the product name at least 2-3 times in your response!
+- Be helpful and friendly
+- Show 2-3 product recommendations when asked
+- Include prices in ₹ format
+- Mention ratings
+- Suggest best value options
+- Keep responses concise
 
 User Question: ${userMessage}
 
-Provide a helpful, accurate, and professional response.`;
-
+Provide a helpful response:`;
+    
     try {
         const response = await fetch(GEMINI_API_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: systemPrompt
-                    }]
-                }],
+                contents: [{ parts: [{ text: systemPrompt }] }],
                 generationConfig: {
                     temperature: 0.7,
                     topK: 40,
                     topP: 0.95,
-                    maxOutputTokens: 2048,
+                    maxOutputTokens: 1024,
                 }
             })
         });
-
-        if (!response.ok) {
-            throw new Error('API request failed');
-        }
-
+        
+        if (!response.ok) throw new Error('API request failed');
+        
         const data = await response.json();
         let aiResponse = data.candidates[0].content.parts[0].text;
         
-        // Process response for special actions
-        aiResponse = processResponse(aiResponse, userMessage);
+        aiResponse = aiResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        aiResponse = aiResponse.replace(/\n/g, '<br>');
         
         return aiResponse;
     } catch (error) {
@@ -482,367 +1140,35 @@ Provide a helpful, accurate, and professional response.`;
     }
 }
 
-function processResponse(response, userMessage) {
-    // Check for order creation
-    const lower = userMessage.toLowerCase();
-    if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
-        const orderDetails = createOrder(userMessage);
-        
-        // Find product icon
-        const matchedProduct = products.find(p => p.name === orderDetails.product);
-        const productIcon = matchedProduct ? matchedProduct.icon : '📦';
-        
-        // Add order confirmation to response with PROMINENT product name
-        const orderConfirmation = `
-            <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 2rem; border-radius: 12px; color: white; margin: 1rem 0; box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; text-align: center;">✅ Order Placed Successfully!</div>
-                
-                <div style="background: white; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                    <div style="font-size: 0.875rem; color: #6b7280; text-align: center; margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">PRODUCT ORDERED</div>
-                    <div style="font-size: 1.75rem; color: #10b981; font-weight: 800; text-align: center; line-height: 1.4;">
-                        ${productIcon} ${orderDetails.product}
-                    </div>
-                    <div style="font-size: 0.875rem; color: #6b7280; text-align: center; margin-top: 0.5rem;">${orderDetails.category || 'Product'}</div>
-                </div>
-                
-                <div style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; text-align: center; opacity: 0.95;">Order #${orderDetails.id}</div>
-                
-                <div style="background: rgba(255,255,255,0.2); padding: 1.25rem; border-radius: 8px; backdrop-filter: blur(10px);">
-                    <div style="margin-bottom: 0.75rem; font-size: 1.125rem;"><strong>💰 Amount:</strong> ₹${formatPrice(orderDetails.price)}</div>
-                    <div style="margin-bottom: 0.75rem; font-size: 1rem;"><strong>📅 Order Date:</strong> ${orderDetails.orderDate}</div>
-                    <div style="margin-bottom: 0.75rem; font-size: 1rem;"><strong>🚚 Delivery By:</strong> ${orderDetails.deliveryDate}</div>
-                    <div style="font-size: 1rem;"><strong>📍 Status:</strong> ${orderDetails.status}</div>
-                </div>
-                <div style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.95; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 1rem; text-align: center;">
-                    ✨ <strong>Thank you for shopping with KAI!</strong><br>
-                    Your <strong>${orderDetails.product}</strong> will be delivered in 3-5 business days.<br>
-                    Check "Orders" section to track your order!
-                </div>
-            </div>
-        `;
-        
-        // Add confirmation before or after AI response
-        response = orderConfirmation + '<br>' + response;
-    }
-    
-    // Format response
-    response = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    response = response.replace(/\n/g, '<br>');
-    
-    return response;
-}
-
-function createOrder(message) {
-    const orderId = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-    
-    // Enhanced product matching - find exact product name first
-    let product = null;
-    const lowerMessage = message.toLowerCase();
-    
-    // Method 1: Try to find full product name match
-    product = products.find(p => 
-        lowerMessage.includes(p.name.toLowerCase())
-    );
-    
-    // Method 2: Try category-based matching (e.g., "samsung", "iphone", "macbook")
-    if (!product) {
-        const brandKeywords = {
-            'iphone': ['iphone', 'apple phone'],
-            'samsung': ['samsung', 's23', 's22', 'galaxy'],
-            'macbook': ['macbook', 'mac book', 'apple laptop'],
-            'dell': ['dell', 'xps'],
-            'hp': ['hp', 'pavilion'],
-            'oneplus': ['oneplus', 'one plus'],
-            'sony': ['sony', 'wh-1000', 'headphone'],
-            'boat': ['boat', 'airdopes'],
-            'jbl': ['jbl', 'flip'],
-            'watch': ['watch', 'smartwatch'],
-            'airpods': ['airpods', 'air pods']
-        };
-        
-        for (let p of products) {
-            const productNameLower = p.name.toLowerCase();
-            
-            // Check if any brand keyword matches
-            for (let [brand, keywords] of Object.entries(brandKeywords)) {
-                if (productNameLower.includes(brand)) {
-                    if (keywords.some(keyword => lowerMessage.includes(keyword))) {
-                        product = p;
-                        break;
-                    }
-                }
-            }
-            if (product) break;
-        }
-    }
-    
-    // Method 3: Try individual word matching (minimum 4 characters)
-    if (!product) {
-        for (let p of products) {
-            const words = p.name.toLowerCase().split(' ');
-            for (let word of words) {
-                if (word.length >= 4 && lowerMessage.includes(word)) {
-                    product = p;
-                    break;
-                }
-            }
-            if (product) break;
-        }
-    }
-    
-    // Method 4: Try category matching
-    if (!product) {
-        const categoryKeywords = {
-            'phone': ['Smartphones'],
-            'laptop': ['Laptops'],
-            'headphone': ['Audio', 'Headphones'],
-            'watch': ['Wearables'],
-            'speaker': ['Audio']
-        };
-        
-        for (let [keyword, categories] of Object.entries(categoryKeywords)) {
-            if (lowerMessage.includes(keyword)) {
-                product = products.find(p => categories.includes(p.category));
-                if (product) break;
-            }
-        }
-    }
-    
-    // Method 5: Default to first product if nothing matched
-    if (!product) {
-        product = products[0];
-    }
-    
-    const deliveryDate = new Date();
-    deliveryDate.setDate(deliveryDate.getDate() + Math.floor(Math.random() * 3) + 3);
-    
-    // Ensure product name is always set
-    if (!product || !product.name) {
-        console.error('❌ Product not found! Using default.');
-        product = products[0]; // Fallback to first product
-    }
-    
-    const order = {
-        id: orderId,
-        product: product.name,
-        category: product.category,
-        price: product.price,
-        status: 'Processing',
-        orderDate: new Date().toLocaleDateString('en-IN'),
-        deliveryDate: deliveryDate.toLocaleDateString('en-IN'),
-        timestamp: new Date().toISOString()
-    };
-    
-    orders.push(order);
-    saveToStorage();
-    
-    console.log('✅ Order created:', order);
-    console.log('📦 Product name:', order.product);
-    console.log('📂 Category:', order.category);
-    console.log('💰 Price:', order.price);
-    
-    return order;
-}
-
 function getSmartFallback(userMessage) {
     const lower = userMessage.toLowerCase();
     
-    // Order/Buy queries - create order
-    if (lower.includes('order') || lower.includes('buy') || lower.includes('purchase')) {
-        // Find the product name from the message
-        let productName = 'your product';
-        for (let p of products) {
-            if (lower.includes(p.name.toLowerCase())) {
-                productName = p.name;
-                break;
-            }
-        }
-        
-        // Order will be created by processResponse
-        return `
-            <strong>🎉 Order Confirmed for ${productName}!</strong><br><br>
-            Your <strong>${productName}</strong> order has been successfully placed! You can see the full order details above.<br><br>
-            <strong>✅ What happens next?</strong><br>
-            📋 Order confirmed and processing<br>
-            📦 Quality check and secure packaging<br>
-            🚚 Shipped directly to your address<br>
-            🎁 Delivered in 3-5 business days<br><br>
-            <strong>📞 Need help?</strong><br>
-            • Track your <strong>${productName}</strong> order anytime in the Orders section<br>
-            • Contact us: +91 1800-123-4567<br>
-            • Email: support@kai-assistant.com<br><br>
-            Would you like to order anything else? 🛍️
-        `;
+    if (lower.includes('phone') || lower.includes('mobile')) {
+        const phones = products.filter(p => p.category === 'Smartphones').slice(0, 3);
+        let response = '<strong>Top Smartphones:</strong><br><br>';
+        phones.forEach(p => {
+            response += `<strong>${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
+            response += `${p.rating}★ (${p.reviews} reviews)<br>${p.description}<br><br>`;
+        });
+        return response;
     }
     
-    // Contact queries
-    if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('call') || lower.includes('hours')) {
-        return `
-            <strong>Contact Information</strong><br><br>
-            🛒 <strong>ORDER ANYTIME 24/7!</strong><br>
-            Shop and place orders anytime - day or night!<br><br>
-            📧 <strong>Email:</strong> support@kai-assistant.com<br>
-            📞 <strong>Phone:</strong> +91 1800-123-4567 (Toll Free)<br>
-            📱 <strong>Mobile:</strong> +91 98765-43210<br>
-            📍 <strong>Address:</strong> 123 Tech Park, Electronic City, Bangalore, Karnataka 560100<br><br>
-            <strong>Phone Support Hours:</strong><br>
-            Monday-Friday: 9:00 AM - 8:00 PM<br>
-            Saturday-Sunday: 10:00 AM - 6:00 PM<br><br>
-            💬 <strong>AI Chat & Online Ordering:</strong> 24/7 Available!<br><br>
-            How else can I help you?
-        `;
+    if (lower.includes('laptop')) {
+        const laptops = products.filter(p => p.category === 'Laptops').slice(0, 3);
+        let response = '<strong>Top Laptops:</strong><br><br>';
+        laptops.forEach(p => {
+            response += `<strong>${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
+            response += `${p.rating}★ (${p.reviews} reviews)<br>${p.description}<br><br>`;
+        });
+        return response;
     }
     
-    // Help/support queries
-    if (lower.includes('help') || lower.includes('support') || lower.includes('customer care')) {
-        return `
-            <strong>Customer Support - 24/7 Available!</strong><br><br>
-            🛒 <strong>Order Anytime:</strong> Place orders 24/7 online!<br><br>
-            I'm here to help you anytime! You can:<br><br>
-            💬 <strong>Chat with me 24/7</strong> - I can answer any questions<br>
-            🛍️ <strong>Order products 24/7</strong> - Shop anytime, day or night<br>
-            📞 <strong>Call us</strong> - +91 1800-123-4567 (Mon-Fri: 9 AM - 8 PM)<br>
-            📧 <strong>Email us</strong> - support@kai-assistant.com<br><br>
-            What would you like help with today?
-        `;
-    }
-    
-    // Product queries - Enhanced with better recommendations
-    if (lower.includes('product') || lower.includes('phone') || lower.includes('laptop') || 
-        lower.includes('headphone') || lower.includes('watch') || lower.includes('recommend') ||
-        lower.includes('suggest') || lower.includes('best') || lower.includes('show')) {
-        
-        let relevantProducts = [];
-        let category = '';
-        
-        // Determine category
-        if (lower.includes('phone') || lower.includes('mobile')) {
-            relevantProducts = products.filter(p => p.category === 'Smartphones').slice(0, 3);
-            category = 'Smartphones';
-        } else if (lower.includes('laptop')) {
-            relevantProducts = products.filter(p => p.category === 'Laptops').slice(0, 3);
-            category = 'Laptops';
-        } else if (lower.includes('headphone') || lower.includes('audio') || lower.includes('speaker')) {
-            relevantProducts = products.filter(p => p.category === 'Audio').slice(0, 3);
-            category = 'Audio Products';
-        } else if (lower.includes('watch')) {
-            relevantProducts = products.filter(p => p.category === 'Wearables').slice(0, 3);
-            category = 'Smartwatches';
-        } else {
-            // Show popular products from different categories
-            relevantProducts = [products[0], products[3], products[6]];
-            category = 'Popular Products';
-        }
-        
-        if (relevantProducts.length > 0) {
-            let response = `<strong>Here are the best ${category} available:</strong><br><br>`;
-            
-            relevantProducts.forEach((p, index) => {
-                response += `<strong>${index + 1}. ${p.name}</strong> - ₹${formatPrice(p.price)}<br>`;
-                response += `${p.icon} ${p.description}<br>`;
-                if (p.specs) response += `<em>${p.specs}</em><br>`;
-                response += `<br>`;
-            });
-            
-            // Recommend the best one
-            const bestProduct = relevantProducts[0];
-            response += `<strong>✨ Best Choice:</strong> I recommend the <strong>${bestProduct.name}</strong> `;
-            
-            // Provide reasoning based on category
-            if (category === 'Smartphones') {
-                response += `because it offers the best camera quality, performance, and overall value for money!<br><br>`;
-            } else if (category === 'Laptops') {
-                response += `because it provides excellent performance, portability, and battery life!<br><br>`;
-            } else if (category === 'Audio Products') {
-                response += `because it delivers superior sound quality and great battery life!<br><br>`;
-            } else {
-                response += `because it's our most popular product with excellent features and reliability!<br><br>`;
-            }
-            
-            response += `Would you like to order any of these? Just say "I want to order [product name]"!`;
-            return response;
-        }
-    }
-    
-    // Default helpful response
-    return `
-        <strong>I'm KAI, your 24/7 shopping assistant!</strong><br><br>
-        🛒 <strong>Order Anytime!</strong> Shop 24/7 - day or night!<br><br>
-        I can help you with:<br><br>
-        🛍️ Order products 24/7<br>
-        💰 Product recommendations & price comparisons<br>
-        📞 Contact information<br>
-        💬 Any questions about shopping<br>
-        📦 Orders and delivery<br>
-        🆘 Customer support<br><br>
-        What would you like to know or order?
-    `;
-}
-
-// Orders Display
-function displayOrders() {
-    const container = document.getElementById('ordersContainer');
-    
-    if (!container) return;
-    
-    if (orders.length === 0) {
-        container.innerHTML = `
-            <div class="empty-orders">
-                <div class="empty-icon">📦</div>
-                <h3>No orders yet</h3>
-                <p>Start shopping with KAI and your orders will appear here!</p>
-                <button class="btn btn-primary" onclick="openChat()">Start Shopping</button>
-            </div>
-        `;
-        return;
-    }
-    
-    // Sort orders by timestamp (newest first)
-    const sortedOrders = [...orders].sort((a, b) => {
-        return new Date(b.timestamp || 0) - new Date(a.timestamp || 0);
-    });
-    
-    container.innerHTML = sortedOrders.map(order => {
-        // Find product icon and details
-        const matchedProduct = products.find(p => p.name === order.product);
-        const productIcon = matchedProduct ? matchedProduct.icon : '📦';
-        const productName = order.product || 'Product Name';
-        const productCategory = order.category || (matchedProduct ? matchedProduct.category : 'General');
-        
-        console.log('Displaying order:', order.id, 'Product:', productName);
-        
-        return `
-        <div class="order-card">
-            <div class="order-header">
-                <div class="order-id">
-                    <span style="font-size: 1.5rem; margin-right: 0.5rem;">${productIcon}</span>
-                    Order #${order.id}
-                </div>
-                <div class="order-status ${order.status.toLowerCase()}">${order.status}</div>
-            </div>
-            
-            <div class="order-product-name" style="font-size: 1.25rem; font-weight: 700; color: var(--gray-900); margin: 1rem 0; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 4px solid var(--primary);">
-                ${productIcon} ${productName}
-                <span style="display: block; font-size: 0.875rem; font-weight: 500; color: var(--gray-600); margin-top: 0.25rem;">${productCategory}</span>
-            </div>
-            
-            <div class="order-details">
-                <div class="order-detail">
-                    <div class="order-detail-label">Amount</div>
-                    <div class="order-detail-value">₹${formatPrice(order.price)}</div>
-                </div>
-                <div class="order-detail">
-                    <div class="order-detail-label">Order Date</div>
-                    <div class="order-detail-value">${order.orderDate}</div>
-                </div>
-                <div class="order-detail">
-                    <div class="order-detail-label">Delivery Date</div>
-                    <div class="order-detail-value">${order.deliveryDate}</div>
-                </div>
-            </div>
-        </div>
-        `;
-    }).join('');
+    return `<strong>I can help you with:</strong><br><br>
+        • Finding products<br>
+        • Product recommendations<br>
+        • Comparing prices<br>
+        • Answering questions<br><br>
+        What are you looking for today?`;
 }
 
 // Utility Functions
@@ -850,25 +1176,52 @@ function formatPrice(price) {
     return price.toLocaleString('en-IN');
 }
 
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('active');
+    setTimeout(() => toast.classList.remove('active'), 3000);
+}
+
+function closeAllSidebars() {
+    document.getElementById('cartSidebar').classList.remove('active');
+    document.getElementById('wishlistSidebar').classList.remove('active');
+    document.getElementById('accountDropdown').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+    document.getElementById('searchSuggestions').classList.remove('active');
+}
+
+function scrollToProducts() {
+    document.querySelector('.products-section').scrollIntoView({ behavior: 'smooth' });
+}
+
 function saveToStorage() {
-    localStorage.setItem('kai_chat_history', JSON.stringify(chatHistory));
+    localStorage.setItem('kai_cart', JSON.stringify(cart));
+    localStorage.setItem('kai_wishlist', JSON.stringify(wishlist));
     localStorage.setItem('kai_orders', JSON.stringify(orders));
-    
-    // Update orders display whenever we save
-    displayOrders();
+    localStorage.setItem('kai_chat_history', JSON.stringify(chatHistory));
 }
 
 function loadFromStorage() {
-    const savedChat = localStorage.getItem('kai_chat_history');
+    const savedCart = localStorage.getItem('kai_cart');
+    const savedWishlist = localStorage.getItem('kai_wishlist');
     const savedOrders = localStorage.getItem('kai_orders');
+    const savedChat = localStorage.getItem('kai_chat_history');
     
-    if (savedChat) {
-        chatHistory = JSON.parse(savedChat);
-    }
-    
-    if (savedOrders) {
-        orders = JSON.parse(savedOrders);
-    }
+    if (savedCart) cart = JSON.parse(savedCart);
+    if (savedWishlist) wishlist = JSON.parse(savedWishlist);
+    if (savedOrders) orders = JSON.parse(savedOrders);
+    if (savedChat) chatHistory = JSON.parse(savedChat);
 }
 
-console.log('KAI Assistant Ready! 🤖');
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.header-btn') && !e.target.closest('.account-dropdown')) {
+        document.getElementById('accountDropdown').classList.remove('active');
+    }
+    if (!e.target.closest('.search-bar')) {
+        document.getElementById('searchSuggestions').classList.remove('active');
+    }
+});
+
+console.log('🛒 KAI E-Commerce Platform Ready!');
