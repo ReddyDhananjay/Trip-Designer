@@ -1,0 +1,361 @@
+{
+  "products": [
+    {
+      "id": "prod_001",
+      "title": "Premium Blue Cotton Shirt - Size M",
+      "description": "Classic blue cotton shirt with premium fabric. Perfect for office and casual wear.",
+      "price": 1299,
+      "images": ["/assets/products/shirt-blue-1.jpg"],
+      "category": "shirts",
+      "attributes": {
+        "color": "blue",
+        "size": "M",
+        "material": "cotton",
+        "fit": "regular"
+      },
+      "stock": {
+        "store_001": 5,
+        "store_002": 3,
+        "store_003": 0
+      },
+      "colors": ["blue", "white", "black"],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "prod_002",
+      "title": "Classic Blue Oxford Shirt",
+      "description": "Oxford weave cotton shirt with button-down collar. Timeless style.",
+      "price": 1599,
+      "images": ["/assets/products/shirt-oxford.jpg"],
+      "category": "shirts",
+      "attributes": {
+        "color": "blue",
+        "size": "M",
+        "material": "cotton",
+        "fit": "slim"
+      },
+      "stock": {
+        "store_001": 3,
+        "store_002": 7,
+        "store_003": 2
+      },
+      "colors": ["blue", "white", "pink"],
+      "sizes": ["S", "M", "L", "XL", "XXL"]
+    },
+    {
+      "id": "prod_003",
+      "title": "Slim Fit Blue Dress Shirt",
+      "description": "Modern slim fit dress shirt. Perfect for formal occasions.",
+      "price": 1799,
+      "images": ["/assets/products/shirt-dress.jpg"],
+      "category": "shirts",
+      "attributes": {
+        "color": "blue",
+        "size": "M",
+        "material": "cotton-polyester",
+        "fit": "slim"
+      },
+      "stock": {
+        "store_001": 2,
+        "store_002": 4,
+        "store_003": 6
+      },
+      "colors": ["blue", "white", "black", "grey"],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "prod_011",
+      "title": "Classic Blue Jeans - Slim Fit",
+      "description": "Premium denim jeans with comfortable slim fit. 5-pocket design.",
+      "price": 2499,
+      "images": ["/assets/products/jeans-slim.jpg"],
+      "category": "jeans",
+      "attributes": {
+        "color": "blue",
+        "size": "32",
+        "material": "denim",
+        "fit": "slim"
+      },
+      "stock": {
+        "store_001": 8,
+        "store_002": 5,
+        "store_003": 3
+      },
+      "colors": ["blue", "black", "grey"],
+      "sizes": ["28", "30", "32", "34", "36"]
+    },
+    {
+      "id": "prod_012",
+      "title": "Dark Wash Denim Jeans",
+      "description": "Dark wash denim with slight stretch. Regular fit.",
+      "price": 2799,
+      "images": ["/assets/products/jeans-dark.jpg"],
+      "category": "jeans",
+      "attributes": {
+        "color": "dark-blue",
+        "size": "32",
+        "material": "denim-stretch",
+        "fit": "regular"
+      },
+      "stock": {
+        "store_001": 4,
+        "store_002": 6,
+        "store_003": 8
+      },
+      "colors": ["dark-blue", "black"],
+      "sizes": ["28", "30", "32", "34", "36", "38"]
+    },
+    {
+      "id": "prod_021",
+      "title": "White Leather Sneakers",
+      "description": "Minimalist white leather sneakers. Versatile and comfortable.",
+      "price": 3499,
+      "images": ["/assets/products/sneakers-white.jpg"],
+      "category": "shoes",
+      "attributes": {
+        "color": "white",
+        "size": "9",
+        "material": "leather",
+        "type": "casual"
+      },
+      "stock": {
+        "store_001": 6,
+        "store_002": 4,
+        "store_003": 2
+      },
+      "colors": ["white", "black", "grey"],
+      "sizes": ["7", "8", "9", "10", "11"]
+    },
+    {
+      "id": "prod_022",
+      "title": "Running Shoes - Black",
+      "description": "High-performance running shoes with cushioned sole.",
+      "price": 4299,
+      "images": ["/assets/products/shoes-running.jpg"],
+      "category": "shoes",
+      "attributes": {
+        "color": "black",
+        "size": "9",
+        "material": "mesh-synthetic",
+        "type": "sports"
+      },
+      "stock": {
+        "store_001": 3,
+        "store_002": 7,
+        "store_003": 5
+      },
+      "colors": ["black", "blue", "red"],
+      "sizes": ["7", "8", "9", "10", "11", "12"]
+    },
+    {
+      "id": "prod_031",
+      "title": "Black Leather Jacket",
+      "description": "Premium leather jacket with modern design. Classic style.",
+      "price": 5999,
+      "images": ["/assets/products/jacket-leather.jpg"],
+      "category": "jackets",
+      "attributes": {
+        "color": "black",
+        "size": "M",
+        "material": "leather",
+        "type": "casual"
+      },
+      "stock": {
+        "store_001": 2,
+        "store_002": 3,
+        "store_003": 1
+      },
+      "colors": ["black", "brown"],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "prod_032",
+      "title": "Denim Jacket - Blue",
+      "description": "Classic denim jacket with distressed finish.",
+      "price": 2999,
+      "images": ["/assets/products/jacket-denim.jpg"],
+      "category": "jackets",
+      "attributes": {
+        "color": "blue",
+        "size": "M",
+        "material": "denim",
+        "type": "casual"
+      },
+      "stock": {
+        "store_001": 5,
+        "store_002": 4,
+        "store_003": 6
+      },
+      "colors": ["blue", "black"],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "prod_041",
+      "title": "Casual Cotton T-Shirt",
+      "description": "Comfortable cotton t-shirt. Perfect for everyday wear.",
+      "price": 599,
+      "images": ["/assets/products/tshirt-basic.jpg"],
+      "category": "t-shirts",
+      "attributes": {
+        "color": "white",
+        "size": "M",
+        "material": "cotton",
+        "fit": "regular"
+      },
+      "stock": {
+        "store_001": 15,
+        "store_002": 12,
+        "store_003": 10
+      },
+      "colors": ["white", "black", "grey", "navy", "red"],
+      "sizes": ["S", "M", "L", "XL", "XXL"]
+    },
+    {
+      "id": "prod_042",
+      "title": "Premium Polo T-Shirt",
+      "description": "Classic polo t-shirt with collar. Smart casual style.",
+      "price": 999,
+      "images": ["/assets/products/tshirt-polo.jpg"],
+      "category": "t-shirts",
+      "attributes": {
+        "color": "navy",
+        "size": "M",
+        "material": "cotton-pique",
+        "fit": "regular"
+      },
+      "stock": {
+        "store_001": 8,
+        "store_002": 6,
+        "store_003": 9
+      },
+      "colors": ["navy", "white", "black", "grey"],
+      "sizes": ["S", "M", "L", "XL"]
+    },
+    {
+      "id": "prod_051",
+      "title": "Formal Black Trousers",
+      "description": "Classic formal trousers. Perfect for office wear.",
+      "price": 1899,
+      "images": ["/assets/products/trousers-formal.jpg"],
+      "category": "trousers",
+      "attributes": {
+        "color": "black",
+        "size": "32",
+        "material": "polyester-wool",
+        "fit": "regular"
+      },
+      "stock": {
+        "store_001": 7,
+        "store_002": 5,
+        "store_003": 4
+      },
+      "colors": ["black", "grey", "navy"],
+      "sizes": ["28", "30", "32", "34", "36"]
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_001",
+      "role": "user",
+      "content": "Show me blue cotton shirts in size M"
+    },
+    {
+      "id": "msg_002",
+      "role": "assistant",
+      "content": "I found 8 blue cotton shirts in size M! Here are the top recommendations:",
+      "products": ["prod_001", "prod_002", "prod_003"]
+    },
+    {
+      "id": "msg_003",
+      "role": "user",
+      "content": "Is the first one available at my nearest store?"
+    },
+    {
+      "id": "msg_004",
+      "role": "assistant",
+      "content": "Yes! The Premium Blue Cotton Shirt is available at Store #42 (MG Road). We have 5 units in stock. Would you like to reserve it?"
+    },
+    {
+      "id": "msg_005",
+      "role": "user",
+      "content": "Yes, please reserve it for me"
+    },
+    {
+      "id": "msg_006",
+      "role": "assistant",
+      "content": "Great! I've reserved the Premium Blue Cotton Shirt for you. Reservation ID: RES-2025-XYZ123. You can pick it up at Store #42 within 24 hours."
+    }
+  ],
+  "inventory": [
+    {
+      "productId": "prod_001",
+      "storeId": "store_001",
+      "storeName": "Store #42 - MG Road",
+      "quantity": 5,
+      "reserved": 2,
+      "available": 3
+    },
+    {
+      "productId": "prod_001",
+      "storeId": "store_002",
+      "storeName": "Store #15 - Indiranagar",
+      "quantity": 3,
+      "reserved": 1,
+      "available": 2
+    },
+    {
+      "productId": "prod_002",
+      "storeId": "store_001",
+      "storeName": "Store #42 - MG Road",
+      "quantity": 3,
+      "reserved": 0,
+      "available": 3
+    }
+  ],
+  "reservations": [
+    {
+      "id": "RES-2025-001",
+      "productId": "prod_001",
+      "storeId": "store_001",
+      "customerId": "cust_123",
+      "status": "active",
+      "createdAt": "2025-12-10T10:30:00Z",
+      "expiresAt": "2025-12-11T10:30:00Z"
+    }
+  ],
+  "stores": [
+    {
+      "id": "store_001",
+      "name": "Store #42 - MG Road",
+      "address": "MG Road, Bengaluru, Karnataka 560001",
+      "phone": "+91 80 1234 5678",
+      "hours": "10:00 AM - 9:00 PM",
+      "coordinates": {
+        "lat": 12.9716,
+        "lng": 77.5946
+      }
+    },
+    {
+      "id": "store_002",
+      "name": "Store #15 - Indiranagar",
+      "address": "100 Feet Road, Indiranagar, Bengaluru 560038",
+      "phone": "+91 80 2345 6789",
+      "hours": "10:00 AM - 9:00 PM",
+      "coordinates": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      }
+    },
+    {
+      "id": "store_003",
+      "name": "Store #8 - Koramangala",
+      "address": "80 Feet Road, Koramangala, Bengaluru 560095",
+      "phone": "+91 80 3456 7890",
+      "hours": "10:00 AM - 10:00 PM",
+      "coordinates": {
+        "lat": 12.9352,
+        "lng": 77.6245
+      }
+    }
+  ]
+}

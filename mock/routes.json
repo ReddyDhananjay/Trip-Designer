@@ -1,0 +1,11 @@
+{
+  "/api/products": "/products",
+  "/api/products/:id": "/products/:id",
+  "/api/messages": "/messages",
+  "/api/inventory": "/inventory",
+  "/api/inventory/:productId/:storeId": "/inventory/:productId/:storeId",
+  "/api/reservations": "/reservations",
+  "/api/reservations/:id": "/reservations/:id",
+  "/api/stores": "/stores",
+  "/api/stores/:id": "/stores/:id"
+}
