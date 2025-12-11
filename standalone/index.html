@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>KAI — The Voice of Commerce</title>
+    <meta name="description" content="KAI provides a unified conversational shopping experience across web, WhatsApp and in-store kiosks. Real-time inventory, AI recommendations, and seamless checkout.">
+    <meta name="keywords" content="conversational commerce, AI retail, chatbot, voice commerce, omnichannel shopping, agentic AI">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="KAI — The Voice of Commerce">
+    <meta property="og:description" content="Unified conversational AI for retail transformation. Seamless shopping across web, WhatsApp, and in-store kiosks.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">🛍️</div>
+                    <span class="logo-text">KAI</span>
+                    <span class="logo-subtitle">The Voice of Commerce</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                    <a href="#technology" class="nav-link">Technology</a>
+                    <a href="#demo" class="nav-link">Demo</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#team" class="nav-link">Team</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                
+                <!-- CTA Button -->
+                <button class="btn btn-primary">Request Pilot</button>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" class="mobile-menu-link">Home</a>
+            <a href="#features" class="mobile-menu-link">Features</a>
+            <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+            <a href="#technology" class="mobile-menu-link">Technology</a>
+            <a href="#demo" class="mobile-menu-link">Demo</a>
+            <a href="#pricing" class="mobile-menu-link">Pricing</a>
+            <a href="#team" class="mobile-menu-link">Team</a>
+            <a href="#contact" class="mobile-menu-link">Contact</a>
+            <button class="btn btn-primary btn-block">Request Pilot</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Left Column -->
+                <div class="hero-content">
+                    <div class="badge">
+                        <span class="badge-icon">✨</span>
+                        <span>Powered by Agentic AI</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        KAI — The Voice of <span class="text-gold">Commerce</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        Seamless conversational shopping across Web, WhatsApp, and in-store kiosks. 
+                        Personalized recommendations, real-time inventory checks, and frictionless checkout — 
+                        all in one unified AI-driven experience.
+                    </p>
+                    
+                    <div class="hero-pills">
+                        <div class="pill">💬 AI Conversations</div>
+                        <div class="pill">🛍️ Smart Shopping</div>
+                        <div class="pill">✨ Personalized</div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <a href="#demo" class="btn btn-primary">Try Demo</a>
+                        <button class="btn btn-secondary">Request Pilot</button>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-value">3x</div>
+                            <div class="stat-label">Conversion Rate</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">60%</div>
+                            <div class="stat-label">Higher AOV</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24/7</div>
+                            <div class="stat-label">AI Support</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Chat Mockup -->
+                <div class="hero-visual">
+                    <div class="chat-mockup">
+                        <div class="chat-header">
+                            <div class="chat-avatar">💬</div>
+                            <div class="chat-info">
+                                <div class="chat-name">KAI Assistant</div>
+                                <div class="chat-status">
+                                    <span class="status-dot"></span>
+                                    <span>Online</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-messages">
+                            <div class="message message-bot">
+                                <div class="message-bubble">
+                                    Hi! I'm KAI. How can I help you today? 👋
+                                </div>
+                            </div>
+                            
+                            <div class="message message-user">
+                                <div class="message-bubble">
+                                    Show me blue cotton shirts in size M
+                                </div>
+                            </div>
+                            
+                            <div class="message message-bot">
+                                <div class="message-bubble">
+                                    I found 8 blue cotton shirts in size M. Here are the top 3 matches:
+                                </div>
+                                
+                                <div class="product-cards">
+                                    <div class="product-card-mini">
+                                        <div class="product-icon">👕</div>
+                                        <div class="product-info">
+                                            <div class="product-name">Premium Cotton Shirt</div>
+                                            <div class="product-price">₹1,299</div>
+                                            <div class="product-stock">✓ In Stock</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="product-card-mini">
+                                        <div class="product-icon">👕</div>
+                                        <div class="product-info">
+                                            <div class="product-name">Classic Oxford Shirt</div>
+                                            <div class="product-price">₹1,599</div>
+                                            <div class="product-stock">✓ In Stock</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input">
+                            <input type="text" placeholder="Ask me anything..." disabled>
+                            <button class="send-btn">→</button>
+                        </div>
+                    </div>
+                    
+                    <div class="floating-badge badge-1">🎯 85% Match</div>
+                    <div class="floating-badge badge-2">✨ AI-Powered</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-text">Scroll to explore</div>
+            <div class="scroll-mouse"></div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section section-grey" id="problem">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge badge-red">
+                    <span>⚠️</span>
+                    <span>The Retail Challenge</span>
+                </div>
+                <h2 class="section-title">Modern Retail is <span class="text-gradient">Broken</span></h2>
+                <p class="section-subtitle">
+                    Today's retailers face unprecedented challenges in delivering seamless shopping experiences.
+                </p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⚠️</div>
+                    <h3>Fragmented Journeys</h3>
+                    <p>Disjointed experiences across web, mobile, and in-store channels</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🎯</div>
+                    <h3>Poor Personalization</h3>
+                    <p>Generic recommendations fail to engage customers</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">📦</div>
+                    <h3>Inventory Uncertainty</h3>
+                    <p>Customers can't verify real-time stock availability</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">🛒</div>
+                    <h3>Checkout Friction</h3>
+                    <p>Complex processes result in high abandonment rates</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">👥</div>
+                    <h3>Limited In-Store Help</h3>
+                    <p>Staff shortages leave customers without assistance</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">😞</div>
+                    <h3>Customer Frustration</h3>
+                    <p>Poor experience drives customers to competitors</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">📉</div>
+                    <h3>Lost Conversions</h3>
+                    <p>Retailers lose 60%+ of potential sales</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">❌</div>
+                    <h3>No Unified Data</h3>
+                    <p>Siloed systems prevent complete journey understanding</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="section" id="solution">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>✨</span>
+                    <span>Introducing KAI</span>
+                </div>
+                <h2 class="section-title">Your AI-Powered <span class="text-gradient">Commerce Engine</span></h2>
+                <p class="section-subtitle">
+                    KAI transforms retail with conversational AI that understands, personalizes, and delivers.
+                </p>
+            </div>
+            
+            <!-- Agentic Architecture -->
+            <div class="architecture-diagram">
+                <h3 class="architecture-title">Agentic AI Architecture</h3>
+                
+                <div class="master-agent">
+                    <div class="agent-card master">
+                        <div class="agent-icon">🧠</div>
+                        <div class="agent-content">
+                            <h4>Master Agent</h4>
+                            <p>Orchestration & Routing</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arrow-down">↓</div>
+                
+                <div class="worker-agents">
+                    <div class="agent-card worker">
+                        <div class="agent-icon">✨</div>
+                        <div class="agent-name">Recommendation</div>
+                    </div>
+                    <div class="agent-card worker">
+                        <div class="agent-icon">📦</div>
+                        <div class="agent-name">Inventory</div>
+                    </div>
+                    <div class="agent-card worker">
+                        <div class="agent-icon">💳</div>
+                        <div class="agent-name">Payment</div>
+                    </div>
+                    <div class="agent-card worker">
+                        <div class="agent-icon">🚚</div>
+                        <div class="agent-name">Fulfillment</div>
+                    </div>
+                    <div class="agent-card worker">
+                        <div class="agent-icon">💬</div>
+                        <div class="agent-name">Support</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Benefits -->
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💬</div>
+                    <h3>Unified Conversations</h3>
+                    <p>Single AI assistant across web, WhatsApp, kiosk</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">✨</div>
+                    <h3>Smart Personalization</h3>
+                    <p>AI analyzes preferences and context for tailored recommendations</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">📦</div>
+                    <h3>Real-Time Inventory</h3>
+                    <p>Instant stock checks across all stores</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Frictionless Checkout</h3>
+                    <p>Complete purchase in chat — in seconds</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section section-grey" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>✨</span>
+                    <span>Everything You Need</span>
+                </div>
+                <h2 class="section-title">Powerful Features for <span class="text-gradient">Modern Retail</span></h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Conversational Commerce</h3>
+                    <p>Natural chat interface that understands context and intent</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Natural Language Search</h3>
+                    <p>Find products using everyday language</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <h3>Voice-Enabled</h3>
+                    <p>Speak to shop - perfect for hands-free experience</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Multi-Channel Support</h3>
+                    <p>Web, WhatsApp, in-store kiosks — everywhere</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Real-Time Inventory</h3>
+                    <p>Live stock checks across all locations</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>AI Recommendations</h3>
+                    <p>Personalized product suggestions</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>Smart Cart & Checkout</h3>
+                    <p>Add to cart and pay — all in conversation</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h3>Product Comparison</h3>
+                    <p>Compare features and prices side-by-side</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Store Pickup & Reservation</h3>
+                    <p>Reserve items for try-on at nearest store</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fulfillment Integration</h3>
+                    <p>Real-time delivery tracking and returns</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3>Customer Intelligence</h3>
+                    <p>Build rich profiles with preferences and patterns</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Manager Dashboard</h3>
+                    <p>Analytics, insights, and revenue tracking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section section-dark" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>✨</span>
+                    <span>Simple 3-Step Process</span>
+                </div>
+                <h2 class="section-title text-white">How <span class="text-gold">KAI Works</span></h2>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">💬</div>
+                    <h3>Start a Conversation</h3>
+                    <p>Customers open KAI on website, WhatsApp, or in-store kiosk</p>
+                </div>
+                
+                <div class="step-arrow">→</div>
+                
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">🧠</div>
+                    <h3>AI Understands & Personalizes</h3>
+                    <p>KAI analyzes intent, preferences, and recommends products</p>
+                </div>
+                
+                <div class="step-arrow">→</div>
+                
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🛍️</div>
+                    <h3>Checkout or Reserve</h3>
+                    <p>Complete purchase or reserve for try-on instantly</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="section" id="demo">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>▶️</span>
+                    <span>Interactive Demo</span>
+                </div>
+                <h2 class="section-title">See KAI in <span class="text-gradient">Action</span></h2>
+                <p class="section-subtitle">
+                    Click the chat button below to try KAI yourself!
+                </p>
+            </div>
+            
+            <div class="demo-cta">
+                <button class="btn btn-primary btn-large" onclick="openChat()">
+                    💬 Try Chat Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section section-grey" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>💰</span>
+                    <span>Simple, Transparent Pricing</span>
+                </div>
+                <h2 class="section-title">Choose Your <span class="text-gradient">Perfect Plan</span></h2>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-icon">✨</div>
+                    <h3>Startup</h3>
+                    <div class="pricing-subtitle">Free Trial</div>
+                    <div class="pricing-price">Free</div>
+                    <div class="pricing-period">30 days</div>
+                    <ul class="pricing-features">
+                        <li>✓ 500 messages/month</li>
+                        <li>✓ Single store</li>
+                        <li>✓ Basic analytics</li>
+                        <li>✓ Web widget only</li>
+                        <li>✓ Email support</li>
+                    </ul>
+                    <button class="btn btn-outline btn-block">Start Free Trial</button>
+                </div>
+                
+                <div class="pricing-card pricing-card-popular">
+                    <div class="popular-badge">⭐ MOST POPULAR</div>
+                    <div class="pricing-icon">⚡</div>
+                    <h3>Retail</h3>
+                    <div class="pricing-subtitle">Most Popular</div>
+                    <div class="pricing-price">₹29,999</div>
+                    <div class="pricing-period">per month</div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited messages</li>
+                        <li>✓ Up to 10 stores</li>
+                        <li>✓ Full dashboard</li>
+                        <li>✓ Web + WhatsApp + Kiosk</li>
+                        <li>✓ Priority support 24/7</li>
+                        <li>✓ API access</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block">Get Started</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-icon">👑</div>
+                    <h3>Enterprise</h3>
+                    <div class="pricing-subtitle">Custom Solution</div>
+                    <div class="pricing-price">Custom</div>
+                    <div class="pricing-period">contact us</div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Retail</li>
+                        <li>✓ Unlimited stores</li>
+                        <li>✓ Dedicated manager</li>
+                        <li>✓ Custom AI training</li>
+                        <li>✓ White-label solution</li>
+                        <li>✓ SLA guarantees</li>
+                    </ul>
+                    <button class="btn btn-outline btn-block">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" id="team">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>👥</span>
+                    <span>Meet the Team</span>
+                </div>
+                <h2 class="section-title">Built by <span class="text-gradient">Retail & AI Experts</span></h2>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">👨‍💼</div>
+                    <h3>Arjun Mehta</h3>
+                    <div class="team-role">Co-Founder & CEO</div>
+                    <p>Former VP at Amazon. IIT Delhi, Stanford MBA.</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">👩‍💻</div>
+                    <h3>Priya Sharma</h3>
+                    <div class="team-role">Co-Founder & CTO</div>
+                    <p>Ex-Google AI Research. PhD in ML from MIT.</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">👨‍🎨</div>
+                    <h3>Rahul Verma</h3>
+                    <div class="team-role">Head of Product</div>
+                    <p>Built conversational AI at Microsoft.</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-avatar">👩‍🔬</div>
+                    <h3>Ananya Iyer</h3>
+                    <div class="team-role">Head of Engineering</div>
+                    <p>Led engineering at Flipkart.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-grey" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <div class="badge">
+                    <span>📞</span>
+                    <span>Get in Touch</span>
+                </div>
+                <h2 class="section-title">Let's <span class="text-gradient">Talk</span></h2>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email Us</h3>
+                        <p>contact@kai-commerce.ai</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">📱</div>
+                        <h3>Call Us</h3>
+                        <p>+91 (800) KAI-VOICE</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Visit Us</h3>
+                        <p>Bengaluru, Karnataka, India</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" placeholder="Company Name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon">🛍️</div>
+                        <span class="logo-text">KAI</span>
+                    </div>
+                    <p>The Voice of Commerce — Seamless conversational shopping powered by agentic AI.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#demo">Demo</a>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <a href="#team">About Us</a>
+                    <a href="#team">Team</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 KAI — The Voice of Commerce. All rights reserved.</p>
+                <p class="footer-note">Made for EY Techathon 6.0 🚀</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-button" id="chatButton">
+            <span class="chat-button-icon">💬</span>
+            <span class="notification-badge">1</span>
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-window-header">
+                <div class="chat-avatar">💬</div>
+                <div class="chat-info">
+                    <div class="chat-name">KAI Assistant</div>
+                    <div class="chat-status">
+                        <span class="status-dot"></span>
+                        <span>Online</span>
+                    </div>
+                </div>
+                <button class="close-chat" id="closeChat">×</button>
+            </div>
+            
+            <div class="chat-window-messages" id="chatMessages">
+                <div class="message message-bot">
+                    <div class="message-bubble">
+                        Hi! 👋 I'm KAI, your shopping assistant. How can I help you today?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-window-input">
+                <input type="text" id="chatInput" placeholder="Ask me anything...">
+                <button id="sendMessage" class="send-btn">→</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h3>Message Sent Successfully!</h3>
+            <p>Thank you for reaching out. We'll get back to you within 24 hours.</p>
+            <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
