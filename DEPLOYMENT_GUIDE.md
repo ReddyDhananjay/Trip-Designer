@@ -69,7 +69,7 @@ added 127 packages, and audited 128 packages in 8s
 
 ### Step 3: Set Up Environment Variables
 
-The `.env.local` file should already exist with the OpenRouter API key.
+Create a `.env.local` file with your OpenRouter API key (do not commit secrets).
 
 **Verify it exists:**
 ```bash
@@ -78,12 +78,12 @@ cat .env.local
 
 **Expected output:**
 ```
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=<your_openrouter_api_key>
 ```
 
 **If the file doesn't exist, create it:**
 ```bash
-echo "OPENROUTER_API_KEY=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" > .env.local
+echo "OPENROUTER_API_KEY=<your_openrouter_api_key>" > .env.local
 ```
 
 ---
@@ -207,7 +207,7 @@ Auto-detected Project Settings (Next.js):
 vercel env add OPENROUTER_API_KEY
 
 # When prompted, paste:
-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
+<your_openrouter_api_key>
 
 # Select: Production, Preview, Development (select all)
 ```
@@ -262,7 +262,7 @@ git push -u origin main
 1. Click **"Environment Variables"**
 2. Add:
    - **Name:** `OPENROUTER_API_KEY`
-   - **Value:** `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`
+   - **Value:** `<your_openrouter_api_key>`
 3. Select: Production, Preview, Development
 
 #### Step 6: Deploy
@@ -300,7 +300,7 @@ netlify deploy --prod
 
 #### Step 4: Set Environment Variables
 ```bash
-netlify env:set OPENROUTER_API_KEY "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"
+netlify env:set OPENROUTER_API_KEY "<your_openrouter_api_key>"
 ```
 
 ---
@@ -370,7 +370,7 @@ Use AWS Amplify:
 ### Required Variable
 
 ```bash
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=<your_openrouter_api_key>
 ```
 
 ### How to Add in Different Platforms

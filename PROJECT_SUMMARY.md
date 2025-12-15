@@ -325,7 +325,7 @@ All requested features have been successfully implemented and tested.
 ## 🤖 AI Integration Details
 
 ### OpenRouter Configuration
-- **API Key**: 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
+- **API Key**: Set via `OPENROUTER_API_KEY` in `.env.local` (do not commit secrets)
 - **Model**: anthropic/claude-3.5-sonnet
 - **Temperature**: 0.7
 - **Max Tokens**: 800
@@ -515,7 +515,7 @@ This project demonstrates:
 - ✅ Backend: Full CRUD on products/orders
 
 **API Key**:
-- ✅ Configured: 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
+- ✅ Configured via `.env.local` (`OPENROUTER_API_KEY=<your_openrouter_api_key>`)
 
 ---
 
