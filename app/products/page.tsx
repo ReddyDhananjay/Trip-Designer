@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Product } from '@/types';
+import { formatINR } from '@/lib/format';
 
 const categories = ['All', 'Electronics', 'Wearables', 'Bags', 'Accessories', 'Shoes'];
 
@@ -171,7 +172,7 @@ export default function ProductsPage() {
 
                   <div className="flex justify-between items-center mb-3">
                     <span className="text-2xl font-bold text-primary">
-                      ₹{product.price}
+                      {formatINR(product.price)}
                     </span>
                     <span className="text-sm text-gray-500">
                       Stock: {product.stock}

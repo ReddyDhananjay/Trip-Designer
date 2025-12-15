@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Product, Order } from '@/types';
+import { formatINR } from '@/lib/format';
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'products' | 'orders'>('products');
@@ -330,7 +331,7 @@ export default function AdminPage() {
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.category}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₹{product.price}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{formatINR(product.price)}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.stock}</td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {product.featured ? (
@@ -377,6 +378,7 @@ export default function AdminPage() {
                           <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qty</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -389,8 +391,9 @@ export default function AdminPage() {
                             <tr key={order.id}>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.productName}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{order.customerName || 'Guest'}</td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.quantity}</td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">₹{order.totalPrice.toFixed(2)}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{formatINR(order.totalPrice)}</td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <select
                                   value={order.status}

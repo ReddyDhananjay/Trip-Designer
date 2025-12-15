@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Product } from '@/types';
+import { formatINR } from '@/lib/format';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -12,6 +13,7 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [orderLoading, setOrderLoading] = useState(false);
+  const [customerName, setCustomerName] = useState('');
 
   useEffect(() => {
     if (params?.id) {
@@ -31,6 +33,15 @@ export default function ProductDetailPage() {
     }
   }, [params?.id]);
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('kai-customer-name');
+      if (saved) setCustomerName(saved);
+    } catch {
+      // ignore
+    }
+  }, []);
+
   const handleAskKAI = () => {
     if (product) {
       localStorage.setItem('kai-pending-question', `Tell me more about ${product.name}`);
@@ -43,6 +54,12 @@ export default function ProductDetailPage() {
 
     setOrderLoading(true);
     try {
+      try {
+        localStorage.setItem('kai-customer-name', customerName.trim());
+      } catch {
+        // ignore
+      }
+
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -50,7 +67,8 @@ export default function ProductDetailPage() {
           productId: product.id,
           productName: product.name,
           price: product.price,
-          quantity: quantity
+          quantity: quantity,
+          customerName: customerName.trim() || 'Guest',
         })
       });
 
@@ -138,7 +156,7 @@ export default function ProductDetailPage() {
 
             <div className="mb-6">
               <div className="flex items-baseline space-x-2 mb-2">
-                <span className="text-4xl font-bold text-primary">₹{product.price}</span>
+                <span className="text-4xl font-bold text-primary">{formatINR(product.price)}</span>
               </div>
               <p className="text-sm text-gray-600">
                 {product.stock > 0 ? (
@@ -150,6 +168,16 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Quantity Selector */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Name (for demo orders)</label>
+              <input
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                placeholder="Guest"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              />
+            </div>
+
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
               <div className="flex items-center space-x-3">
