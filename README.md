@@ -2,6 +2,12 @@
 
 A modern, full-stack AI-powered shopping assistant built with Next.js, TypeScript, and OpenRouter API (Claude 3.5 Sonnet).
 
+## About KAI – The Voice of Commerce
+
+KAI (The Voice of Commerce) is an AI-driven conversational retail assistant developed by **Team AIGNITE (SRM University, AP)** for **EY Techathon 6.0**. It addresses fragmented retail journeys across online, mobile, messaging apps, and in-store channels by enabling a seamless, personalized, human-like shopping experience from product discovery to post-purchase support.
+
+KAI uses an **Agentic AI architecture**, with a **master agent** coordinating specialized **worker agents** for recommendations, inventory, payments, loyalty, fulfillment, and support. This helps retailers increase conversion rates and average order value, reduce dependency on human sales associates, and improve customer satisfaction—targeting **3–4x ROI within the first year** through higher sales and operational efficiency.
+
 ## 🌟 Features
 
 ### 1. **Landing Page (Homepage)**
@@ -76,7 +82,7 @@ cd kai-website
 npm install
 ```
 
-3. Create `.env.local` file (already created with your API key):
+3. Create a `.env.local` file:
 ```
 OPENROUTER_API_KEY=your_api_key_here
 ```
@@ -200,7 +206,7 @@ Pre-loaded products include:
 ## 🔐 Environment Variables
 
 ```env
-OPENROUTER_API_KEY=sk-or-v1-[your-key-here]
+OPENROUTER_API_KEY=<your_openrouter_api_key>
 ```
 
 ## 🛠️ Development Commands

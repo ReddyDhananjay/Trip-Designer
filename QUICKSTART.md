@@ -178,9 +178,9 @@ npm run lint
 
 ## 🔑 Environment Variables
 
-The OpenRouter API key is already configured in `.env.local`:
+Create a `.env.local` file with your OpenRouter API key (do not commit secrets):
 ```
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=<your_openrouter_api_key>
 ```
 
 ## 📁 Data Storage
