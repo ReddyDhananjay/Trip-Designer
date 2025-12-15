@@ -8,6 +8,7 @@ export interface Product {
   specs: Record<string, string>;
   stock: number;
   featured: boolean;
+  platform?: string;
 }
 
 export interface Order {
@@ -20,6 +21,7 @@ export interface Order {
   status: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
   orderDate: string;
   estimatedDelivery: string;
+  customerName?: string;
 }
 
 export interface ChatMessage {

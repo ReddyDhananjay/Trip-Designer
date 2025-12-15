@@ -20,8 +20,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       const data = fs.readFileSync(ordersFile, 'utf-8');
       const orders: Order[] = JSON.parse(data);
       
+      const orderId = `ORD-${Math.floor(10000000 + Math.random() * 90000000)}`;
       const newOrder: Order = {
-        id: `ORD-${Date.now()}`,
+        id: orderId,
         productId: req.body.productId,
         productName: req.body.productName,
         price: req.body.price,
@@ -30,6 +31,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         status: 'Processing',
         orderDate: new Date().toISOString(),
         estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days from now
+        customerName: req.body.customerName || 'Guest',
       };
       
       orders.push(newOrder);

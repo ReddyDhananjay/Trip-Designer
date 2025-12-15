@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Order } from '@/types';
+import { formatINR } from '@/lib/format';
 
 const statusColors = {
   'Processing': 'bg-blue-100 text-blue-800',
@@ -59,7 +60,7 @@ export default function OrdersPage() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('en-IN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -68,7 +69,7 @@ export default function OrdersPage() {
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', {
+    return date.toLocaleTimeString('en-IN', {
       hour: '2-digit',
       minute: '2-digit'
     });
@@ -143,10 +144,11 @@ export default function OrdersPage() {
                         </span>
                       </div>
                       <p className="text-sm text-gray-500">Order ID: {order.id}</p>
+                      <p className="text-sm text-gray-500">Customer: {order.customerName || 'Guest'}</p>
                     </div>
                     
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-primary">₹{order.totalPrice.toFixed(2)}</p>
+                      <p className="text-2xl font-bold text-primary">{formatINR(order.totalPrice)}</p>
                       <p className="text-sm text-gray-500">Quantity: {order.quantity}</p>
                     </div>
                   </div>
@@ -168,7 +170,7 @@ export default function OrdersPage() {
                     
                     <div>
                       <p className="text-xs text-gray-500 mb-1">Unit Price</p>
-                      <p className="text-sm font-medium text-gray-900">₹{order.price.toFixed(2)}</p>
+                      <p className="text-sm font-medium text-gray-900">{formatINR(order.price)}</p>
                     </div>
                   </div>
 
