@@ -1,0 +1,298 @@
+// Products Data
+const productsData = [
+  {
+    id: "1",
+    name: "boAt Rockerz 450 Bluetooth Wireless Headphones",
+    category: "Electronics",
+    price: 1499,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+    description: "Premium wireless headphones with 40mm dynamic drivers, immersive audio, plush ear cushions, and up to 15 hours battery life. Available on Amazon & Flipkart.",
+    specs: {
+      battery: "15 hours",
+      connectivity: "Bluetooth 4.2",
+      weight: "220g",
+      warranty: "1 year"
+    },
+    stock: 45,
+    featured: true,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "2",
+    name: "Fire-Boltt Phoenix Smart Watch",
+    category: "Wearables",
+    price: 1999,
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
+    description: "1.3\" full touch display, Bluetooth calling, 120+ sports modes, SpO2 & heart rate monitoring. India's #1 smartwatch brand on Flipkart & Amazon.",
+    specs: {
+      display: "1.3\" TFT",
+      battery: "7 days",
+      waterproof: "IP67",
+      sensors: "Heart rate, SpO2, Sleep tracker"
+    },
+    stock: 32,
+    featured: true,
+    platform: "Amazon, Flipkart, Myntra"
+  },
+  {
+    id: "3",
+    name: "Lavie Sport Women's Backpack",
+    category: "Bags",
+    price: 1299,
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
+    description: "Stylish & spacious laptop backpack with multiple compartments, water-resistant fabric. Perfect for college, office, and travel. Top seller on Myntra & Amazon.",
+    specs: {
+      material: "Polyester",
+      capacity: "22L",
+      laptop: "Up to 15.6\"",
+      pockets: "5 compartments"
+    },
+    stock: 18,
+    featured: true,
+    platform: "Myntra, Amazon"
+  },
+  {
+    id: "4",
+    name: "Zebronics Zeb-Crystal Pro Webcam",
+    category: "Electronics",
+    price: 899,
+    image: "https://images.unsplash.com/photo-1588874355576-b077e0446f56?w=500",
+    description: "Full HD 1080p webcam with autofocus, built-in microphone, 360° rotation for video calls, online classes & streaming. Available on Amazon & Flipkart.",
+    specs: {
+      resolution: "1080p @ 30fps",
+      fov: "90 degrees",
+      microphone: "Built-in",
+      mount: "Universal clip"
+    },
+    stock: 28,
+    featured: false,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "5",
+    name: "Cosmic Byte Equinox Cobra Gaming Mouse",
+    category: "Accessories",
+    price: 449,
+    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+    description: "Wired gaming mouse with RGB LED lights, 6 buttons, adjustable DPI up to 3200. Perfect for gaming & office work. Bestseller on Amazon.",
+    specs: {
+      dpi: "Up to 3200",
+      buttons: "6 programmable",
+      cable: "1.5m braided",
+      connectivity: "USB wired"
+    },
+    stock: 56,
+    featured: false,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "6",
+    name: "Portronics Konnect L 7-in-1 USB C Hub",
+    category: "Accessories",
+    price: 1799,
+    image: "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500",
+    description: "Premium Type-C hub with HDMI 4K output, 3 USB 3.0 ports, SD/TF card readers, and 100W PD charging. Compatible with all laptops. Amazon Choice product.",
+    specs: {
+      ports: "7 ports total",
+      hdmi: "4K @ 30Hz",
+      power: "100W PD",
+      usb: "USB 3.0 5Gbps"
+    },
+    stock: 67,
+    featured: false,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "7",
+    name: "Campus Maxico Running Shoes for Men",
+    category: "Shoes",
+    price: 999,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+    description: "Lightweight sports shoes with memory foam insole, anti-slip sole, and breathable mesh upper. Perfect for running, gym & casual wear. Top rated on Myntra & Flipkart.",
+    specs: {
+      weight: "250g",
+      cushioning: "Memory foam",
+      upper: "Breathable mesh",
+      sole: "Phylon sole"
+    },
+    stock: 42,
+    featured: true,
+    platform: "Myntra, Flipkart, Amazon"
+  },
+  {
+    id: "8",
+    name: "boAt Stone 350 Bluetooth Speaker",
+    category: "Electronics",
+    price: 1299,
+    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500",
+    description: "Portable wireless speaker with 10W premium sound, IPX7 waterproof rating, 12 hours playback. Perfect for outdoor parties. #1 on Amazon.",
+    specs: {
+      battery: "12 hours",
+      waterproof: "IPX7",
+      connectivity: "Bluetooth 5.0",
+      power: "10W output"
+    },
+    stock: 39,
+    featured: false,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "9",
+    name: "WildHorn RFID Protected Leather Wallet",
+    category: "Accessories",
+    price: 599,
+    image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500",
+    description: "Premium genuine leather wallet with RFID blocking, multiple card slots & coin pocket. Slim design for men. Bestseller on Amazon & Myntra.",
+    specs: {
+      material: "Genuine leather",
+      capacity: "8 card slots",
+      rfid: "Yes",
+      dimensions: "11cm x 9cm"
+    },
+    stock: 91,
+    featured: false,
+    platform: "Amazon, Myntra"
+  },
+  {
+    id: "10",
+    name: "Zebronics Zeb-K25 Wireless Keyboard & Mouse Combo",
+    category: "Accessories",
+    price: 699,
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500",
+    description: "2.4GHz wireless keyboard and mouse combo with silent keys, spill-resistant design, and nano USB receiver. Perfect for home & office. Amazon bestseller.",
+    specs: {
+      layout: "104 keys",
+      battery: "12 months",
+      connectivity: "2.4GHz wireless",
+      keys: "Silent chiclet"
+    },
+    stock: 24,
+    featured: false,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "11",
+    name: "Mi Smart Band 6 Fitness Tracker",
+    category: "Wearables",
+    price: 2999,
+    image: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500",
+    description: "1.56\" AMOLED display, 30 sports modes, SpO2 & heart rate monitoring, 14-day battery life, 5ATM water resistant. #1 fitness band on Flipkart & Amazon.",
+    specs: {
+      display: "1.56\" AMOLED",
+      battery: "14 days",
+      waterproof: "5ATM",
+      features: "30+ modes, SpO2, HR"
+    },
+    stock: 78,
+    featured: false,
+    platform: "Amazon, Flipkart, Mi Store"
+  },
+  {
+    id: "12",
+    name: "FabSeasons Canvas Tote Shopping Bag",
+    category: "Bags",
+    price: 349,
+    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500",
+    description: "Eco-friendly jute & cotton blend tote bag, reusable, spacious, and stylish. Perfect for shopping, beach, or daily use. Popular on Amazon & Meesho.",
+    specs: {
+      material: "Jute & Cotton",
+      capacity: "15L",
+      handles: "Reinforced",
+      washable: "Yes"
+    },
+    stock: 104,
+    featured: false,
+    platform: "Amazon, Meesho"
+  },
+  {
+    id: "13",
+    name: "Noise ColorFit Pro 3 Smartwatch",
+    category: "Wearables",
+    price: 2499,
+    image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500",
+    description: "1.55\" HD display, 24x7 heart rate & SpO2 monitoring, 10-day battery, 100+ watch faces. India's top smartwatch brand on Amazon & Flipkart.",
+    specs: {
+      display: "1.55\" HD",
+      battery: "10 days",
+      waterproof: "IP68",
+      sensors: "HR, SpO2, Sleep"
+    },
+    stock: 55,
+    featured: true,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "14",
+    name: "Portronics Konnect L POR-1401 Laptop Stand",
+    category: "Accessories",
+    price: 799,
+    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+    description: "Adjustable aluminum laptop stand with 6-level height adjustment, ergonomic design, non-slip base. Compatible with all laptops. Amazon's Choice.",
+    specs: {
+      material: "Aluminum alloy",
+      height: "6 adjustable levels",
+      weight: "800g",
+      compatibility: "10-17 inch laptops"
+    },
+    stock: 38,
+    featured: false,
+    platform: "Amazon, Flipkart"
+  },
+  {
+    id: "15",
+    name: "Puma Unisex Backpack",
+    category: "Bags",
+    price: 1699,
+    image: "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=500",
+    description: "Stylish sports backpack with laptop sleeve, multiple pockets, padded shoulder straps, and water bottle holder. Bestseller on Myntra & Flipkart.",
+    specs: {
+      material: "Polyester",
+      capacity: "28L",
+      laptop: "15 inch",
+      pockets: "Multiple compartments"
+    },
+    stock: 29,
+    featured: false,
+    platform: "Myntra, Flipkart, Amazon"
+  }
+];
+
+// Initial Orders Data
+const initialOrders = [
+  {
+    id: "ORD-1734274801234",
+    productId: "1",
+    productName: "boAt Rockerz 450 Bluetooth Wireless Headphones",
+    price: 1499,
+    quantity: 1,
+    totalPrice: 1499,
+    status: "Delivered",
+    orderDate: "2024-12-10T10:30:00.000Z",
+    estimatedDelivery: "2024-12-17T10:30:00.000Z"
+  },
+  {
+    id: "ORD-1734361201234",
+    productId: "2",
+    productName: "Fire-Boltt Phoenix Smart Watch",
+    price: 1999,
+    quantity: 2,
+    totalPrice: 3998,
+    status: "Shipped",
+    orderDate: "2024-12-12T14:15:00.000Z",
+    estimatedDelivery: "2024-12-19T14:15:00.000Z"
+  },
+  {
+    id: "ORD-1734447601234",
+    productId: "7",
+    productName: "Campus Maxico Running Shoes for Men",
+    price: 999,
+    quantity: 1,
+    totalPrice: 999,
+    status: "Processing",
+    orderDate: "2024-12-14T09:45:00.000Z",
+    estimatedDelivery: "2024-12-21T09:45:00.000Z"
+  }
+];
+
+// Categories
+const categories = ['All', 'Electronics', 'Wearables', 'Bags', 'Accessories', 'Shoes'];
