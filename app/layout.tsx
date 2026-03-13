@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import Navigation from '@/components/Navigation';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
-  title: 'KAI - Your Smart Shopping Assistant',
-  description: 'Meet KAI, your AI-powered retail shopping assistant',
+  title: 'SafeRoute — AI Safe Route Recommendations for Women',
+  description: 'AI-powered safe route recommendations using real-time crime data, street lighting, police patrols, crowd density, and weather.',
 };
 
 export default function RootLayout({
@@ -17,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-sans antialiased">
         <Navigation />
         <main className="min-h-screen">
           {children}

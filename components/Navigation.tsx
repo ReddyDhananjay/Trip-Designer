@@ -33,6 +33,16 @@ export default function Navigation() {
               Home
             </Link>
             <Link
+              href="/safe-route"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition ${
+                isActive('/safe-route')
+                  ? 'bg-purple-600 text-white'
+                  : 'text-purple-700 hover:bg-purple-50'
+              }`}
+            >
+              🛡️ Safe Route
+            </Link>
+            <Link
               href="/chat"
               className={`px-3 py-2 rounded-md text-sm font-medium transition ${
                 isActive('/chat') 
