@@ -125,7 +125,7 @@ export default function RouteFinderPage() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-1">Find Your Safest Route</h1>
-          <p className="text-gray-600">Enter your start and end points — our AI will compare routes and show the safest one.</p>
+          <p className="text-gray-600">Enter your start and end points to compare routes by safety score. <span className="text-xs text-gray-400">(Demo data)</span></p>
         </div>
 
         {/* Search Inputs */}

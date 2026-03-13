@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface SafetyFactorInput {
   streetLighting: number;
-  crimeRate: number;
+  crimeSafety: number;
   crowdDensity: number;
   cctvCoverage: number;
 }
@@ -10,14 +10,14 @@ interface SafetyFactorInput {
 function calculateSafetyScore(factors: SafetyFactorInput): number {
   const weights = {
     streetLighting: 0.3,
-    crimeRate: 0.3,
+    crimeSafety: 0.3,
     crowdDensity: 0.2,
     cctvCoverage: 0.2,
   };
 
   return Math.round(
     factors.streetLighting * weights.streetLighting +
-    factors.crimeRate * weights.crimeRate +
+    factors.crimeSafety * weights.crimeSafety +
     factors.crowdDensity * weights.crowdDensity +
     factors.cctvCoverage * weights.cctvCoverage
   );
@@ -39,21 +39,21 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     {
       id: 'route-a',
       name: 'Route A — Main Road (Safest)',
-      factors: { streetLighting: 95, crimeRate: 82, crowdDensity: 88, cctvCoverage: 90 },
+      factors: { streetLighting: 95, crimeSafety: 82, crowdDensity: 88, cctvCoverage: 90 },
       distance: '1.8 km',
       duration: '22 min',
     },
     {
       id: 'route-b',
       name: 'Route B — Market Road',
-      factors: { streetLighting: 65, crimeRate: 70, crowdDensity: 80, cctvCoverage: 60 },
+      factors: { streetLighting: 65, crimeSafety: 70, crowdDensity: 80, cctvCoverage: 60 },
       distance: '1.5 km',
       duration: '18 min',
     },
     {
       id: 'route-c',
       name: 'Route C — Back Lanes (Shortest)',
-      factors: { streetLighting: 30, crimeRate: 40, crowdDensity: 25, cctvCoverage: 20 },
+      factors: { streetLighting: 30, crimeSafety: 40, crowdDensity: 25, cctvCoverage: 20 },
       distance: '1.2 km',
       duration: '14 min',
     },
