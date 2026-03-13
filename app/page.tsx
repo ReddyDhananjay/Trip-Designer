@@ -27,103 +27,94 @@ export default function HomePage() {
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full mb-8 shadow-lg">
-              <span className="text-white font-bold text-4xl">K</span>
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-500 rounded-full mb-8 shadow-lg">
+              <span className="text-white text-4xl">🛡️</span>
             </div>
             
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 mb-6">
-              Meet <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">KAI</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">SafeRoute</span>
             </h1>
             
-            <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Your Smart Retail Shopping Assistant
+            <p className="text-xl sm:text-2xl text-gray-600 mb-4 max-w-3xl mx-auto">
+              AI-Powered Safe Route Recommendations for Women
             </p>
             
             <p className="text-lg text-gray-500 mb-12 max-w-2xl mx-auto">
-              Discover products, get personalized recommendations, and enjoy seamless shopping with AI-powered assistance
+              Know before you go — compare 3 routes by safety score using real-time crime data,
+              street lighting, police patrols, crowd density, and weather.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
+                href="/safe-route"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-200"
+              >
+                <span className="mr-2 text-xl">🛡️</span>
+                Find Safest Route
+              </Link>
+              
+              <Link
                 href="/chat"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-primary to-secondary rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-200"
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-primary bg-white border-2 border-primary rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-200"
               >
                 <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
-                Start Chat with KAI
-              </Link>
-              
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-primary bg-white border-2 border-primary rounded-lg shadow hover:shadow-md transform hover:scale-105 transition duration-200"
-              >
-                Browse Products
-                <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                Chat with KAI
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How KAI Helps Section */}
+      {/* How SafeRoute Works Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-4">
-            How KAI Helps You
+            How SafeRoute Keeps You Safe
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            Experience the future of online shopping with intelligent assistance
+            AI analyses multiple data sources to suggest the safest path home
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:shadow-lg transition">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mb-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-lg transition">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-500 text-white rounded-full mb-4 text-2xl">
+                🚨
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">AI Chat</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Crime Data</h3>
               <p className="text-gray-600">
-                Talk naturally to KAI and get instant, intelligent responses
+                Real-time incident reports flagged along every route
               </p>
             </div>
             
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-lg transition">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-500 text-white rounded-full mb-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-yellow-50 to-orange-50 hover:shadow-lg transition">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-500 text-white rounded-full mb-4 text-2xl">
+                💡
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Product Assistance</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Street Lighting</h3>
               <p className="text-gray-600">
-                Get detailed information about any product instantly
+                Lighting coverage percentage scored for each route
+              </p>
+            </div>
+            
+            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 hover:shadow-lg transition">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mb-4 text-2xl">
+                🚔
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Police Patrols</h3>
+              <p className="text-gray-600">
+                Active patrol locations overlaid on all three routes
               </p>
             </div>
             
             <div className="text-center p-6 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-lg transition">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full mb-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full mb-4 text-2xl">
+                👥
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Smart Recommendations</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Crowd & Weather</h3>
               <p className="text-gray-600">
-                Receive personalized product suggestions based on your needs
-              </p>
-            </div>
-            
-            <div className="text-center p-6 rounded-xl bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-lg transition">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-500 text-white rounded-full mb-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Mock Order System</h3>
-              <p className="text-gray-600">
-                Try our seamless ordering process with realistic mock orders
+                Crowd density and live weather factored into every score
               </p>
             </div>
           </div>
@@ -193,35 +184,31 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-secondary">
+      <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-500">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Ready to Experience Smart Shopping?
+            Stay Safe on Every Journey
           </h2>
-          <p className="text-xl text-indigo-100 mb-8">
-            Start chatting with KAI now and discover a new way to shop
+          <p className="text-xl text-purple-100 mb-8">
+            Let AI guide you home safely — check your route before you leave
           </p>
           <Link
-            href="/chat"
-            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-primary bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-200"
+            href="/safe-route"
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-purple-700 bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-200"
           >
-            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Chat with KAI Now
+            <span className="mr-2 text-xl">🛡️</span>
+            Find Safest Route Now
           </Link>
         </div>
       </section>
 
-      {/* Floating Chatbot Button */}
+      {/* Floating Safe Route Button */}
       <Link
-        href="/chat"
-        className="chatbot-float-btn fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-primary to-secondary text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition duration-300 flex items-center justify-center z-50"
-        title="Chat with KAI"
+        href="/safe-route"
+        className="chatbot-float-btn fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition duration-300 flex items-center justify-center z-50"
+        title="Find Safest Route"
       >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
+        <span className="text-2xl">🛡️</span>
       </Link>
     </div>
   );
