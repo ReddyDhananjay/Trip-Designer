@@ -1,29 +1,56 @@
-export interface Product {
+export interface RoutePoint {
+  lat: number;
+  lng: number;
+  name: string;
+}
+
+export interface SafetyFactor {
+  name: string;
+  score: number;
+  description: string;
+  icon: string;
+}
+
+export interface RouteOption {
   id: string;
   name: string;
-  category: string;
-  price: number;
-  image: string;
-  description: string;
-  specs: Record<string, string>;
-  stock: number;
-  featured: boolean;
+  safetyScore: number;
+  distance: string;
+  duration: string;
+  safetyFactors: SafetyFactor[];
+  waypoints: [number, number][];
+  highlights: string[];
+  color: string;
 }
 
-export interface Order {
+export interface EmergencyContact {
   id: string;
-  productId: string;
-  productName: string;
-  price: number;
-  quantity: number;
-  totalPrice: number;
-  status: 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
-  orderDate: string;
-  estimatedDelivery: string;
+  name: string;
+  number: string;
+  description: string;
+  icon: string;
+  category: 'police' | 'medical' | 'women' | 'fire' | 'other';
 }
 
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp?: number;
+export interface SafetyTip {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  icon: string;
+}
+
+export interface IncidentReport {
+  id: string;
+  type: string;
+  location: [number, number];
+  timestamp: string;
+  severity: 'low' | 'medium' | 'high';
+  description: string;
+}
+
+export interface SafetyFeature {
+  location: [number, number];
+  type: 'police_station' | 'hospital' | 'street_light' | 'cctv' | 'open_shop';
+  name: string;
 }
