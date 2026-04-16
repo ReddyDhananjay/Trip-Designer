@@ -72,6 +72,16 @@ export default function Navigation() {
             >
               Admin
             </Link>
+            <Link
+              href="/resume"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition ${
+                isActive('/resume') 
+                  ? 'bg-primary text-white' 
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Resume
+            </Link>
           </div>
         </div>
       </div>
